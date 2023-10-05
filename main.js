@@ -1,26 +1,30 @@
-import './styles.scss'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import './styles.scss';
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Term II Integrated Project</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+// Services:
+import Router from './services/Router.js';
+import State from './services/State.js';
 
-setupCounter(document.querySelector('#counter'))
+// Web Components:
+import HomePage from './components/HomePage.js';
+import LoginPage from './components/LoginPage.js';
+import RegistrationPage from './components/RegistrationPage.js';
+
+// Attaching app object to the window
+window.app = {};
+
+// Making the Router global 
+app.router = Router;
+
+// Making the State global 
+app.state = State;
+
+window.addEventListener("DOMContentLoaded", async () => {
+
+  console.log(app.state.isLoggedIn);
+
+  // Initializing the Router
+  app.router.init();
+
+});
 
 console.log(import.meta.env.VITE_TEST);

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <template id="home-page-template">
+      <h1>Home Page</h1>
+      <button id="logout-btn" type="submit">Logout</button>
+    </template>
+
+    <template id="login-page-template">
+      <h1>Login Page</h1>
+      <form>
+        <div>
+          <label for="name">Your Name</label>
+          <input name="name" />
+        </div>
+        <div>
+          <label for="email">Your Email</label>
+          <input name="email" type="email" />
+        </div>
+        <div>
+          <button id="login-btn" type="submit">Login</button>
+        </div>
+      </form>
+      <button id="register-btn">Registration Page</button>
+    </template>
+
+    <template id="registration-page-template">
+      <h1>Registration Page</h1>
+      <form>
+        <div>
+          <label for="name">Your Name</label>
+          <input name="name" />
+        </div>
+        <div>
+          <label for="email">Your Email</label>
+          <input name="email" type="email" />
+        </div>
+        <div>
+          <button id="register-btn" type="submit">Register</button>
+        </div>
+      </form>
+      <button id="login-btn">Login Page</button>
+    </template>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
