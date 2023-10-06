@@ -9,13 +9,31 @@
 
   <body>
     <div id="app"></div>
-    <template id="home-page-template">
-      <h1>Home Page</h1>
-      <button id="logout-btn" type="submit">Logout</button>
+
+    <template id="starter-page">
+      <div class="img-container">
+        <img src="" alt="" />
+      </div>
+      <h1>Welcome to TowTackle</h1>
+      <button id="login-btn" type="submit">Login</button>
+      <p>Don't have an account?</p>
+      <div>
+        <p>or</p>
+      </div>
+      <div>
+        <ul>
+          <li><a href="">Continue with Apple</a></li>
+          <li><a href="">Continue with Facebook</a></li>
+          <li><a href="">Continue with Google</a></li>
+        </ul>
+      </div>
     </template>
 
     <template id="login-page-template">
-      <h1>Login Page</h1>
+      <a href="">
+        <icon>Back button</icon>
+      </a>
+      <div class="wrapper"><img src="" alt="" /></div>
       <form>
         <div>
           <label for="name">Your Name</label>
@@ -49,6 +67,26 @@
       </form>
       <button id="login-btn">Login Page</button>
     </template>
+
+    <template id="registration-selection-page">
+      <button>Back button</button>
+      <h1>Select Acount</h1>
+      <div>
+        <div>
+          <div>
+            <a href=""><img src="" alt="" /></a>
+          </div>
+          <p>acount</p>
+        </div>
+        <div>
+          <div>
+            <a href=""><img src="" alt="" /></a>
+          </div>
+          <p>acount</p>
+        </div>
+      </div>
+    </template>
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>
