@@ -40,8 +40,8 @@ const Router = {
 
     switch (route) {
       case "/starter-page":
-        pageElement = document.createElement("StarterPage");
-
+        pageElement = document.createElement("start-page");
+        break;
       case "/login":
         pageElement = document.createElement("login-page");
 
@@ -65,6 +65,11 @@ const Router = {
 
       case "/order":
         pageElement = document.createElement("order-page");
+
+        break;
+
+      case "/leo":
+        pageElement = document.createElement("leo-test");
 
         break;
 

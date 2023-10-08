@@ -5,9 +5,10 @@ import Router from "./services/Router.js";
 import State from "./services/State.js";
 
 // Web Components:
-import StarterPage from "./components/StarterPage";
-import LoginPage from "./components/LoginPage.js";
-import RegistrationPage from "./components/RegistrationPage.js";
+import StarterPage from "./Components/StarterPage";
+import LoginPage from "./Components/LoginPage.js";
+import RegistrationPage from "./Components/RegistrationPage.js";
+import Test from "./Components/Test";
 
 // Attaching app object to the window
 window.app = {};
