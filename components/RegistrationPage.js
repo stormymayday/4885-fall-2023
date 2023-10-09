@@ -1,7 +1,11 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../services/firebase.js";
+
 export default class RegistrationPage extends HTMLElement {
 
     constructor() {
 
+        // Testing master push
         super();
 
     }
@@ -17,11 +21,21 @@ export default class RegistrationPage extends HTMLElement {
         // Appending content to the DOM
         this.appendChild(content);
 
-        this.querySelector("#register-btn").addEventListener("click", event => {
+        this.querySelector("#registration-form").addEventListener("submit", event => {
 
-            app.state.isLoggedIn = true;
+            const passwordInput = document.querySelector('#password').value;
+            const emailInput = document.querySelector('#email').value;
 
-            app.router.go(`/`);
+            event.preventDefault();
+
+            console.log(`${passwordInput}`);
+            console.log(`${emailInput}`);
+
+            createUserWithEmailAndPassword(auth, emailInput, passwordInput);
+
+            // app.state.isLoggedIn = true;
+
+            // app.router.go(`/`);
 
         });
 
