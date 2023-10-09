@@ -1,38 +1,34 @@
+import { appPath, dataBase, auth } from "../services/firebase";
+
 export default class LoginPage extends HTMLElement {
+  constructor() {
+    super();
+  }
 
-    constructor() {
+  connectedCallback() {
+    // Getting template from the DOM
+    const template = document.getElementById("login-page-template");
 
-        super();
+    // Cloning the template
+    const content = template.content.cloneNode(true);
 
-    }
+    // Appending content to the DOM
+    this.appendChild(content);
 
-    connectedCallback() {
+    this.querySelector("#login-btn").addEventListener("click", (event) => {
+      app.state.isLoggedIn = true;
 
-        // Getting template from the DOM
-        const template = document.getElementById('login-page-template');
+      app.router.go(`/`);
+    });
 
-        // Cloning the template
-        const content = template.content.cloneNode(true);
+    this.querySelector("#register-btn").addEventListener("click", (event) => {
+      app.router.go(`/registration`);
+    });
 
-        // Appending content to the DOM
-        this.appendChild(content);
-
-        this.querySelector("#login-btn").addEventListener("click", event => {
-
-            app.state.isLoggedIn = true;
-
-            app.router.go(`/`);
-
-        });
-
-        this.querySelector("#register-btn").addEventListener("click", event => {
-
-            app.router.go(`/registration`);
-
-        });
-
-    }
-
+    this.querySelector("#test").addEventListener("click", () => {
+      console.log(appPath, dataBase, auth);
+    });
+  }
 }
 
 // Registering the login-page custom element

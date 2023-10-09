@@ -11,7 +11,7 @@ export default class StarterPage extends HTMLElement {
     const content = template.content.cloneNode(true);
 
     // Appending content to the DOM
-    console.log(this);
+
     this.appendChild(content);
 
     this.querySelector("#login-btn").addEventListener("click", (event) => {
