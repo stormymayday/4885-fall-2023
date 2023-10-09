@@ -5,6 +5,7 @@ export default class RegistrationPage extends HTMLElement {
 
     constructor() {
 
+        // Testing master push
         super();
 
     }
