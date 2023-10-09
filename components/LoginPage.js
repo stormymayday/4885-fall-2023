@@ -1,3 +1,6 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../services/firebase.js";
+
 export default class LoginPage extends HTMLElement {
 
     constructor() {
@@ -17,11 +20,15 @@ export default class LoginPage extends HTMLElement {
         // Appending content to the DOM
         this.appendChild(content);
 
-        this.querySelector("#login-btn").addEventListener("click", event => {
+        this.querySelector("#login-from").addEventListener("submit", event => {
 
-            app.state.isLoggedIn = true;
+            event.preventDefault();
 
-            app.router.go(`/`);
+            console.log(`hello from login`);
+
+            // app.state.isLoggedIn = true;
+
+            // app.router.go(`/`);
 
         });
 
