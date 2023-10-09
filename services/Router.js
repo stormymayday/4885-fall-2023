@@ -68,8 +68,27 @@ const Router = {
 
         break;
 
+      case "/registered":
+        pageElement = document.createElement("successfully-registered");
+
+        break;
+
       case "/leo":
         pageElement = document.createElement("leo-test");
+
+        break;
+
+      case "/main-page":
+        pageElement = document.createElement("main-client-page");
+
+        break;
+
+      case "/report-incident":
+        pageElement = document.createElement("report-incident-client");
+
+        break;
+      case "/incident-info":
+        pageElement = document.createElement("incident-info");
 
         break;
 

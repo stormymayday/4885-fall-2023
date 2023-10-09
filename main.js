@@ -9,6 +9,10 @@ import StarterPage from "./Components/StarterPage";
 import LoginPage from "./Components/LoginPage.js";
 import RegistrationPage from "./Components/RegistrationPage.js";
 import Test from "./Components/Test";
+import SuccesfullyRegistered from "./Components/SuccessfullyRegistered";
+import MainClientPage from "./Components/MainClientPage";
+import ReportIncidentClient from "./Components/ReportIncidentClient";
+import IncidentInfoClient from "./Components/IncidentInfoClient";
 
 // Attaching app object to the window
 window.app = {};
