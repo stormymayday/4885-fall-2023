@@ -2,45 +2,40 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../services/firebase.js";
 
 export default class LoginPage extends HTMLElement {
+  constructor() {
+    super();
+  }
 
-    constructor() {
+  connectedCallback() {
+    // Getting template from the DOM
+    const template = document.getElementById("login-page-template");
 
-        super();
+    // Cloning the template
+    const content = template.content.cloneNode(true);
 
-    }
+    // Appending content to the DOM
+    this.appendChild(content);
 
-    connectedCallback() {
+    this.querySelector("#login-from").addEventListener("submit", (event) => {
+      event.preventDefault();
 
-        // Getting template from the DOM
-        const template = document.getElementById('login-page-template');
+      console.log(`hello from login`);
 
-        // Cloning the template
-        const content = template.content.cloneNode(true);
+      // app.state.isLoggedIn = true;
 
-        // Appending content to the DOM
-        this.appendChild(content);
+      // app.router.go(`/`);
+    });
 
-        this.querySelector("#login-from").addEventListener("submit", event => {
-
-            event.preventDefault();
-
-            console.log(`hello from login`);
-
-            // app.state.isLoggedIn = true;
-
-            // app.router.go(`/`);
-
-        });
-
-        this.querySelector("#register-btn").addEventListener("click", event => {
-
-            app.router.go(`/registration`);
-
-        });
-
-    }
-
+    this.querySelector("#register-btn").addEventListener("click", (event) => {
+      app.router.go(`/registration`);
+    });
+  }
 }
 
 // Registering the login-page custom element
 customElements.define("login-page", LoginPage);
+
+// TO DO LIST
+// BACK BTN
+// LOGIN AUTH
+// LOGIN FORWARD TO MAIN PAGE

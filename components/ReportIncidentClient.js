@@ -55,19 +55,19 @@ export default class ReportIncidentClient extends HTMLElement {
 
     // DISPLAY IMGS ( HAVE to CREATE A GALERY To DISPLAY IMGS)
 
-    // fileInput.addEventListener("change", function () {
-    //   const file = this.files[0];
-    //   const reader = new FileReader();
+    fileInput.addEventListener("change", function () {
+      const file = this.files[0];
+      const reader = new FileReader();
 
-    //   reader.onload = function (e) {
-    //     uploadedImage.src = e.target.result;
-    //     uploadButton.style.display = "none";
-    //     uploadMoreButton.style.display = "block";
+      reader.onload = function (e) {
+        uploadedImage.src = e.target.result;
+        uploadButton.style.display = "none";
+        uploadMoreButton.style.display = "block";
 
-    //     // Upload img to firebase so we can pass to leaflet
-    //   };
-    //   reader.readAsDataURL(file);
-    // });
+        // Upload img to firebase so we can pass to leaflet
+      };
+      reader.readAsDataURL(file);
+    });
 
     this.querySelector("#btn-click-go-to-incident-info").addEventListener(
       "click",
@@ -79,3 +79,5 @@ export default class ReportIncidentClient extends HTMLElement {
 }
 
 customElements.define("report-incident-client", ReportIncidentClient);
+
+// Al the futher functionality goes on this page

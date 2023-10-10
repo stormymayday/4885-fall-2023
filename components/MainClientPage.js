@@ -25,3 +25,9 @@ export default class MainClientPage extends HTMLElement {
 
 // Registering the login-page custom element
 customElements.define("main-client-page", MainClientPage);
+// TODO ADD LEAFLEET
+// Side bar opens if you click on a pin(Delete or change a report)
+
+// Fetch all incidents (Make available to see only thouse that the client has submmited)
+// Drop down menu out of the photo on the right top corner(SETTINGS LOGOUT)
+// Left top corner logo (LINK to te main page => APP.ROUTER.GO(/main-page))
