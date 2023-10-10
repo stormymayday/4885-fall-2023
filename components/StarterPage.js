@@ -26,3 +26,7 @@ export default class StarterPage extends HTMLElement {
 
 // Registering the home-page custom element
 customElements.define("starter-page", StarterPage);
+
+// TO DO -
+// Registration LINK
+// DELETE LOGIN APPLE | GOOGLE | FB
