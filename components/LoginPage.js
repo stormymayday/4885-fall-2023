@@ -1,6 +1,10 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, dataBase, appPath } from "../services/firebase.js";
 import { setDoc, doc, getDocs } from "firebase/firestore";
+import {
+  validateEmail,
+  validatePassword,
+} from "../services/validationFunctions.js";
 
 export default class LoginPage extends HTMLElement {
   constructor() {
@@ -22,18 +26,6 @@ export default class LoginPage extends HTMLElement {
 
       console.log(this);
 
-      //*********************************** EMAIL and PASSWORD VALIDATION | REGISTRATION FUNCTIONS ****************************************************************** */
-      function validateEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-      }
-
-      function validatePassword(password) {
-        // Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one number.
-        // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
-        // return passwordRegex.test(password);
-        return password;
-      }
       // **************************************** FIREBASE EMAIL AND PASSWORD VALIDATION */
 
       // Get user email and login
@@ -84,7 +76,7 @@ export default class LoginPage extends HTMLElement {
     this.querySelector("#register-btn").addEventListener("click", (event) => {
       event.preventDefault();
 
-      //   const auth = app.router.go(`/registration`);
+      app.router.go(`/registration`);
     });
 
     this.querySelector("#back-btn").addEventListener("click", (event) => {
@@ -96,8 +88,3 @@ export default class LoginPage extends HTMLElement {
 
 // Registering the login-page custom element
 customElements.define("login-page", LoginPage);
-
-// TO DO LIST
-// BACK BTN
-// LOGIN AUTH
-// LOGIN FORWARD TO MAIN PAGE

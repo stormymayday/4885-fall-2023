@@ -1,5 +1,12 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../services/firebase.js";
+import {
+  validateEmail,
+  validatePassword,
+  validateName,
+  validateConfirmPassword,
+  validatePhone,
+} from "../services/validationFunctions.js";
 
 export default class RegistrationPage extends HTMLElement {
   constructor() {
@@ -17,24 +24,67 @@ export default class RegistrationPage extends HTMLElement {
     // Appending content to the DOM
     this.appendChild(content);
 
-    this.querySelector("#registration-form").addEventListener(
-      "submit",
-      (event) => {
-        const passwordInput = document.querySelector("#password").value;
-        const emailInput = document.querySelector("#email").value;
+    this.querySelector("#register-btn").addEventListener("click", (event) => {
+      event.preventDefault();
+      const passwordInput = document.querySelector(
+        "#password-registration"
+      ).value;
+      const emailInput = document.querySelector("#email-registration").value;
+      const passwordConformation = document.querySelector(
+        "#confirmPassword-registration"
+      ).value;
+      const phoneNumber = document.querySelector(
+        "#phoneNumber-registration"
+      ).value;
+      const nameRegistration =
+        document.querySelector("#name-registration").value;
 
-        event.preventDefault();
+      if (
+        validateEmail(emailInput) &&
+        validatePassword(passwordInput) &&
+        validateName(nameRegistration) &&
+        validateConfirmPassword(passwordInput, passwordConformation) &&
+        validatePhone(phoneNumber)
+      ) {
+        createUserWithEmailAndPassword(auth, emailInput, passwordInput)
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            const userUID = user.uid;
 
-        console.log(`${passwordInput}`);
-        console.log(`${emailInput}`);
+            // ...
+            const userDataJSON = JSON.stringify(user);
+            localStorage.setItem("userData", userDataJSON);
+            app.router.go(`/registered`);
+            app.state.isLoggedIn = true;
 
-        createUserWithEmailAndPassword(auth, emailInput, passwordInput);
-
-        // app.state.isLoggedIn = true;
-
-        app.router.go(`/registered`);
+            // const useObject = JSON.parse(localStorage.getItem("userData"));
+            // console.log(useObject);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+          });
       }
-    );
+      if (!validateEmail(emailInput)) {
+        console.log("email is not valide");
+      }
+      if (!validatePassword(passwordInput)) {
+        console.log("Password is not valide");
+      }
+      if (
+        validatePassword(passwordInput) &&
+        !validateConfirmPassword(passwordInput, passwordConformation)
+      ) {
+        console.log("conformation password is wrong");
+      }
+      if (!validateName(nameRegistration)) {
+        console.log("Name is wrong");
+      }
+      if (!validatePhone(phoneNumber)) {
+        console.log("phone number is wrong");
+      }
+    });
 
     this.querySelector("#login-btn").addEventListener("click", (event) => {
       app.router.go(`/login`);
