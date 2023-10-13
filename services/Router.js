@@ -92,6 +92,9 @@ const Router = {
 
         break;
 
+      case "/leo-test":
+        pageElement = document.createElement("kratik-leo");
+
       default:
     }
 

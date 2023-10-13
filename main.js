@@ -13,6 +13,7 @@ import SuccesfullyRegistered from "./Components/SuccessfullyRegistered";
 import MainClientPage from "./Components/MainClientPage";
 import ReportIncidentClient from "./Components/ReportIncidentClient";
 import IncidentInfoClient from "./Components/IncidentInfoClient";
+import TestLeo from "./Components/TestLeo";
 
 // Attaching app object to the window
 window.app = {};

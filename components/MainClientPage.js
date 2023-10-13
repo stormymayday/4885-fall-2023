@@ -26,6 +26,8 @@ export default class MainClientPage extends HTMLElement {
   }
 }
 
+
+
 // Registering the login-page custom element
 customElements.define("main-client-page", MainClientPage);
 // TODO ADD LEAFLEET
