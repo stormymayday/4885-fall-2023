@@ -1,6 +1,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, dataBase, appPath } from "../services/firebase.js";
-import { setDoc, doc, getDocs } from "firebase/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 import {
   validateEmail,
   validatePassword,
@@ -11,6 +11,58 @@ export default class LoginPage extends HTMLElement {
     super();
   }
 
+  async Login() {
+    // **************************************** FIREBASE EMAIL AND PASSWORD VALIDATION */
+
+    // Get user email and login
+
+    const password = this.querySelector("#password-login").value;
+    const email = this.querySelector("#username-email").value;
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      const userUID = user.uid;
+
+      const userDocRef = doc(dataBase, "users", userUID);
+      const userDocSnapshot = await getDoc(userDocRef);
+      // const finale = userDocSnapshot.data();
+
+      const finale = {
+        uid: userDocSnapshot.data().uid,
+        email: userDocSnapshot.data().emailInput,
+        phoneNumber: userDocSnapshot.data().phoneNumber,
+        nameRegistration: userDocSnapshot.data().nameRegistration,
+        role: userDocSnapshot.data().role,
+      };
+
+      localStorage.setItem("user", JSON.stringify(finale));
+
+      app.router.go("/main-page");
+    } catch (error) {
+      // track error and layout on the page
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      console.log(errorCode);
+      console.log(errorMessage);
+
+      if (
+        errorCode === "auth/invalid-login-credentials" ||
+        errorMessage === "Firebase: Error (auth/invalid-login-credentials)."
+      ) {
+        document.querySelector(
+          "span"
+        ).innerHTML = `Invalid login credentials, please try again`;
+      } else {
+        document.querySelector("span").innerHTML = `error message`;
+      }
+    }
+  }
   connectedCallback() {
     // Getting template from the DOM
     const template = document.getElementById("login-page-template");
@@ -23,56 +75,8 @@ export default class LoginPage extends HTMLElement {
 
     this.querySelector("#login-from").addEventListener("submit", (event) => {
       event.preventDefault();
-
-      console.log(this);
-
-      // **************************************** FIREBASE EMAIL AND PASSWORD VALIDATION */
-
-      // Get user email and login
-
-      const password = this.querySelector("#password-login").value;
-      const email = this.querySelector("#username-email").value;
-
-      if (
-        validatePassword(this.querySelector("#password-login").value) &&
-        validateEmail(this.querySelector("#username-email").value)
-      ) {
-        signInWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            const userUID = user.uid;
-
-            // ...
-            const userDataJSON = JSON.stringify(user);
-            localStorage.setItem("userData", userDataJSON);
-
-            // const useObject = JSON.parse(localStorage.getItem("userData"));
-            // console.log(useObject);
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-          });
-      } else if (
-        validatePassword(this.querySelector("#password-login").value) &&
-        !validateEmail(this.querySelector("#username-email").value)
-      ) {
-        console.log("your email is not valide");
-      } else if (
-        !validatePassword(this.querySelector("#password-login").value) &&
-        validateEmail(this.querySelector("#username-email").value)
-      ) {
-        console.log("Yor password is not valide");
-      } else {
-        console.log("both are incorect");
-      }
-
-      app.state.isLoggedIn = true;
-
-      app.router.go(`/main-page`);
+      this.Login();
     });
-
     this.querySelector("#register-btn").addEventListener("click", (event) => {
       event.preventDefault();
 
@@ -85,6 +89,5 @@ export default class LoginPage extends HTMLElement {
     });
   }
 }
-
 // Registering the login-page custom element
 customElements.define("login-page", LoginPage);
