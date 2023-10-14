@@ -4,6 +4,8 @@ export default class MainClientPage extends HTMLElement {
   }
 
   connectedCallback() {
+    console.log("leo");
+
     // Getting template from the DOM
     const template = document.getElementById("main-client-page");
 
@@ -25,8 +27,6 @@ export default class MainClientPage extends HTMLElement {
     );
   }
 }
-
-
 
 // Registering the login-page custom element
 customElements.define("main-client-page", MainClientPage);
