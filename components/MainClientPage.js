@@ -16,7 +16,7 @@ export default class MainClientPage extends HTMLElement {
     this.appendChild(content);
     console.log("lefleet library goes in here");
 
-    const useObject = JSON.parse(localStorage.getItem("userData"));
+    const useObject = JSON.parse(localStorage.getItem("user"));
     console.log(useObject);
 
     this.querySelector("#btn-click-report-incident").addEventListener(
