@@ -79,7 +79,11 @@ const Router = {
         break;
 
       case "/main-page":
-        pageElement = document.createElement("main-client-page");
+        if (JSON.parse(localStorage.getItem("user")).role === "user") {
+          pageElement = document.createElement("main-client-page");
+        } else {
+          console.log("driver");
+        }
 
         break;
 
