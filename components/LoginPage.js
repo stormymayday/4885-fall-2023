@@ -33,7 +33,7 @@ export default class LoginPage extends HTMLElement {
       // const finale = userDocSnapshot.data();
 
       const finale = {
-        uid: userDocSnapshot.data().uid,
+        uid: userUID,
         email: userDocSnapshot.data().emailInput,
         phoneNumber: userDocSnapshot.data().phoneNumber,
         nameRegistration: userDocSnapshot.data().nameRegistration,
