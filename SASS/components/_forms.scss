@@ -14,9 +14,9 @@
 // $clr-error: #4d91ff;
 
 .form-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 0.1rem;
+  display: inline-block;
+  font: bold 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 // Define a mixin for inputs
@@ -25,4 +25,14 @@
   padding: 0.1rem;
   border: 1px solid $clr-primary-2;
   border-radius: 0;
+  &input::placeholder,
+  textarea::placeholder {
+    opacity: 1; /* Firefox */
+    color: $clr-primary-4;
+  }
+}
+
+.form-login {
+  display: inline-block;
+  text-align: left;
 }
