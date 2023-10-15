@@ -1,0 +1,46 @@
+@import "../abstracts/variables";
+
+@mixin button-style($width, $height, $background, $color, $radius) {
+  background-color: $background;
+  color: $color;
+  font-family: $ff-primary;
+  font-size: $btn-l-web-font-size;
+  font-weight: $btn-l-web-font-weight;
+  line-height: $btn-l-web-line-height;
+  border: none;
+  padding: $height $width;
+  border-radius: $radius;
+  transition: $transition;
+  max-width: 10rem;
+  display: block;
+  margin: 1rem auto;
+  &:hover {
+    background-color: $btn-hover-background;
+    color: $btn-hover-color;
+  }
+
+  &:focus {
+    background-color: $btn-focus-background;
+    color: $btn-focus-color;
+  }
+
+  &:active {
+    background-color: $btn-selected-background;
+    color: $btn-selected-color;
+  }
+
+  &:disabled {
+    background-color: $btn-disabled-background;
+    color: $btn-disabled-color;
+  }
+}
+
+@mixin logo-container($width, $height, $radius) {
+  width: $width;
+  height: $height;
+  background-color: $clr-primary-3; // Change to desired background color
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius; // Add border radius as needed
+}

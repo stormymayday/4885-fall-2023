@@ -1,0 +1,39 @@
+@import "../abstracts/mixins";
+@import "../abstracts/variables";
+
+.button-large {
+  @include button-style(
+    $btn-large-width,
+    $btn-large-height,
+    $btn-default-background,
+    $btn-default-color,
+    0
+  );
+}
+
+.button-medium {
+  @include button-style(
+    $btn-medium-width,
+    $btn-medium-height,
+    $btn-default-background,
+    $btn-default-color,
+    0
+  );
+}
+
+.button-small {
+  @include button-style(
+    $btn-small-width,
+    $btn-small-height,
+    $btn-default-background,
+    $btn-default-color,
+    0
+  );
+}
+
+.back-btn {
+  margin: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

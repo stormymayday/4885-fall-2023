@@ -1,0 +1,28 @@
+@import "../abstracts/variables";
+// Define a mixin for form groups
+// Define a mixin for labels
+
+// $clr-primary-1: #ffc501;
+// $clr-primary-2: #1e2226;
+// $clr-primary-3: #f7f7f7;
+// $clr-primary-4: #fe6f5e;
+
+// // Secondary Colors
+// $clr-info: #4d91ff;
+// $clr-success: green;
+// $clr-warning: yellow;
+// $clr-error: #4d91ff;
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.1rem;
+}
+
+// Define a mixin for inputs
+.form-input {
+  width: 100%;
+  padding: 0.1rem;
+  border: 1px solid $clr-primary-2;
+  border-radius: 0;
+}
