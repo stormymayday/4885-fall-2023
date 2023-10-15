@@ -1,1 +1,12 @@
-@import "./Components/base";
+@import "SASS/abstracts/functions";
+@import "SASS/abstracts/mixins";
+@import "SASS/abstracts/variables";
+
+@import "SASS/base/animations";
+@import "SASS/base/base";
+@import "SASS/base/typography";
+@import "SASS/base/utilities";
+
+@import "SASS/components/buttons";
+@import "SASS/components/logoContainer";
+@import "SASS/components/container";

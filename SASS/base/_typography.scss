@@ -1,0 +1,82 @@
+@import "../abstracts/variables";
+
+body {
+  font-family: $ff-primary;
+  font-size: $body1-mobile-font-size;
+  font-weight: $body1-mobile-font-weight;
+  line-height: $body1-mobile-line-height;
+  background: $clr-primary-3;
+  color: $clr-primary-2;
+}
+h1 {
+  font-size: $h1-mobile-font-size;
+  font-weight: $h1-mobile-font-weight;
+  line-height: $h1-mobile-line-height;
+}
+h2 {
+  font-size: $h2-mobile-font-size;
+  font-weight: $h2-mobile-font-weight;
+  line-height: $h2-mobile-line-height;
+}
+h3 {
+  font-size: $h3-mobile-font-size;
+  font-weight: $h3-mobile-font-weight;
+  line-height: $h3-mobile-line-height;
+}
+h4 {
+  font-size: $h4-mobile-font-size;
+  font-weight: $h4-mobile-font-weight;
+  line-height: $h4-mobile-line-height;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
+// Prevents Zooming on iOS:
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+select:focus,
+textarea {
+  font-size: 16px;
+}
+@media screen and (min-width: 800px) {
+  body {
+    font-size: $body1-web-font-size;
+    font-weight: $body1-web-font-weight;
+    line-height: $body1-web-line-height;
+  }
+  h1 {
+    font-size: $h1-web-font-size;
+    font-weight: $h1-web-font-weight;
+    line-height: $h1-web-line-height;
+  }
+  h2 {
+    font-size: $h2-web-font-size;
+    font-weight: $h2-web-font-weight;
+    line-height: $h2-web-line-height;
+  }
+  h3 {
+    font-size: $h3-web-font-size;
+    font-weight: $h3-web-font-weight;
+    line-height: $h3-web-line-height;
+  }
+  h4 {
+    font-size: $h4-web-font-size;
+    font-weight: $h4-web-font-weight;
+    line-height: $h4-web-line-height;
+  }
+}

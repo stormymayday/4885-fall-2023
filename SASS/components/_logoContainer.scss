@@ -1,0 +1,12 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.logo-container-small {
+  @include logo-container(10rem, 10rem, 0);
+}
+.logo-container-medium {
+  @include logo-container(10rem, 10rem, 0);
+}
+.logo-container-large {
+  @include logo-container(10rem, 10rem, 0);
+}
