@@ -396,12 +396,6 @@ export default class ReportIncidentClient extends HTMLElement {
 
     }
 
-    this.querySelector("#camera-input").addEventListener("change", async (event) => {
-
-      this.handleFileInput(document.querySelector("#camera-input"));
-
-    });
-
     this.querySelector("#file-input").addEventListener("change", async (event) => {
 
       this.handleFileInput(document.querySelector("#file-input"));
