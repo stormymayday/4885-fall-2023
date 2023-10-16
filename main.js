@@ -5,15 +5,15 @@ import Router from "./services/Router.js";
 import State from "./services/State.js";
 
 // Web Components:
-import StarterPage from "./Components/StarterPage";
-import LoginPage from "./Components/LoginPage.js";
-import RegistrationPage from "./Components/RegistrationPage.js";
-import Test from "./Components/Test";
-import SuccesfullyRegistered from "./Components/SuccessfullyRegistered";
-import MainClientPage from "./Components/MainClientPage";
-import ReportIncidentClient from "./Components/ReportIncidentClient";
-import IncidentInfoClient from "./Components/IncidentInfoClient";
-import TestLeo from "./Components/TestLeo";
+import StarterPage from "./components/StarterPage";
+import LoginPage from "./components/LoginPage.js";
+import RegistrationPage from "./components/RegistrationPage.js";
+import Test from "./components/Test";
+import SuccesfullyRegistered from "./components/SuccessfullyRegistered";
+import MainClientPage from "./components/MainClientPage";
+import ReportIncidentClient from "./components/ReportIncidentClient";
+import IncidentInfoClient from "./components/IncidentInfoClient";
+import TestLeo from "./components/TestLeo";
 
 // Attaching app object to the window
 window.app = {};
