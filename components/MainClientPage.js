@@ -2,8 +2,9 @@ import 'leaflet/dist/leaflet.css';
 import L from "leaflet";
 import Router from '../services/Router.js';
 import { signOut } from "firebase/auth";
-import { auth, dataBase } from "../services/firebase.js";
+import { auth, dataBase, storage } from "../services/firebase.js";
 import { collection, query, where, getDocs, doc, updateDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export default class MainClientPage extends HTMLElement {
 
@@ -28,6 +29,8 @@ export default class MainClientPage extends HTMLElement {
   }
 
   displayMap = async () => {
+
+    let downloadURL;
 
     navigator.geolocation.getCurrentPosition(async (position) => {
 
@@ -71,6 +74,8 @@ export default class MainClientPage extends HTMLElement {
 
           const coordinates = [latitude, longitude];
 
+          downloadURL = incidentCase.data().image;
+
           let incidentMarker = {};
 
           incidentMarker = L.marker([latitude, longitude], { draggable: 'true' }).addTo(this.map)
@@ -84,7 +89,17 @@ export default class MainClientPage extends HTMLElement {
             // .setPopupContent(incidentCase.data().notes)
             .setPopupContent(`
               <div id="popup-form">
+
+                <div id="img-container">
+                  <img src="${incidentCase.data().image}" alt="${incidentCase.data().carMake}" height="150">
+                </div>
+
                 <form id="my-form">
+
+                  <input type=" file" accept="image/*" capture="environment" id="camera-input"><br /><br />
+
+                  <label for="file-input">Upload File:</label>
+                  <input type="file" id="file-input" name="file-upload" accept="image/png, image/jpeg" /><br /><br />
 
                   <label for="address">Address:</label>
                   <input type="text" id="address" name="address" value="${incidentCase.data().address}" /><br />
@@ -122,18 +137,75 @@ export default class MainClientPage extends HTMLElement {
           // Adding incident case id and incident data to the marker
           incidentMarker.customData = { id: incidentCase.id, ...incidentCase.data() };
 
+          let newLatitude;
+          let newLongitude;
+
           // Drag Marker functionality
           incidentMarker.on('dragend', function (event) {
             const newLatLng = event.target.getLatLng();
-            const newLatitude = newLatLng.lat;
-            const newLongitude = newLatLng.lng;
+            newLatitude = newLatLng.lat;
+            newLongitude = newLatLng.lng;
 
             // Update your data or perform actions with the new coordinates
             console.log('New coordinates:', newLatitude, newLongitude);
+
           });
 
+          let fileName = new Date().getTime();
+
+          function handleFileInput(input) {
+
+            const selectedFile = input.files[0];
+
+            if (selectedFile) {
+
+              const imageUrl = URL.createObjectURL(selectedFile);
+
+              const imgContainer = document.querySelector('#img-container');
+              imgContainer.innerHTML = '';
+
+              // Display the selected image (you can customize this part)
+              const imageElement = document.createElement("img");
+              imageElement.src = imageUrl;
+              imageElement.style.maxHeight = "150px";
+              imgContainer.appendChild(imageElement);
+
+              console.log(selectedFile);
+
+              // Reset name here if you want to allow multiple uploads
+              // this.name = new Date().getTime();
+
+              // You can also upload the image to a server or process it further.
+              const storageRef = ref(storage, `${fileName}`);
+
+              // 'file' comes from the Blob or File API
+              uploadBytes(storageRef, selectedFile).then((snapshot) => {
+
+                getDownloadURL(snapshot.ref).then((url) => {
+
+                  downloadURL = url;
+
+                  console.log('File available at', downloadURL);
+
+                });
+
+              });
+            }
+          }
 
           incidentMarker.on('click', function () {
+
+            document.querySelector("#camera-input").addEventListener("change", async (event) => {
+
+              handleFileInput(document.querySelector("#camera-input"));
+
+            });
+
+            document.querySelector("#file-input").addEventListener("change", async (event) => {
+
+              handleFileInput(document.querySelector("#file-input"));
+
+            });
 
             // Adding click event listener to the Marker
             document.querySelector(`#edit-btn`).addEventListener('click', async (event) => {
@@ -161,6 +233,11 @@ export default class MainClientPage extends HTMLElement {
                 carColor: carColor,
                 licensePlate: licensePlate,
                 notes, notes,
+                coordinates: {
+                  latitude: newLatitude,
+                  longitude: newLongitude,
+                },
+                image: downloadURL,
               });
 
             });
@@ -183,7 +260,7 @@ export default class MainClientPage extends HTMLElement {
 
             });
 
-            console.log(this);
+            // console.log(this);
 
           });
 
