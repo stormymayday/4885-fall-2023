@@ -15,11 +15,14 @@ export default class StarterPage extends HTMLElement {
     this.appendChild(content);
 
     this.querySelector("#login-btn").addEventListener("click", (event) => {
-      app.state.isLoggedIn = false;
+      event.preventDefault();
 
       app.router.go(`/login`);
+    });
+    this.querySelector("#register-btn").addEventListener("click", (event) => {
+      event.preventDefault();
 
-      // event.preventDefault();
+      app.router.go(`/registration`);
     });
   }
 }
