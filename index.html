@@ -56,56 +56,73 @@
             <button id="register-btn" class="button-medium">Register</button>
           </form>
         </div>
-      </div>
-    </template>
 
-    <template id="registration-page-template">
-      <h1>Registration Page</h1>
+      </div>
+      <h1>Welcome to TowTackle</h1>
+      <button id="login-btn" type="submit" class="button-medium">
+        Login
+      </button>
+      <button class="button-medium" id="register-btn">Register</button>
+    </div>
+  </template>
+
+  <template id="login-page-template">
+    <div class="container">
+      <a href="">
+        <icon id="back-btn" class="back-btn">Back button</icon>
+      </a>
+      <div class="logo-container-small"><img src="" alt="" /></div>
       <div class="container">
-        <h2>Registration Form</h2>
-        <form id="registration-form">
+        <h2>Login</h2>
+        <form id="login-from" method="post">
           <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name-registration" name="name" required />
+            <label for="username" class="form-lable">Email</label>
+            <input type="email" id="username-email" name="username" class="form-input" />
           </div>
           <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email-registration" name="email" required />
+            <label for="password" class="form-lable">Password</label>
+            <input type="password" id="password-login" name="password" class="form-input" />
           </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input
-              type="password"
-              id="password-registration"
-              name="password"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword-registration"
-              name="confirmPassword"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input
-              type="tel"
-              id="phoneNumber-registration"
-              name="phone"
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              required
-            />
-            <small>Format: 123-456-7890</small>
-          </div>
-          <button type="submit" id="register-btn">Register</button>
+          <button id="login-btn" type="submit" class="button-medium">
+            Login
+          </button>
+          <button id="register-btn" class="button-medium">Register</button>
         </form>
       </div>
-      <button id="login-btn">Login Page</button>
-    </template>
+    </div>
+  </template>
+
+  <template id="registration-page-template">
+    <h1>Registration Page</h1>
+    <div class="container">
+      <h2>Registration Form</h2>
+      <form id="registration-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name-registration" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email-registration" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password-registration" name="password" required />
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword-registration" name="confirmPassword" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phoneNumber-registration" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+          <small>Format: 123-456-7890</small>
+        </div>
+        <button type="submit" id="register-btn">Register</button>
+      </form>
+    </div>
+    <button id="login-btn">Login Page</button>
+  </template>
 
     <template id="registration-page-template">
       <h1>Registration Page</h1>
