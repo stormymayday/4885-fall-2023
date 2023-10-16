@@ -195,12 +195,6 @@ export default class MainClientPage extends HTMLElement {
 
           incidentMarker.on('click', function () {
 
-            document.querySelector("#camera-input").addEventListener("change", async (event) => {
-
-              handleFileInput(document.querySelector("#camera-input"));
-
-            });
-
             document.querySelector("#file-input").addEventListener("change", async (event) => {
 
               handleFileInput(document.querySelector("#file-input"));
@@ -239,6 +233,8 @@ export default class MainClientPage extends HTMLElement {
                 },
                 image: downloadURL,
               });
+
+              Router.go('/main-page');
 
             });
 
