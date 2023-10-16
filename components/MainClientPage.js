@@ -96,8 +96,6 @@ export default class MainClientPage extends HTMLElement {
 
                 <form id="my-form">
 
-                  <input type=" file" accept="image/*" capture="environment" id="camera-input"><br /><br />
-
                   <label for="file-input">Upload File:</label>
                   <input type="file" id="file-input" name="file-upload" accept="image/png, image/jpeg" /><br /><br />
 
