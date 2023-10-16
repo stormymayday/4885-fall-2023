@@ -1,21 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+  <body>
+    <div id="app"></div>
 
-<body>
-  <div id="app"></div>
+    <head>
+      <meta charset="UTF-8" />
+      <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Vite App</title>
+    </head>
 
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
+    <template id="starter-page">
+      <div class="container">
+        <div class="img-container">
+          <img src="" alt="" />
+        </div>
+        <h1>Welcome to TowTackle</h1>
+        <button id="login-btn" type="submit" class="button-medium">
+          Login
+        </button>
+        <button class="button-medium" id="register-btn">Register</button>
+      </div>
+    </template>
 
+    <template id="login-page-template">
+      <div class="container">
+        <a href="">
+          <icon id="back-btn" class="back-btn">Back button</icon>
+        </a>
+        <div class="logo-container-small"><img src="" alt="" /></div>
+        <div class="container">
+          <h2>Login</h2>
+          <form id="login-from" method="post" class="form-login">
+            <div class="form-group">
+              <label for="username" class="form-lable">Email</label>
+              <input
+                type="email"
+                id="username-email"
+                name="username"
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="password" class="form-lable">Password</label>
+              <input
+                type="password"
+                id="password-login"
+                name="password"
+                class="form-input"
+              />
+            </div>
+            <button id="login-btn" type="submit" class="button-medium">
+              Login
+            </button>
+            <button id="register-btn" class="button-medium">Register</button>
+          </form>
+        </div>
 
-  <template id="starter-page">
-    <div class="container">
-      <div class="img-container">
-        <img src="" alt="" />
       </div>
       <h1>Welcome to TowTackle</h1>
       <button id="login-btn" type="submit" class="button-medium">
@@ -83,223 +124,249 @@
     <button id="login-btn">Login Page</button>
   </template>
 
-  <template id="registration-page-template">
-    <h1>Registration Page</h1>
-    <div class="container">
-      <h2>Registration Form</h2>
-      <form id="registration-form">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name-registration" name="name" required />
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email-registration" name="email" required />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password-registration" name="password" required />
-        </div>
-        <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
-          <input type="password" id="confirmPassword-registration" name="confirmPassword" required />
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phoneNumber-registration" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
-          <small>Format: 123-456-7890</small>
-        </div>
-        <button type="submit" id="register-btn">Register</button>
-      </form>
-    </div>
-    <button id="login-btn">Login Page</button>
-  </template>
-
-  <template id="registration-selection-page">
-    <button>Back button</button>
-    <h1>Select Acount</h1>
-    <div>
-      <div>
-        <div>
-          <a href=""><img src="" alt="" /></a>
-        </div>
-        <p>acount</p>
-      </div>
-      <div>
-        <div>
-          <a href=""><img src="" alt="" /></a>
-        </div>
-        <p>acount</p>
-      </div>
-    </div>
-  </template>
-
-  <template id="test-leo">
-    <div>
-      <h1>Kratik is awsome</h1>
-    </div>
-  </template>
-
-  <template id="successfully-registered">
-    <div>
-      <i></i>
-      <h3>Successfully Registered</h3>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa
-        consequatur, architecto delectus cum quod iusto vel repellat minus
-        possimus corporis!
-      </p>
-    </div>
-  </template>
-
-  <template id="main-client-page">
-    <header>
-      <icon>LOGO</icon>
-      <div>
-        <div><img src="" alt="" /></div>
-        <p>Name</p>
-        <span>short text</span><button></button>
-      </div>
-    </header>
-    <main>
-      <h2>Report PArking Violence</h2>
-      <span>Some text here</span>
-      <h3></h3>
-      <div class="lifleet" id="map"></div>
-      <!-- form container - start -->
-      <div id="popup-form" style="display: none;">
-        <form id="my-form">
-          <!-- Your form fields go here -->
-          <input type="text" name="field1" placeholder="Field 1">
-          <input type="text" name="field2" placeholder="Field 2">
-          <button type="submit">Submit</button>
+    <template id="registration-page-template">
+      <h1>Registration Page</h1>
+      <div class="container">
+        <h2>Registration Form</h2>
+        <form id="registration-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name-registration" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email-registration" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password-registration"
+              name="password"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword-registration"
+              name="confirmPassword"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input
+              type="tel"
+              id="phoneNumber-registration"
+              name="phone"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              required
+            />
+            <small>Format: 123-456-7890</small>
+          </div>
+          <button type="submit" id="register-btn">Register</button>
         </form>
       </div>
-      <!-- form container - end -->
-      <button id="btn-click-report-incident">Report incident<i></i></button>
-      <button id="logout-btn">Logout</button>
-    </main>
-  </template>
+      <button id="login-btn">Login Page</button>
+    </template>
 
-  <template id="incident-info">
-    <header>
-      <icon>LOGO</icon>
+    <template id="registration-selection-page">
+      <button>Back button</button>
+      <h1>Select Acount</h1>
       <div>
-        <div><img src="" alt="" /></div>
-        <p>Name</p>
-        <span>short text</span><button></button>
-      </div>
-    </header>
-    <main>
-      <button id="back">Back</button>
-      <div class="three-lines-acomplish">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-
-      <h5>vhicle details</h5>
-      <form id="carForm">
-        <label for="carMake">Car Make:</label>
-        <input type="text" id="carMake" name="carMake" required /><br /><br />
-
-        <label for="carModel">Car Model:</label>
-        <input type="text" id="carModel" name="carModel" required /><br /><br />
-
-        <label for="carType">Car Type:</label>
-        <select id="carType" name="carType" required>
-          <option value="SUV">SUV</option>
-          <option value="Sedan">Sedan</option>
-          <option value="Hatchback">Hatchback</option>
-          <option value="Convertible">Convertible</option>
-          <option value="Truck">Truck</option>
-        </select><br /><br />
-
-        <label for="carColor">Car Color:</label>
-        <input type="text" id="carColor" name="carColor" required /><br /><br />
-
-        <label for="licensePlate">License Plate:</label>
-        <input type="text" id="licensePlate" name="licensePlate" required /><br /><br />
-
-        <input type="submit" value="Submit" />
-      </form>
-    </main>
-  </template>
-
-  <template id="report-incident-client">
-    <header>
-      <icon>LOGO</icon>
-      <div>
-        <div><img src="" alt="" /></div>
-        <p>Name</p>
-        <span>short text</span><button></button>
-      </div>
-    </header>
-    <h1>Report Incident</h1>
-    <button id="back-btn">Back</button>
-    <button id="logout-btn">Logout</button>
-    <main>
-
-      <div id="map"></div>
-
-      <!-- create-post - start -->
-      <div id="create-post">
-
-        <!-- Camera - Start -->
-        <video id="player" autoplay playsinline muted width="250px" height="250px" src="something"
-          type="video/mp4"></video>
-        <!-- canvas is used to freeze the video when the 'capture-btn' is clicked -->
-        <canvas id="canvas" width="250px" height="250px"></canvas>
-        <button id="capture-btn">Capture</button>
-        <!-- Camera - End -->
-
-        <!-- File Picker - Start -->
-        <div id="pick-image">
-          <h6>Pick an image instead</h6>
-          <input type="file" accept="image/*" id="image-picker">
+        <div>
+          <div>
+            <a href=""><img src="" alt="" /></a>
+          </div>
+          <p>acount</p>
         </div>
-        <!-- File Picker - End -->
+        <div>
+          <div>
+            <a href=""><img src="" alt="" /></a>
+          </div>
+          <p>acount</p>
+        </div>
+      </div>
+    </template>
 
-        <form id="incident-form">
+    <template id="test-leo">
+      <div>
+        <h1>Kratik is awsome</h1>
+      </div>
+    </template>
 
-          <label for="address">Address:</label>
-          <input type="text" id="address" name="address" /><br /><br />
+    <template id="successfully-registered">
+      <div>
+        <i></i>
+        <h3>Successfully Registered</h3>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa
+          consequatur, architecto delectus cum quod iusto vel repellat minus
+          possimus corporis!
+        </p>
+      </div>
+    </template>
 
+    <template id="main-client-page">
+      <header>
+        <icon>LOGO</icon>
+        <div>
+          <div><img src="" alt="" /></div>
+          <p>Name</p>
+          <span>short text</span><button></button>
+        </div>
+      </header>
+      <main>
+        <h2>Report PArking Violence</h2>
+        <span>Some text here</span>
+        <h3></h3>
+        <div class="lifleet" id="map"></div>
+        <button id="btn-click-report-incident">Report incident<i></i></button>
+        <button id="logout-btn">Logout</button>
+      </main>
+    </template>
+
+    <template id="incident-info">
+      <header>
+        <icon>LOGO</icon>
+        <div>
+          <div><img src="" alt="" /></div>
+          <p>Name</p>
+          <span>short text</span><button></button>
+        </div>
+      </header>
+      <main>
+        <button id="back">Back</button>
+        <div class="three-lines-acomplish">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <h5>vhicle details</h5>
+        <form id="carForm">
           <label for="carMake">Car Make:</label>
-          <input type="text" id="carMake" name="carMake" /><br /><br />
+          <input type="text" id="carMake" name="carMake" required /><br /><br />
 
           <label for="carModel">Car Model:</label>
-          <input type="text" id="carModel" name="carModel" /><br /><br />
+          <input
+            type="text"
+            id="carModel"
+            name="carModel"
+            required
+          /><br /><br />
 
           <label for="carType">Car Type:</label>
-          <select id="carType" name="carType">
+          <select id="carType" name="carType" required>
             <option value="SUV">SUV</option>
             <option value="Sedan">Sedan</option>
             <option value="Hatchback">Hatchback</option>
             <option value="Convertible">Convertible</option>
-            <option value="Truck">Truck</option>
-          </select><br /><br />
+            <option value="Truck">Truck</option></select
+          ><br /><br />
 
           <label for="carColor">Car Color:</label>
-          <input type="text" id="carColor" name="carColor" /><br /><br />
+          <input
+            type="text"
+            id="carColor"
+            name="carColor"
+            required
+          /><br /><br />
 
           <label for="licensePlate">License Plate:</label>
-          <input type="text" id="licensePlate" name="licensePlate" /><br /><br />
+          <input
+            type="text"
+            id="licensePlate"
+            name="licensePlate"
+            required
+          /><br /><br />
 
-          <label for="notes">Notes:</label>
-          <textarea name="notes" id="notes" cols="30" rows="10"></textarea>
-
-          <button id="submit-btn">Submit</button>
-
+          <input type="submit" value="Submit" />
         </form>
+      </main>
+    </template>
 
-      </div>
-      <!-- create-post - end -->
+    <template id="report-incident-client">
+      <header>
+        <icon>LOGO</icon>
+        <div>
+          <div><img src="" alt="" /></div>
+          <p>Name</p>
+          <span>short text</span><button></button>
+        </div>
+      </header>
+      <h1>Report Incident</h1>
+      <button id="back-btn">Back</button>
+      <button id="logout-btn">Logout</button>
+      <main>
+        <div id="map"></div>
 
-    </main>
-  </template>
+        <!-- create-post - start -->
+        <div id="create-post">
+          <!-- Camera - Start -->
+          <video
+            id="player"
+            autoplay
+            playsinline
+            muted
+            width="250px"
+            height="250px"
+            src="something"
+            type="video/mp4"
+          ></video>
+          <!-- canvas is used to freeze the video when the 'capture-btn' is clicked -->
+          <canvas id="canvas" width="250px" height="250px"></canvas>
+          <button id="capture-btn">Capture</button>
+          <!-- Camera - End -->
 
-  <script type="module" src="/main.js"></script>
-</body>
+          <!-- File Picker - Start -->
+          <div id="pick-image">
+            <h6>Pick an image instead</h6>
+            <input type="file" accept="image/*" id="image-picker" />
+          </div>
+          <!-- File Picker - End -->
 
+          <form id="incident-form">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" /><br /><br />
+
+            <label for="carMake">Car Make:</label>
+            <input type="text" id="carMake" name="carMake" /><br /><br />
+
+            <label for="carModel">Car Model:</label>
+            <input type="text" id="carModel" name="carModel" /><br /><br />
+
+            <label for="carType">Car Type:</label>
+            <select id="carType" name="carType">
+              <option value="SUV">SUV</option>
+              <option value="Sedan">Sedan</option>
+              <option value="Hatchback">Hatchback</option>
+              <option value="Convertible">Convertible</option>
+              <option value="Truck">Truck</option></select
+            ><br /><br />
+
+            <label for="carColor">Car Color:</label>
+            <input type="text" id="carColor" name="carColor" /><br /><br />
+
+            <label for="licensePlate">License Plate:</label>
+            <input
+              type="text"
+              id="licensePlate"
+              name="licensePlate"
+            /><br /><br />
+
+            <label for="notes">Notes:</label>
+            <textarea name="notes" id="notes" cols="30" rows="10"></textarea>
+
+            <button id="submit-btn">Submit</button>
+          </form>
+        </div>
+        <!-- create-post - end -->
+      </main>
+    </template>
+
+    <script type="module" src="/main.js"></script>
+  </body>
 </html>
