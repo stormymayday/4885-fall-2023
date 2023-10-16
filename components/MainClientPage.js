@@ -135,8 +135,8 @@ export default class MainClientPage extends HTMLElement {
           // Adding incident case id and incident data to the marker
           incidentMarker.customData = { id: incidentCase.id, ...incidentCase.data() };
 
-          let newLatitude;
-          let newLongitude;
+          let newLatitude = incidentCase.data().coordinates.latitude;
+          let newLongitude = incidentCase.data().coordinates.longitude;
 
           // Drag Marker functionality
           incidentMarker.on('dragend', function (event) {
@@ -246,7 +246,7 @@ export default class MainClientPage extends HTMLElement {
               // Setting status to 'cancelled'
               const caseRef = doc(dataBase, "cases", incidentCase.id);
               await updateDoc(caseRef, {
-                address: 'cancelled',
+                status: 'cancelled',
 
               });
 
