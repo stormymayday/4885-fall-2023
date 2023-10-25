@@ -1,21 +1,23 @@
 const Router = {
+
   init: () => {
-    document.querySelectorAll("a.navlink").forEach((anchorTag) => {
-      anchorTag.addEventListener("click", (event) => {
-        // Stopping the browser from creating new navigation
-        event.preventDefault();
 
-        // Reading the href property of the anchorTag
-        // Option 1: Using Property
-        // const url = anchorTag.href;
-        // Option 2: Using Attribute
-        // Note: The href property returns the full URL while the getAttribute method will only return the pathname if that is what's in the attribute
-        const url = anchorTag.getAttribute("href");
+    // document.querySelectorAll("a.navlink").forEach((anchorTag) => {
+    //   anchorTag.addEventListener("click", (event) => {
+    //     // Stopping the browser from creating new navigation
+    //     event.preventDefault();
 
-        // Calling the go method using the url
-        Router.go(url);
-      });
-    });
+    //     // Reading the href property of the anchorTag
+    //     // Option 1: Using Property
+    //     // const url = anchorTag.href;
+    //     // Option 2: Using Attribute
+    //     // Note: The href property returns the full URL while the getAttribute method will only return the pathname if that is what's in the attribute
+    //     const url = anchorTag.getAttribute("href");
+
+    //     // Calling the go method using the url
+    //     Router.go(url);
+    //   });
+    // });
 
     // Event Handler for URL changes
     window.addEventListener("popstate", (event) => {
@@ -38,66 +40,85 @@ const Router = {
 
     let pageElement = null;
 
+    // const user = JSON.parse(localStorage.getItem('user'));
+    const userID = JSON.parse(localStorage.getItem('userID'));
+    const userRole = JSON.parse(localStorage.getItem('userRole'));
+
     switch (route) {
+
       case "/starter-page":
         pageElement = document.createElement("start-page");
         break;
-      case "/login":
-        pageElement = document.createElement("login-page");
 
+      case "/login":
+
+        pageElement = document.createElement("login-page");
         break;
 
       case "/registration":
-        pageElement = document.createElement("registration-page");
 
+        pageElement = document.createElement("registration-page");
         break;
 
       case "/":
+
         if (app.state.isLoggedIn === !false) {
-          pageElement = document.createElement("starter-page");
 
+          pageElement = document.createElement("starter-page");
           break;
-        } else {
-          pageElement = document.createElement("starter-page");
 
+        } else {
+
+          pageElement = document.createElement("starter-page");
           break;
         }
 
-      case "/order":
-        pageElement = document.createElement("order-page");
-
-        break;
-
       case "/registered":
+
         pageElement = document.createElement("successfully-registered");
-
-        break;
-
-      case "/leo":
-        pageElement = document.createElement("leo-test");
-
         break;
 
       case "/main-page":
-        if (JSON.parse(localStorage.getItem("user")).role === "user") {
+
+        // if (JSON.parse(localStorage.getItem("user")).role === "user") {
+        //   pageElement = document.createElement("main-client-page");
+        // } else {
+        //   console.log("driver");
+        // }
+
+        // break;
+
+        if (userID && userRole === 'user') {
+
           pageElement = document.createElement("main-client-page");
-        } else {
-          console.log("driver");
+
+          break;
+
+        } else if (userID && userRole === 'driver') {
+
+          pageElement = document.createElement("driver-dashboard-page");
+
+          break;
+
+        }
+        else {
+
+          pageElement = document.createElement("login-page");
+
+          break;
+
         }
 
-        break;
 
       case "/report-incident":
+
         pageElement = document.createElement("report-incident-client");
-
         break;
+
       case "/incident-info":
+
         pageElement = document.createElement("incident-info");
-
         break;
-
-      case "/leo-test":
-        pageElement = document.createElement("kratik-leo");
 
       default:
     }
