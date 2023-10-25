@@ -14,6 +14,7 @@ import MainClientPage from "./components/MainClientPage";
 import ReportIncidentClient from "./components/ReportIncidentClient";
 import IncidentInfoClient from "./components/IncidentInfoClient";
 import TestLeo from "./components/TestLeo";
+import DriverDashboardPage from "./components/DriverDashboardPage.js";
 
 // Attaching app object to the window
 window.app = {};

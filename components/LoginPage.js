@@ -41,6 +41,8 @@ export default class LoginPage extends HTMLElement {
       };
 
       localStorage.setItem("user", JSON.stringify(finale));
+      localStorage.setItem("userID", JSON.stringify(finale.uid));
+      localStorage.setItem("userRole", JSON.stringify(finale.role));
 
       app.router.go("/main-page");
     } catch (error) {
