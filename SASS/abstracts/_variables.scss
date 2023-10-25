@@ -1,83 +1,19 @@
 $base-font-size: 16px;
-
-$ff-primary: "Open Sans", sans-serif;
-
-$body1-web-font-size: 1rem; // Converted from 16px
-$body1-web-font-weight: 400;
-$body1-web-line-height: 1.625rem; // Converted from 26px
-$body1-mobile-font-size: 1rem; // Converted from 16px
-$body1-mobile-font-weight: 400;
-$body1-mobile-line-height: 1.625rem; // Converted from 26px
-$body2-web-font-size: 0.875rem; // Converted from 14px
-$body2-web-font-weight: 400;
-$body2-web-line-height: 1.5rem; // Converted from 24px
-$body2-mobile-font-size: 0.875rem; // Converted from 14px
-$body2-mobile-font-weight: 400;
-$body2-mobile-line-height: 1.5rem; // Converted from 24px
-
-$h1-web-font-size: 2.5rem; // Converted from 40px
-$h1-web-font-weight: 700;
-$h1-web-line-height: 3.125rem; // Converted from 50px
-$h1-mobile-font-size: 2rem; // Converted from 32px
-$h1-mobile-font-weight: 700;
-$h1-mobile-line-height: 2.625rem; // Converted from 42px
-$h2-web-font-size: 2rem; // Converted from 32px
-$h2-web-font-weight: 600;
-$h2-web-line-height: 2.625rem; // Converted from 42px
-$h2-mobile-font-size: 1.5rem; // Converted from 24px
-$h2-mobile-font-weight: 600;
-$h2-mobile-line-height: 2rem; // Converted from 32px
-$h3-web-font-size: 1.5rem; // Converted from 24px
-$h3-web-font-weight: 600;
-$h3-web-line-height: 2.125rem; // Converted from 34px
-$h3-mobile-font-size: 1.25rem; // Converted from 20px
-$h3-mobile-font-weight: 600;
-$h3-mobile-line-height: 1.875rem; // Converted from 30px
-$h4-web-font-size: 1.125rem; // Converted from 18px
-$h4-web-font-weight: 600;
-$h4-web-line-height: 1.75rem; // Converted from 28px
-$h4-mobile-font-size: 1.125rem; // Converted from 18px
-$h4-mobile-font-weight: 600;
-$h4-mobile-line-height: 1.75rem; // Converted from 28px
-
-$btn-l-web-font-size: 1.25rem; // Converted from 20px
-$btn-l-web-font-weight: 700;
-$btn-l-web-line-height: 1.875rem; // Converted from 30px
-$btn-l-mobile-font-size: 1.25rem; // Converted from 20px
-$btn-l-mobile-font-weight: 700;
-$btn-l-mobile-line-height: 1.875rem; // Converted from 30px
+$ff-primary: 'Open Sans', sans-serif;
 
 // Primary Colors
 $clr-primary-1: #ffc501;
-$clr-primary-2: #1e2226;
+$clr-primary-2: #000000;
 $clr-primary-3: #f7f7f7;
-$clr-primary-4: #fe6f5e;
+$clr-primary-4: #ff5e67;
+$clr-primary-5: #dfe3e8;
+$clr-primary-5: #ffffff;
+$clr-primary-6: #919eab;
+$clr-primary-7: #191c1f;
+
+$primary-btn-width: 12.5rem;
+$primary-btn-padding: 0.82rem;
 
 // Secondary Colors
-$clr-info: #4d91ff;
-$clr-success: green;
-$clr-warning: yellow;
-$clr-error: #4d91ff;
 
-$transition: all 0.3s linear;
-
-$btn-large-width: 4rem; // Large button size
-$btn-large-height: 0.6rem; // Large button size
-
-$btn-medium-width: 3rem; // Medium button size
-$btn-medium-height: 0.3rem; // Medium button size
-
-$btn-small-width: 1rem; // Small button size
-$btn-small-height: 0.1rem; // Small button size
-
-// Button States
-$btn-default-background: $clr-primary-1;
-$btn-default-color: #fff;
-$btn-hover-background: $clr-primary-2;
-$btn-hover-color: #fff;
-$btn-focus-background: $clr-primary-3;
-$btn-focus-color: #000;
-$btn-selected-background: $clr-primary-4;
-$btn-selected-color: #fff;
-$btn-disabled-background: #ccc;
-$btn-disabled-color: #000;
+// Variables - End
