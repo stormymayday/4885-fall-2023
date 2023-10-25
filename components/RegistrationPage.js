@@ -58,8 +58,6 @@ export default class RegistrationPage extends HTMLElement {
         const finale = userDocSnapshot.data();
         finale.uid = userCredential.user.uid;
         localStorage.setItem("user", JSON.stringify(finale));
-
-        // app.router.go("/registered");
       } catch (error) {
         console.error(error);
       }
@@ -82,7 +80,6 @@ export default class RegistrationPage extends HTMLElement {
     if (!validatePhone(phoneNumber)) {
       console.log("phone number is wrong");
     }
-    // };
   };
 
   connectedCallback() {
@@ -94,11 +91,16 @@ export default class RegistrationPage extends HTMLElement {
 
     // Appending content to the DOM
     this.appendChild(content);
+    // leo
 
-    this.querySelector("#register-btn").addEventListener("click", (event) => {
-      event.preventDefault();
-      this.registration();
-    });
+    this.querySelector("#register-btn-registration").addEventListener(
+      "click",
+      (event) => {
+        event.preventDefault();
+        this.registration();
+        app.router.go("/registered");
+      }
+    );
 
     this.querySelector("#login-btn").addEventListener("click", (event) => {
       app.router.go(`/login`);
