@@ -4,6 +4,7 @@ import Router from "../services/Router.js";
 import { signOut } from "firebase/auth";
 import { auth, dataBase } from "../services/firebase.js";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { serverTimestamp } from "firebase/firestore";
 
 export default class DriverDashboardPage extends HTMLElement {
 
@@ -11,13 +12,15 @@ export default class DriverDashboardPage extends HTMLElement {
 
         super();
 
+        this.activeCases = [];
+
         this.map;
 
     }
 
     displayMap = async () => {
 
-        navigator.geolocation.getCurrentPosition((position) => {
+        navigator.geolocation.getCurrentPosition(async (position) => {
 
             // Succuss Callback Code:
 
@@ -49,7 +52,11 @@ export default class DriverDashboardPage extends HTMLElement {
 
             try {
 
-                this.getActiveCases();
+                await this.getActiveCases();
+
+                this.renderCaseCards();
+
+                this.renderMarkers();
 
             } catch (error) {
 
@@ -68,7 +75,110 @@ export default class DriverDashboardPage extends HTMLElement {
 
     }
 
-    getActiveCases = async () => {
+    renderMarkers() {
+
+        if (this.activeCases.length > 0) {
+
+            this.activeCases.forEach((activeCase) => {
+
+                console.log(activeCase);
+
+                const { latitude, longitude } = activeCase.data.coordinates;
+
+                let incidentMarker = {};
+
+                // Creating Markers on the Map
+                incidentMarker = L.marker([latitude, longitude]).addTo(this.map)
+                    .bindPopup(
+                        L.popup({
+                            autoClose: false,
+                            closeOnClick: false,
+                            className: 'running-popup',
+                        })
+                    )
+                    .setPopupContent(activeCase.data.notes)
+                    .openPopup();
+
+            });
+
+        } else {
+
+            console.log(`There are no active cases`);
+
+        }
+
+    }
+    // end of renderMarkers
+
+    myFunction(id) {
+        document.getElementById("id").innerHTML = "YOU CLICKED ME!";
+    }
+
+    renderCaseCards() {
+
+        if (this.activeCases.length > 0) {
+
+            const content = this.activeCases.map((activeCase) => {
+
+                const id = activeCase.id;
+                const { image, notes } = activeCase.data;
+                const date = new Date(activeCase.data.creationTime.seconds * 1000);
+
+                return `
+                    <div class="case-item" style="display:flex; padding: 2rem">
+                        <div class="case-img-container">
+                            <img src=${image} alt="" style="width:150px" />
+                        </div>
+                        <div class="case-info">
+                            <h3>${notes}</h3>
+                            <p>${date}</p>
+                            <button id=${id} class="case-btn">view incident</button>
+                        </div>
+                    </div>
+                `;
+
+
+            }).join('');
+
+            this.querySelector('.case-container').innerHTML = content;
+
+            // Selecting all 'View Incident' buttons and attaching an event listener
+            const viewCaseButtons = this.querySelectorAll('.case-btn');
+
+            viewCaseButtons.forEach(caseButton => {
+
+                caseButton.addEventListener('click', () => {
+
+                    console.log(`You clicked on a case button with an id of ${caseButton.id}`);
+
+                    // Setting Local Storage here
+                    const storedCases = JSON.parse(localStorage.getItem("activeCases"));
+                    const filteredCase = storedCases.filter((item) => {
+
+                        return caseButton.id == item.id;
+
+                    });
+                    localStorage.setItem("currentCase", JSON.stringify(filteredCase[0]));
+
+                    Router.go('/case');
+
+                });
+
+            });
+
+
+
+        } else {
+
+            console.log(`There are no active cases`);
+
+        }
+
+
+    }
+    // end of renderCaseCards
+
+    async getActiveCases() {
 
         const user = JSON.parse(localStorage.getItem('user'));
 
@@ -79,24 +189,36 @@ export default class DriverDashboardPage extends HTMLElement {
         querySnapshot.forEach((doc) => {
 
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id, " => ", doc.data());
+
+            let activeCase = {
+
+                id: doc.id,
+                data: doc.data()
+
+            };
+
+            this.activeCases.push(activeCase);
 
             const { latitude, longitude } = doc.data().coordinates;
 
             const coordinates = [latitude, longitude];
 
-            let incidentMarker = {};
+            localStorage.setItem("activeCases", JSON.stringify(this.activeCases));
 
-            incidentMarker = L.marker([latitude, longitude]).addTo(this.map)
-                .bindPopup(
-                    L.popup({
-                        autoClose: false,
-                        closeOnClick: false,
-                        className: 'running-popup',
-                    })
-                )
-                .setPopupContent(doc.data().notes)
-                .openPopup();
+            // let incidentMarker = {};
+
+            // Creating Markers on the Map
+            // incidentMarker = L.marker([latitude, longitude]).addTo(this.map)
+            //     .bindPopup(
+            //         L.popup({
+            //             autoClose: false,
+            //             closeOnClick: false,
+            //             className: 'running-popup',
+            //         })
+            //     )
+            //     .setPopupContent(doc.data().notes)
+            //     .openPopup();
 
         });
 
@@ -133,6 +255,8 @@ export default class DriverDashboardPage extends HTMLElement {
             if (navigator.geolocation) {
 
                 this.displayMap();
+
+
 
             }
             // end of navigator / Leaflet

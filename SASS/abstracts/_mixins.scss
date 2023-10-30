@@ -7,34 +7,35 @@
 	background-color: $background;
 	color: $color;
 	font-family: $ff-primary;
-	font-size: $btn-l-web-font-size;
-	font-weight: $btn-l-web-font-weight;
-	line-height: $btn-l-web-line-height;
+	// font-size: $btn-l-web-font-size;
+	// font-weight: $btn-l-web-font-weight;
+	// line-height: $btn-l-web-line-height;
 	border: none;
 	width: $width;
 	padding: $padding;
 	border-radius: $radius;
-	transition: $transition;
+	// transition: $transition;
 	max-width: 10rem;
 	margin: 1rem auto;
+
 	&:hover {
-		background-color: $btn-hover-background;
-		color: $btn-hover-color;
+		// background-color: $btn-hover-background;
+		// color: $btn-hover-color;
 	}
 
 	&:focus {
-		background-color: $btn-focus-background;
-		color: $btn-focus-color;
+		// background-color: $btn-focus-background;
+		// color: $btn-focus-color;
 	}
 
 	&:active {
-		background-color: $btn-selected-background;
-		color: $btn-selected-color;
+		// background-color: $btn-selected-background;
+		// color: $btn-selected-color;
 	}
 
 	&:disabled {
-		background-color: $btn-disabled-background;
-		color: $btn-disabled-color;
+		// background-color: $btn-disabled-background;
+		// color: $btn-disabled-color;
 	}
 }
 

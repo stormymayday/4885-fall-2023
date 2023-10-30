@@ -43,6 +43,7 @@ const Router = {
     // const user = JSON.parse(localStorage.getItem('user'));
     const userID = JSON.parse(localStorage.getItem('userID'));
     const userRole = JSON.parse(localStorage.getItem('userRole'));
+    const currentCase = JSON.parse(localStorage.getItem("currentCase"));
 
     switch (route) {
 
@@ -71,6 +72,30 @@ const Router = {
 
           pageElement = document.createElement("starter-page");
           break;
+        }
+
+      case "/case":
+
+        if (userID && currentCase && userRole === 'driver') {
+
+          pageElement = document.createElement("driver-view-case-page");
+          break;
+
+        }
+
+        // else if (userID && userRole === 'user') {
+
+        //   pageElement = document.createElement("driver-case-page");
+        //   break;
+
+        // } 
+
+        else {
+
+          pageElement = document.createElement("login-page");
+
+          break;
+
         }
 
       case "/registered":

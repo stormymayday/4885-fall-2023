@@ -1,5 +1,10 @@
 import "./styles.scss";
 
+import L from "leaflet";
+import 'leaflet-routing-machine';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
+
 // Services:
 import Router from "./services/Router.js";
 import State from "./services/State.js";
@@ -15,6 +20,7 @@ import ReportIncidentClient from "./components/ReportIncidentClient";
 import IncidentInfoClient from "./components/IncidentInfoClient";
 import TestLeo from "./components/TestLeo";
 import DriverDashboardPage from "./components/DriverDashboardPage.js";
+import DriverViewCasePage from './components/DriverViewCasePage.js';
 
 // Attaching app object to the window
 window.app = {};
