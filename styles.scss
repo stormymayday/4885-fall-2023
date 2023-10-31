@@ -13,6 +13,7 @@
 @import 'SASS/components/forms';
 @import 'SASS/layout/loginPage';
 @import 'SASS/layout/mainPage';
+@import 'SASS/layout/incidentPageClient';
 
 #map {
 	height: 60vh;
@@ -21,12 +22,12 @@
 // Leaflet Routing Machine Plugin CSS - Start
 .leaflet-routing-container,
 .leaflet-routing-error {
-  display: none;
-  width: 320px;
-  background-color: white;
-  padding-top: 40px;
-  transition: all 0.2s ease;
-  box-sizing: border-box;
+	display: none;
+	width: 320px;
+	background-color: white;
+	padding-top: 40px;
+	transition: all 0.2s ease;
+	box-sizing: border-box;
 }
 
 .leaflet-control-container .leaflet-routing-container-hide {
