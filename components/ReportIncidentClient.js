@@ -1,261 +1,259 @@
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
-import Router from "../services/Router.js";
+import Router from '../services/Router.js';
 
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { auth, dataBase, storage } from "../services/firebase.js";
-import { signOut } from "firebase/auth";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { auth, dataBase, storage } from '../services/firebase.js';
+import { signOut } from 'firebase/auth';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export default class ReportIncidentClient extends HTMLElement {
-  constructor() {
-    super();
+	constructor() {
+		super();
 
-    this.user = JSON.parse(localStorage.getItem("user"));
+		this.user = JSON.parse(localStorage.getItem('user'));
 
-    // Used for image name
-    this.name = new Date().getTime();
-    this.downloadURL;
-    this.latitude;
-    this.longitude;
-  }
+		// Used for image name
+		this.name = new Date().getTime();
+		this.downloadURL;
+		this.latitude;
+		this.longitude;
+	}
 
-  async logOut() {
-    await signOut(auth);
+	async logOut() {
+		await signOut(auth);
 
-    Router.go(`/login`);
-  }
+		Router.go(`/login`);
+	}
 
-  handleFileInput(input) {
-    const selectedFile = input.files[0];
+	handleFileInput(input) {
+		const selectedFile = input.files[0];
 
-    if (selectedFile) {
-      const imageUrl = URL.createObjectURL(selectedFile);
+		if (selectedFile) {
+			const imageUrl = URL.createObjectURL(selectedFile);
 
-      const imgContainer = document.querySelector("#img-container");
-      imgContainer.innerHTML = "";
+			const imgContainer = document.querySelector('#img-container');
+			imgContainer.innerHTML = '';
 
-      // Display the selected image (you can customize this part)
-      const imageElement = document.createElement("img");
-      imageElement.src = imageUrl;
-      imageElement.style.maxHeight = "300px";
-      imgContainer.appendChild(imageElement);
+			// Display the selected image (you can customize this part)
+			const imageElement = document.createElement('img');
+			imageElement.src = imageUrl;
+			imageElement.style.maxHeight = '300px';
+			imgContainer.appendChild(imageElement);
 
-      console.log(selectedFile);
+			console.log(selectedFile);
 
-      // Reset name here if you want to allow multiple uploads
-      // this.name = new Date().getTime();
+			// Reset name here if you want to allow multiple uploads
+			// this.name = new Date().getTime();
 
-      // You can also upload the image to a server or process it further.
-      const storageRef = ref(storage, `${this.name}`);
+			// You can also upload the image to a server or process it further.
+			const storageRef = ref(storage, `${this.name}`);
 
-      // 'file' comes from the Blob or File API
-      uploadBytes(storageRef, selectedFile).then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((downloadURL) => {
-          this.downloadURL = downloadURL;
+			// 'file' comes from the Blob or File API
+			uploadBytes(storageRef, selectedFile).then((snapshot) => {
+				getDownloadURL(snapshot.ref).then((downloadURL) => {
+					this.downloadURL = downloadURL;
 
-          console.log("File available at", downloadURL);
-        });
-      });
-    }
-  }
+					console.log('File available at', downloadURL);
+				});
+			});
+		}
+	}
 
-  createCase = async (e) => {
-    // e.preventDefault();
+	createCase = async (e) => {
+		// e.preventDefault();
 
-    // const user = JSON.parse(localStorage.getItem('user'));
+		// const user = JSON.parse(localStorage.getItem('user'));
 
-    const address = document.querySelector("#address").value;
-    const carMake = document.querySelector("#carMake").value;
-    const carModel = document.querySelector("#carModel").value;
-    const carType = document.querySelector("#carType").value;
-    const carColor = document.querySelector("#carColor").value;
-    const licensePlate = document.querySelector("#licensePlate").value;
-    const notes = document.querySelector("#notes").value;
+		const address = document.querySelector('#address').value;
+		const carMake = document.querySelector('#carMake').value;
+		const carModel = document.querySelector('#carModel').value;
+		const carType = document.querySelector('#carType').value;
+		const carColor = document.querySelector('#carColor').value;
+		const licensePlate = document.querySelector('#licensePlate').value;
+		const notes = document.querySelector('#notes').value;
 
-    // console.log(address);
-    // console.log(carMake);
-    // console.log(carType);
-    // console.log(carColor);
-    // console.log(licensePlate);
-    // console.log(notes);
+		// console.log(address);
+		// console.log(carMake);
+		// console.log(carType);
+		// console.log(carColor);
+		// console.log(licensePlate);
+		// console.log(notes);
 
-    try {
-      const response = await addDoc(collection(dataBase, "cases"), {
-        creationTime: serverTimestamp(),
-        completionTime: "",
-        reporterId: this.user.uid,
-        driverID: "",
-        coordinates: {
-          latitude: this.latitude,
-          longitude: this.longitude,
-        },
-        address: address,
-        image: this.downloadURL,
-        status: "active",
+		try {
+			const response = await addDoc(collection(dataBase, 'cases'), {
+				creationTime: serverTimestamp(),
+				completionTime: '',
+				reporterId: this.user.uid,
+				driverID: '',
+				coordinates: {
+					latitude: this.latitude,
+					longitude: this.longitude,
+				},
+				address: address,
+				image: this.downloadURL,
+				status: 'active',
 
-        carMake: carMake,
-        carModel: carModel,
-        carType: carType,
-        carColor: carColor,
-        licensePlate: licensePlate,
+				carMake: carMake,
+				carModel: carModel,
+				carType: carType,
+				carColor: carColor,
+				licensePlate: licensePlate,
 
-        notes: notes,
-      });
+				notes: notes,
+			});
 
-      Router.go("/main-page");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+			Router.go('/main-page');
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
-  connectedCallback() {
-    // console.log(name);
+	connectedCallback() {
+		// console.log(name);
 
-    // Getting template from the DOM
-    const template = document.getElementById("report-incident-client");
+		// Getting template from the DOM
+		const template = document.getElementById('report-incident-client');
 
-    // Cloning the template
-    const content = template.content.cloneNode(true);
+		// Cloning the template
+		const content = template.content.cloneNode(true);
 
-    // Appending content to the DOM
-    this.appendChild(content);
+		// Appending content to the DOM
+		this.appendChild(content);
 
-    const user = JSON.parse(localStorage.getItem("user"));
+		const user = JSON.parse(localStorage.getItem('user'));
 
-    if (user) {
-      this.querySelector("h1").innerHTML = `Welcome ${user.email}`;
+		if (user) {
+			// Testing if navigator.geolocation is supported by the browser
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(
+					(position) => {
+						// Succuss Callback Code:
 
-      // Testing if navigator.geolocation is supported by the browser
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            // Succuss Callback Code:
+						// Destructuring latitude and longitude from position.coords object
+						const { latitude } = position.coords;
+						const { longitude } = position.coords;
+						const coordinates = [latitude, longitude];
 
-            // Destructuring latitude and longitude from position.coords object
-            const { latitude } = position.coords;
-            const { longitude } = position.coords;
-            const coordinates = [latitude, longitude];
+						// Leaflet Code - Start
+						// Rendering map centered on a current user location (coordinates) with max zoom-in setting
+						const map = L.map('map').setView(coordinates, 18);
 
-            // Leaflet Code - Start
-            // Rendering map centered on a current user location (coordinates) with max zoom-in setting
-            const map = L.map("map").setView(coordinates, 18);
+						// Tilelayer
+						L.tileLayer('https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+							attribution:
+								'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+						}).addTo(map);
 
-            // Tilelayer
-            L.tileLayer("https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
-              attribution:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            }).addTo(map);
+						// Displaying a Marker with current user coordinates
+						L.marker(coordinates)
+							.addTo(map)
+							.bindPopup(
+								L.popup({
+									autoClose: false,
+									closeOnClick: false,
+									className: 'running-popup',
+								}),
+							)
+							.setPopupContent('You are currently here')
+							.openPopup();
 
-            // Displaying a Marker with current user coordinates
-            L.marker(coordinates)
-              .addTo(map)
-              .bindPopup(
-                L.popup({
-                  autoClose: false,
-                  closeOnClick: false,
-                  className: "running-popup",
-                })
-              )
-              .setPopupContent("You are currently here")
-              .openPopup();
+						// Variable for tracking user clicks on the map
+						let clickMarker = {};
 
-            // Variable for tracking user clicks on the map
-            let clickMarker = {};
+						// Adding 'click' eventListener to the map
+						map.on('click', (mapEvent) => {
+							// Destructuring latitude and longitude from mapEvent.latlng object
+							const { lat, lng } = mapEvent.latlng;
 
-            // Adding 'click' eventListener to the map
-            map.on("click", (mapEvent) => {
-              // Destructuring latitude and longitude from mapEvent.latlng object
-              const { lat, lng } = mapEvent.latlng;
+							this.latitude = lat;
+							this.longitude = lng;
 
-              this.latitude = lat;
-              this.longitude = lng;
+							// Checking if clickMarker already on the map
+							if (clickMarker != undefined) {
+								// Removing clickMarker from the map
+								map.removeLayer(clickMarker);
+							}
 
-              // Checking if clickMarker already on the map
-              if (clickMarker != undefined) {
-                // Removing clickMarker from the map
-                map.removeLayer(clickMarker);
-              }
+							//Adding clickMarker to the map
+							clickMarker = L.marker([lat, lng])
+								.addTo(map)
+								.bindPopup(
+									L.popup({
+										autoClose: false,
+										closeOnClick: false,
+										className: 'running-popup',
+									}),
+								)
+								.setPopupContent('Incident location')
+								.openPopup();
 
-              //Adding clickMarker to the map
-              clickMarker = L.marker([lat, lng])
-                .addTo(map)
-                .bindPopup(
-                  L.popup({
-                    autoClose: false,
-                    closeOnClick: false,
-                    className: "running-popup",
-                  })
-                )
-                .setPopupContent("Incident location")
-                .openPopup();
+							console.log(`User clicked on ${lat} ${lng} coordinates`);
+						});
 
-              console.log(`User clicked on ${lat} ${lng} coordinates`);
-            });
+						// Leaflet Code - End
+					},
+					() => {
+						// Error Callback Code:
 
-            // Leaflet Code - End
-          },
-          () => {
-            // Error Callback Code:
+						alert(
+							`Unfortunately, TowTackle was not able to pick up your position.`,
+						);
+					},
+				);
+			}
+			// end of navigator / Leaflet
 
-            alert(
-              `Unfortunately, TowTackle was not able to pick up your position.`
-            );
-          }
-        );
-      }
-      // end of navigator / Leaflet
+			// Image Capture - Start
+			let videoPlayer = this.querySelector('#player');
+			let canvasElement = this.querySelector('#canvas');
+			let captureBtn = this.querySelector('#capture-btn');
+			let imagePicker = this.querySelector('#image-picker');
+			let imagePickerDiv = this.querySelector('#pick-image');
+			let picture;
+		}
 
-      // Image Capture - Start
-      let videoPlayer = this.querySelector("#player");
-      let canvasElement = this.querySelector("#canvas");
-      let captureBtn = this.querySelector("#capture-btn");
-      let imagePicker = this.querySelector("#image-picker");
-      let imagePickerDiv = this.querySelector("#pick-image");
-      let picture;
-    }
+		this.querySelector('#file-input').addEventListener(
+			'change',
+			async (event) => {
+				this.handleFileInput(document.querySelector('#file-input'));
+			},
+		);
 
-    this.querySelector("#file-input").addEventListener(
-      "change",
-      async (event) => {
-        this.handleFileInput(document.querySelector("#file-input"));
-      }
-    );
+		this.querySelector('#back-btn').addEventListener('click', async (event) => {
+			// Stopping the video stream
+			// this.stopMedia();
 
-    this.querySelector("#back-btn").addEventListener("click", async (event) => {
-      // Stopping the video stream
-      // this.stopMedia();
+			app.router.go(`/main-page`);
+		});
 
-      app.router.go(`/main-page`);
-    });
+		this.querySelector('#incident-form').addEventListener(
+			'submit',
+			async (event) => {
+				event.preventDefault();
 
-    this.querySelector("#incident-form").addEventListener(
-      "submit",
-      async (event) => {
-        event.preventDefault();
+				// Stopping the video stream
+				// this.stopMedia();
 
-        // Stopping the video stream
-        // this.stopMedia();
+				this.createCase();
+			},
+		);
 
-        this.createCase();
-      }
-    );
+		this.querySelector('#logout-btn').addEventListener(
+			'click',
+			async (event) => {
+				// Stopping the video stream
+				// this.stopMedia();
 
-    this.querySelector("#logout-btn").addEventListener(
-      "click",
-      async (event) => {
-        // Stopping the video stream
-        // this.stopMedia();
+				localStorage.clear();
 
-        localStorage.clear();
-
-        await this.logOut();
-      }
-    );
-  }
+				await this.logOut();
+			},
+		);
+	}
 }
 
-customElements.define("report-incident-client", ReportIncidentClient);
+customElements.define('report-incident-client', ReportIncidentClient);
 
 // Al the futher functionality goes on this page
