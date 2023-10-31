@@ -277,7 +277,7 @@
           <div class="lifleet" id="map">
           </div>
         </div>
-        <div class="right-side">
+        <div class="incident-client-page-right-side">
           <div class="report-incident-arrows">
             <div class="arrows">
               <i class="left-arrow-icon"></i>
@@ -288,19 +288,21 @@
           <div class="progress-bar">
             <h5>Add wrongly parked vehicle picture</h5>
             <div class="progress-bar-icons">
-              <div class="icon-photo-group"><i class="icon-photo"></i><span>capture incident</span></div>
+              <div class="icon-photo-group"><i class="icon-photo"></i><span>Capture incident</span></div>
               <div class="icon-vechile-group"><i class="icon-vechile"></i><span>Vechile Details</span></div>
               <div class="icon-spot-group"><i class="icon-spot"></i><span>Spot Location</span></div>
             </div>
           </div>
-          <div id="img-container"></div>
-
-          <div id="create-post">
-
+          <div class="first-step-upload-picture">
+            <div id="img-container" class="img-container-for-upload-img"></div>
+            <div  class="upload-div-img"><input type="file" id="file-input" name="file-upload" accept="image/png, image/jpeg"/></div>
+            <p>Upload images</p>
+            <p>Drop Files Here click <span>browse</span> through your computer (Required JPEG, JPG, PNG)</p>
+          </div>
+          
+          <div id="create-post" class="second-stage-form-incident-page">
             <form id="incident-form">
-              <label for="file-input">Upload File:</label>
-              <input type="file" id="file-input" name="file-upload" accept="image/png, image/jpeg" /><br /><br />
-
+             
               <label for="address">Address:</label>
               <input type="text" id="address" name="address" /><br /><br />
 
