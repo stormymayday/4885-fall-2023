@@ -38,4 +38,4 @@ window.addEventListener("DOMContentLoaded", async () => {
   app.router.init();
 });
 
-console.log(import.meta.env.VITE_TEST);
+// console.log(import.meta.env.VITE_TEST);
