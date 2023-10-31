@@ -1,38 +1,39 @@
-@import "../abstracts/variables";
+@import '../abstracts/variables';
 // Define a mixin for form groups
 // Define a mixin for labels
-
 // $clr-primary-1: #ffc501;
-// $clr-primary-2: #1e2226;
+// $clr-primary-2: #000000;
 // $clr-primary-3: #f7f7f7;
-// $clr-primary-4: #fe6f5e;
-
-// // Secondary Colors
-// $clr-info: #4d91ff;
-// $clr-success: green;
-// $clr-warning: yellow;
-// $clr-error: #4d91ff;
+// $clr-primary-4: #ff5e67;
+// $clr-primary-5: #dfe3e8;
+// $clr-primary-5: #ffffff;
+// $clr-primary-6: #919eab;
+// $clr-primary-7: #191c1f;
 
 .form-label {
-  display: inline-block;
-  font: bold 1.5rem;
-  margin-bottom: 0.5rem;
+	display: inline-block;
+	font: bold 1.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.form-group {
+	// margin: 0.5rem;
 }
 
 // Define a mixin for inputs
 .form-input {
-  width: 100%;
-  padding: 0.1rem;
-  border: 1px solid $clr-primary-2;
-  border-radius: 0;
-  &input::placeholder,
-  textarea::placeholder {
-    opacity: 1; /* Firefox */
-    color: $clr-primary-4;
-  }
+	width: 100%;
+	padding: 0.5rem;
+	border: 1px solid rgb($clr-primary-2, 0.2);
+	background-color: transparent;
+	border-radius: 0;
+	color: #000;
+	margin-top: 1rem;
 }
 
 .form-login {
-  display: inline-block;
-  text-align: left;
+	display: inline-block;
+	text-align: left;
+	background-color: transparent;
+	width: 100%;
 }
