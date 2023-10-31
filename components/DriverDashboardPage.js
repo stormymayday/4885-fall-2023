@@ -256,8 +256,6 @@ export default class DriverDashboardPage extends HTMLElement {
 
                 this.displayMap();
 
-
-
             }
             // end of navigator / Leaflet
 
