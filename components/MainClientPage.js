@@ -45,8 +45,14 @@ export default class MainClientPage extends HTMLElement {
       // Rendering map centered on a current user location (coordinates) with max zoom-in setting
       this.map = L.map('map').setView(coordinates, 18);
 
+      // Original Tile
+      const originalTile = 'https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+
+      // Stadia_AlidadeSmooth Tile
+      const Stadia_AlidadeSmooth = 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png';
+
       // Tilelayer
-      L.tileLayer('https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+      L.tileLayer(Stadia_AlidadeSmooth, {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(this.map);
 
