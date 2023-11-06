@@ -189,7 +189,27 @@ export default class DriverViewCasePage extends HTMLElement {
 
             });
 
-            this.renderAcceptCaseUI();
+            // this.renderAcceptCaseUI();
+
+            // Dynamic Driver Positioning
+            navigator.geolocation.watchPosition((position) => {
+
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                const accuracy = position.coords.accuracy;
+
+                this.driverCoordinates = [latitude, longitude];
+
+                console.log(`Changing Coordinates ===`);
+                console.log(`Latitude: ${this.driverCoordinates[0]}`);
+                console.log(`Longitude: ${this.driverCoordinates[1]}`);
+                console.log(`========================`);
+
+                this.renderAcceptCaseUI();
+
+            }, (error) => {
+                console.error(`Error getting geolocation: ${error.message}`);
+            });
 
         });
 
@@ -201,6 +221,11 @@ export default class DriverViewCasePage extends HTMLElement {
         // Clearing Markers
         this.map.removeLayer(this.driverMaker);
         this.map.removeLayer(this.incidentMarker);
+
+        // Clearing Routing Control
+        if (this.leafletRoutingControl) {
+            this.map.removeControl(this.leafletRoutingControl);
+        }
 
         // Create a control and add it to the map
         this.leafletRoutingControl = L.Routing.control({
