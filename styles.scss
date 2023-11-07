@@ -61,9 +61,7 @@
 }
 
 .leaflet-control-container .leaflet-routing-container-hide .leaflet-routing-alt,
-.leaflet-control-container
-	.leaflet-routing-container-hide
-	.leaflet-routing-geocoders {
+.leaflet-control-container .leaflet-routing-container-hide .leaflet-routing-geocoders {
 	display: none;
 }
 
@@ -102,7 +100,7 @@
 }
 
 .leaflet-routing-icon {
-	background-image: url('leaflet.routing.icons.png');
+	background-image: url('/src/images/marker-icon-2x.png');
 	-webkit-background-size: 240px 20px;
 	background-size: 240px 20px;
 	background-repeat: no-repeat;
