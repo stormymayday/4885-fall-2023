@@ -33,6 +33,8 @@ export default class DriverViewCasePage extends HTMLElement {
 
         this.leafletRoutingControl;
 
+        this.watchID;
+
     }
 
     getCurrentCaseFromLocalStorage() {
@@ -213,27 +215,27 @@ export default class DriverViewCasePage extends HTMLElement {
 
             });
 
-            // this.renderAcceptCaseUI();
+            this.renderAcceptCaseUI();
 
             // Dynamic Driver Positioning
-            navigator.geolocation.watchPosition((position) => {
+            // navigator.geolocation.watchPosition((position) => {
 
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-                const accuracy = position.coords.accuracy;
+            //     const latitude = position.coords.latitude;
+            //     const longitude = position.coords.longitude;
+            //     const accuracy = position.coords.accuracy;
 
-                this.driverCoordinates = [latitude, longitude];
+            //     this.driverCoordinates = [latitude, longitude];
 
-                console.log(`Changing Coordinates ===`);
-                console.log(`Latitude: ${this.driverCoordinates[0]}`);
-                console.log(`Longitude: ${this.driverCoordinates[1]}`);
-                console.log(`========================`);
+            //     console.log(`Changing Coordinates ===`);
+            //     console.log(`Latitude: ${this.driverCoordinates[0]}`);
+            //     console.log(`Longitude: ${this.driverCoordinates[1]}`);
+            //     console.log(`========================`);
 
-                this.renderAcceptCaseUI();
+            //     this.renderAcceptCaseUI();
 
-            }, (error) => {
-                console.error(`Error getting geolocation: ${error.message}`);
-            });
+            // }, (error) => {
+            //     console.error(`Error getting geolocation: ${error.message}`);
+            // });
 
         });
 
@@ -242,126 +244,147 @@ export default class DriverViewCasePage extends HTMLElement {
 
     renderAcceptCaseUI() {
 
-        // Clearing Markers
-        this.map.removeLayer(this.driverMaker);
-        this.map.removeLayer(this.incidentMarker);
+        // Dynamic Driver Positioning
+        this.watchID = navigator.geolocation.watchPosition((position) => {
 
-        // Clearing Routing Control
-        if (this.leafletRoutingControl) {
-            this.map.removeControl(this.leafletRoutingControl);
-        }
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const accuracy = position.coords.accuracy;
 
-        let leafletIcon = L.icon({
-            iconUrl: markerIcon,
-            iconRetinaUrl: markerIcon2x,
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowUrl: markerShadow,
-            // shadowRetinaUrl: 'marker-shadow-2x.png',
-            shadowSize: [41, 41],
-            shadowAnchor: [12, 41]
-        });
+            this.driverCoordinates = [latitude, longitude];
 
-        // Create a control and add it to the map
-        this.leafletRoutingControl = L.Routing.control({
-            // waypoints: [
-            //     L.latLng(this.driverCoordinates[0], this.driverCoordinates[1]),
-            //     L.latLng(this.caseLatitude, this.caseLongitude)
-            // ],
-            waypoints: [
-                L.Routing.waypoint(L.latLng(this.driverCoordinates[0], this.driverCoordinates[1]), leafletIcon),
-                L.Routing.waypoint(L.latLng(this.caseLatitude, this.caseLongitude), leafletIcon)
-            ],
-            routeWhileDragging: true
-        });
+            console.log(`Changing Coordinates ===`);
+            console.log(`Latitude: ${this.driverCoordinates[0]}`);
+            console.log(`Longitude: ${this.driverCoordinates[1]}`);
+            console.log(`========================`);
 
-        this.leafletRoutingControl.addTo(this.map);
 
-        // Listen for the "routesfound" event
-        this.leafletRoutingControl.on('routesfound', (e) => {
-            const routes = e.routes; // Get the array of routes
-            if (routes.length > 0) {
-                // Extract and display directions data from the first route
-                const directions = routes[0].instructions;
-                displayDirections(directions, routes);
+            // Start
+
+            // Clearing Markers
+            this.map.removeLayer(this.driverMaker);
+            this.map.removeLayer(this.incidentMarker);
+
+            // Clearing Routing Control
+            if (this.leafletRoutingControl) {
+                this.map.removeControl(this.leafletRoutingControl);
             }
+
+            let leafletIcon = L.icon({
+                iconUrl: markerIcon,
+                iconRetinaUrl: markerIcon2x,
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowUrl: markerShadow,
+                // shadowRetinaUrl: 'marker-shadow-2x.png',
+                shadowSize: [41, 41],
+                shadowAnchor: [12, 41]
+            });
+
+            // Create a control and add it to the map
+            this.leafletRoutingControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(this.driverCoordinates[0], this.driverCoordinates[1]),
+                    L.latLng(this.caseLatitude, this.caseLongitude)
+                ],
+                routeWhileDragging: true
+            });
+
+            this.leafletRoutingControl.addTo(this.map);
+
+            // Listen for the "routesfound" event
+            this.leafletRoutingControl.on('routesfound', (e) => {
+                const routes = e.routes; // Get the array of routes
+                if (routes.length > 0) {
+                    // Extract and display directions data from the first route
+                    const directions = routes[0].instructions;
+                    displayDirections(directions, routes);
+                }
+            });
+
+            function displayDirections(directions, routes) {
+
+                const directionsContainer = document.getElementById('directions-container');
+                directionsContainer.innerHTML = ''; // Clear previous directions
+
+                // Current Street
+                const currentStreet = `Current Street: ${routes[0].instructions[0].road}`;
+                const currentStreetHeader = document.createElement('h4');
+                currentStreetHeader.innerHTML = currentStreet;
+                directionsContainer.appendChild(currentStreetHeader);
+
+                // Destination Street
+                const destinationStreet = `Destination Street: ${routes[0].instructions[routes[0].instructions.length - 1].road}`;
+                const destinationStreetHeader = document.createElement('h4');
+                destinationStreetHeader.innerHTML = destinationStreet;
+                directionsContainer.appendChild(destinationStreetHeader);
+
+                // Total Distance in km
+                const totalDistance = `${(routes[0].summary.totalDistance / 1000).toFixed(2)} km`;
+                const distanceHeader = document.createElement('h4');
+                distanceHeader.innerHTML = totalDistance;
+                directionsContainer.appendChild(distanceHeader);
+
+                // Checking total distance
+                if (routes[0].summary.totalDistance / 1000 > 0.01) {
+                    document.getElementById("complete-case").disabled = true;
+                } else {
+                    document.getElementById("complete-case").disabled = false;
+                }
+                console.log(routes[0].summary.totalDistance / 1000);
+
+                // console.log(document.getElementById("cancel-case"));
+
+                // Total Time in mins
+                const totalTime = `${Math.round(routes[0].summary.totalTime / 60)} min`;
+                const totalTimeHeader = document.createElement('h4');
+                totalTimeHeader.innerHTML = totalTime;
+                directionsContainer.appendChild(totalTimeHeader);
+
+                // Current Time
+                let date = new Date();
+                let hours = date.getHours();
+                let minutes = date.getMinutes();
+                let am_pm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                const currentTime = `${hours}:${minutes} ${am_pm}`;
+                const currentTimeHeader = document.createElement('h4');
+                currentTimeHeader.innerHTML = currentTime;
+                directionsContainer.appendChild(currentTimeHeader);
+
+                // Current Instruction
+                const currentInstruction = `${routes[0].instructions[0].text} ${Math.round(routes[0].instructions[0].distance)} m`;
+                const currentInstructionDiv = document.createElement('div');
+                currentInstructionDiv.innerHTML = currentInstruction;
+                directionsContainer.appendChild(currentInstructionDiv);
+
+                // All Instructions (DO NOT DELETE)
+                // directions.forEach((step, index) => {
+                //     const instruction = step.text;
+                //     const distance = step.distance;
+                //     // With Index:
+                //     // const formattedStep = `${index + 1}. ${instruction} ${Math.round(distance)} m`;
+                //     // Without Index
+                //     const formattedStep = `${instruction} ${Math.round(distance)} m`;
+                //     const stepElement = document.createElement('div');
+                //     stepElement.textContent = formattedStep;
+                //     directionsContainer.appendChild(stepElement);
+
+                //     // Log the step object to inspect its structure
+                //     console.log(step);
+                // });
+            }
+
+            // End
+
+
+        }, (error) => {
+            console.error(`Error getting geolocation: ${error.message}`);
         });
 
-        function displayDirections(directions, routes) {
-
-            const directionsContainer = document.getElementById('directions-container');
-            directionsContainer.innerHTML = ''; // Clear previous directions
-
-            // Current Street
-            const currentStreet = `Current Street: ${routes[0].instructions[0].road}`;
-            const currentStreetHeader = document.createElement('h4');
-            currentStreetHeader.innerHTML = currentStreet;
-            directionsContainer.appendChild(currentStreetHeader);
-
-            // Destination Street
-            const destinationStreet = `Destination Street: ${routes[0].instructions[routes[0].instructions.length - 1].road}`;
-            const destinationStreetHeader = document.createElement('h4');
-            destinationStreetHeader.innerHTML = destinationStreet;
-            directionsContainer.appendChild(destinationStreetHeader);
-
-            // Total Distance in km
-            const totalDistance = `${(routes[0].summary.totalDistance / 1000).toFixed(2)} km`;
-            const distanceHeader = document.createElement('h4');
-            distanceHeader.innerHTML = totalDistance;
-            directionsContainer.appendChild(distanceHeader);
-
-            // Checking total distance
-            if (routes[0].summary.totalDistance / 1000 > 0.01) {
-                document.getElementById("complete-case").disabled = true;
-            } else {
-                document.getElementById("complete-case").disabled = false;
-            }
-            console.log(routes[0].summary.totalDistance / 1000);
-
-            // console.log(document.getElementById("cancel-case"));
-
-            // Total Time in mins
-            const totalTime = `${Math.round(routes[0].summary.totalTime / 60)} min`;
-            const totalTimeHeader = document.createElement('h4');
-            totalTimeHeader.innerHTML = totalTime;
-            directionsContainer.appendChild(totalTimeHeader);
-
-            // Current Time
-            let date = new Date();
-            let hours = date.getHours();
-            let minutes = date.getMinutes();
-            let am_pm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            const currentTime = `${hours}:${minutes} ${am_pm}`;
-            const currentTimeHeader = document.createElement('h4');
-            currentTimeHeader.innerHTML = currentTime;
-            directionsContainer.appendChild(currentTimeHeader);
-
-            // Current Instruction
-            const currentInstruction = `${routes[0].instructions[0].text} ${Math.round(routes[0].instructions[0].distance)} m`;
-            const currentInstructionDiv = document.createElement('div');
-            currentInstructionDiv.innerHTML = currentInstruction;
-            directionsContainer.appendChild(currentInstructionDiv);
-
-            // All Instructions (DO NOT DELETE)
-            // directions.forEach((step, index) => {
-            //     const instruction = step.text;
-            //     const distance = step.distance;
-            //     // With Index:
-            //     // const formattedStep = `${index + 1}. ${instruction} ${Math.round(distance)} m`;
-            //     // Without Index
-            //     const formattedStep = `${instruction} ${Math.round(distance)} m`;
-            //     const stepElement = document.createElement('div');
-            //     stepElement.textContent = formattedStep;
-            //     directionsContainer.appendChild(stepElement);
-
-            //     // Log the step object to inspect its structure
-            //     console.log(step);
-            // });
-        }
 
         this.querySelector(".case-container").innerHTML = `
             <button id="cancel-case">Cancel</button>
@@ -372,11 +395,12 @@ export default class DriverViewCasePage extends HTMLElement {
 
             console.log('Cancelling Case');
 
+            navigator.geolocation.clearWatch(this.watchID);
+
             // Changing case status to 'active'
             const caseRef = doc(dataBase, "cases", this.currentCase.id);
             await updateDoc(caseRef, {
                 status: 'active',
-
             });
 
             this.setDriverCoordinates();
@@ -427,6 +451,24 @@ export default class DriverViewCasePage extends HTMLElement {
         const userRole = JSON.parse(localStorage.getItem('userRole'));
 
         if (user) {
+
+            // Dynamic Driver Positioning
+            // navigator.geolocation.watchPosition((position) => {
+
+            //     const latitude = position.coords.latitude;
+            //     const longitude = position.coords.longitude;
+            //     const accuracy = position.coords.accuracy;
+
+            //     this.driverCoordinates = [latitude, longitude];
+
+            //     console.log(`Changing Coordinates ===`);
+            //     console.log(`Latitude: ${this.driverCoordinates[0]}`);
+            //     console.log(`Longitude: ${this.driverCoordinates[1]}`);
+            //     console.log(`========================`);
+
+            // }, (error) => {
+            //     console.error(`Error getting geolocation: ${error.message}`);
+            // });
 
             this.querySelector('h2').innerHTML = `Welcome ${user.email}`;
             this.querySelector('h3').innerHTML = `Welcome ${userRole}`;
