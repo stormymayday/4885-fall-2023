@@ -2,6 +2,7 @@
 import L from "leaflet";
 import 'leaflet-routing-machine';
 import 'leaflet/dist/leaflet.css';
+import "leaflet/dist/images/marker-shadow.png";
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import Router from "../services/Router.js";
 import { signOut } from "firebase/auth";
