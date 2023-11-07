@@ -1,6 +1,8 @@
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import "leaflet/dist/images/marker-shadow.png";
+import markerIcon from "../src/images/marker-icon.png";
+import markerIcon2x from "../src/images/marker-icon-2x.png";
+import markerShadow from "../src/images/marker-shadow.png";
 import Router from '../services/Router.js';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { auth, dataBase, storage } from '../services/firebase.js';
@@ -148,8 +150,20 @@ export default class ReportIncidentClient extends HTMLElement {
 								'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 						}).addTo(map);
 
+						let leafletIcon = L.icon({
+							iconUrl: markerIcon,
+							iconRetinaUrl: markerIcon2x,
+							iconSize: [25, 41],
+							iconAnchor: [12, 41],
+							popupAnchor: [1, -34],
+							shadowUrl: markerShadow,
+							// shadowRetinaUrl: 'marker-shadow-2x.png',
+							shadowSize: [41, 41],
+							shadowAnchor: [12, 41]
+						});
+
 						// Displaying a Marker with current user coordinates
-						L.marker(coordinates)
+						L.marker(coordinates, { icon: leafletIcon })
 							.addTo(map)
 							.bindPopup(
 								L.popup({
@@ -178,8 +192,20 @@ export default class ReportIncidentClient extends HTMLElement {
 								map.removeLayer(clickMarker);
 							}
 
+							let leafletIcon = L.icon({
+								iconUrl: markerIcon,
+								iconRetinaUrl: markerIcon2x,
+								iconSize: [25, 41],
+								iconAnchor: [12, 41],
+								popupAnchor: [1, -34],
+								shadowUrl: markerShadow,
+								// shadowRetinaUrl: 'marker-shadow-2x.png',
+								shadowSize: [41, 41],
+								shadowAnchor: [12, 41]
+							});
+
 							//Adding clickMarker to the map
-							clickMarker = L.marker([lat, lng])
+							clickMarker = L.marker([lat, lng], { icon: leafletIcon })
 								.addTo(map)
 								.bindPopup(
 									L.popup({

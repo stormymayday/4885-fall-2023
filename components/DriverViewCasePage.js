@@ -2,7 +2,9 @@
 import L from "leaflet";
 import 'leaflet-routing-machine';
 import 'leaflet/dist/leaflet.css';
-import "leaflet/dist/images/marker-shadow.png";
+import markerIcon from "../src/images/marker-icon.png";
+import markerIcon2x from "../src/images/marker-icon-2x.png";
+import markerShadow from "../src/images/marker-shadow.png";
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import Router from "../services/Router.js";
 import { signOut } from "firebase/auth";
@@ -102,8 +104,20 @@ export default class DriverViewCasePage extends HTMLElement {
 
         if (this.map) {
 
+            let leafletIcon = L.icon({
+                iconUrl: markerIcon,
+                iconRetinaUrl: markerIcon2x,
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowUrl: markerShadow,
+                // shadowRetinaUrl: 'marker-shadow-2x.png',
+                shadowSize: [41, 41],
+                shadowAnchor: [12, 41]
+            });
+
             // Displaying a Marker with current user coordinates
-            this.driverMaker = L.marker(this.driverCoordinates).addTo(this.map)
+            this.driverMaker = L.marker(this.driverCoordinates, { icon: leafletIcon }).addTo(this.map)
                 .bindPopup(
                     L.popup({
                         autoClose: false,
@@ -124,8 +138,20 @@ export default class DriverViewCasePage extends HTMLElement {
 
         if (this.map) {
 
+            let leafletIcon = L.icon({
+                iconUrl: markerIcon,
+                iconRetinaUrl: markerIcon2x,
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowUrl: markerShadow,
+                // shadowRetinaUrl: 'marker-shadow-2x.png',
+                shadowSize: [41, 41],
+                shadowAnchor: [12, 41]
+            });
+
             // Displaying Case marker
-            this.incidentMarker = L.marker([this.caseLatitude, this.caseLongitude]).addTo(this.map)
+            this.incidentMarker = L.marker([this.caseLatitude, this.caseLongitude], { icon: leafletIcon }).addTo(this.map)
                 .bindPopup(
                     L.popup({
                         autoClose: false,
@@ -225,11 +251,27 @@ export default class DriverViewCasePage extends HTMLElement {
             this.map.removeControl(this.leafletRoutingControl);
         }
 
+        let leafletIcon = L.icon({
+            iconUrl: markerIcon,
+            iconRetinaUrl: markerIcon2x,
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowUrl: markerShadow,
+            // shadowRetinaUrl: 'marker-shadow-2x.png',
+            shadowSize: [41, 41],
+            shadowAnchor: [12, 41]
+        });
+
         // Create a control and add it to the map
         this.leafletRoutingControl = L.Routing.control({
+            // waypoints: [
+            //     L.latLng(this.driverCoordinates[0], this.driverCoordinates[1]),
+            //     L.latLng(this.caseLatitude, this.caseLongitude)
+            // ],
             waypoints: [
-                L.latLng(this.driverCoordinates[0], this.driverCoordinates[1]),
-                L.latLng(this.caseLatitude, this.caseLongitude)
+                L.Routing.waypoint(L.latLng(this.driverCoordinates[0], this.driverCoordinates[1]), leafletIcon),
+                L.Routing.waypoint(L.latLng(this.caseLatitude, this.caseLongitude), leafletIcon)
             ],
             routeWhileDragging: true
         });
