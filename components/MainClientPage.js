@@ -56,6 +56,8 @@ export default class MainClientPage extends HTMLElement {
 				// Mapbox Monochrome
 				const monochrome = `https://api.mapbox.com/styles/v1/stormymayday/${import.meta.env.VITE_MAPBOX_STYLE}/tiles/256/{z}/{x}/{y}@2x?access_token=${import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}`;
 
+				console.log(monochrome);
+
 				// Tilelayer
 				L.tileLayer(monochrome, {
 					attribution:
