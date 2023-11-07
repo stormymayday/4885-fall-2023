@@ -1,8 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-
+import "leaflet/dist/images/marker-shadow.png";
 import Router from '../services/Router.js';
-
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { auth, dataBase, storage } from '../services/firebase.js';
 import { signOut } from 'firebase/auth';
