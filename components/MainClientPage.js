@@ -50,12 +50,8 @@ export default class MainClientPage extends HTMLElement {
 				const originalTile =
 					'https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
 
-				// Stadia_AlidadeSmooth Tile
-				const Stadia_AlidadeSmooth =
-					'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png';
-
 				// Tilelayer
-				L.tileLayer(Stadia_AlidadeSmooth, {
+				L.tileLayer(`https://api.mapbox.com/styles/v1/stormymayday/${import.meta.env.VITE_MAPBOX_STYLE}/tiles/256/{z}/{x}/{y}@2x?access_token=${import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}`, {
 					attribution:
 						'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 				}).addTo(this.map);
@@ -99,9 +95,8 @@ export default class MainClientPage extends HTMLElement {
               <div id="popup-form">
 
                 <div id="img-container">
-                  <img src="${incidentCase.data().image}" alt="${
-								incidentCase.data().carMake
-							}" height="150">
+                  <img src="${incidentCase.data().image}" alt="${incidentCase.data().carMake
+									}" height="150">
                 </div>
 
                 <form id="my-form">
@@ -110,18 +105,15 @@ export default class MainClientPage extends HTMLElement {
                   <input type="file" id="file-input" name="file-upload" accept="image/png, image/jpeg" /><br /><br />
 
                   <label for="address">Address:</label>
-                  <input type="text" id="address" name="address" value="${
-										incidentCase.data().address
+                  <input type="text" id="address" name="address" value="${incidentCase.data().address
 									}" /><br />
 
                   <label for="carMake">Car Make:</label>
-                  <input type="text" id="carMake" name="carMake" value="${
-										incidentCase.data().carMake
+                  <input type="text" id="carMake" name="carMake" value="${incidentCase.data().carMake
 									}" /><br />
 
                   <label for="carModel">Car Model:</label>
-                  <input type="text" id="carModel" name="carModel" value="${
-										incidentCase.data().carModel
+                  <input type="text" id="carModel" name="carModel" value="${incidentCase.data().carModel
 									}" /><br />
 
                   <label for="carType">Car Type:</label>
@@ -134,18 +126,15 @@ export default class MainClientPage extends HTMLElement {
                   </select><br /><br />
 
                   <label for="carColor">Car Color:</label>
-                  <input type="text" id="carColor" name="carColor" value="${
-										incidentCase.data().carColor
+                  <input type="text" id="carColor" name="carColor" value="${incidentCase.data().carColor
 									}" /><br />
 
                   <label for="licensePlate">License Plate:</label>
-                  <input type="text" id="licensePlate" name="licensePlate" value="${
-										incidentCase.data().licensePlate
+                  <input type="text" id="licensePlate" name="licensePlate" value="${incidentCase.data().licensePlate
 									}" /><br />
 
                   <label for="notes">Notes:</label>
-                  <textarea name="notes" id="notes" cols="30" rows="10">${
-										incidentCase.data().notes
+                  <textarea name="notes" id="notes" cols="30" rows="10">${incidentCase.data().notes
 									}</textarea>
                   <button id="edit-btn">Edit</button>
                   <button id="cancel-btn">Cancel</button>
@@ -417,11 +406,11 @@ export default class MainClientPage extends HTMLElement {
 			},
 		);
 
-		// this.querySelector('#logout-btn').addEventListener('click', async () => {
-		// 	localStorage.clear();
+		this.querySelector('#logout-btn').addEventListener('click', async () => {
+			localStorage.clear();
 
-		// 	await this.logOut();
-		// });
+			await this.logOut();
+		});
 	}
 }
 
