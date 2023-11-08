@@ -6,7 +6,7 @@ import markerShadow from "../src/images/marker-shadow.png";
 import Router from "../services/Router.js";
 import { signOut } from "firebase/auth";
 import { auth, dataBase } from "../services/firebase.js";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, onSnapshot } from "firebase/firestore";
 import { serverTimestamp } from "firebase/firestore";
 
 export default class DriverDashboardPage extends HTMLElement {
@@ -16,6 +16,9 @@ export default class DriverDashboardPage extends HTMLElement {
         super();
 
         this.activeCases = [];
+
+        this.driverLatitude;
+        this.driverLongitude;
 
         this.map;
 
@@ -30,6 +33,10 @@ export default class DriverDashboardPage extends HTMLElement {
             // Destructuring latitude and longitude from position.coords object
             const { latitude } = position.coords;
             const { longitude } = position.coords;
+
+            this.driverLatitude = latitude;
+            this.driverLongitude = longitude;
+
             const coordinates = [latitude, longitude];
 
             // Leaflet Code - Start
@@ -75,9 +82,9 @@ export default class DriverDashboardPage extends HTMLElement {
 
                 await this.getActiveCases();
 
-                this.renderCaseCards();
+                // this.renderCaseCards();
 
-                this.renderMarkers();
+                // this.renderMarkers();
 
             } catch (error) {
 
@@ -97,6 +104,38 @@ export default class DriverDashboardPage extends HTMLElement {
     }
 
     renderMarkers() {
+
+        // Clear existing markers from the map
+        this.map.eachLayer((layer) => {
+            if (layer instanceof L.Marker) {
+                this.map.removeLayer(layer);
+            }
+        });
+
+        let leafletIcon = L.icon({
+            iconUrl: markerIcon,
+            iconRetinaUrl: markerIcon2x,
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowUrl: markerShadow,
+            // shadowRetinaUrl: 'marker-shadow-2x.png',
+            shadowSize: [41, 41],
+            shadowAnchor: [12, 41]
+        });
+
+        // Displaying a Marker with current user coordinates
+        L.marker([this.driverLatitude, this.driverLongitude], { icon: leafletIcon }).addTo(this.map)
+            .bindPopup(
+                L.popup({
+                    autoClose: false,
+                    closeOnClick: false,
+                    className: 'running-popup',
+                })
+            )
+            .setPopupContent('You are currently here')
+            .openPopup();
+
 
         if (this.activeCases.length > 0) {
 
@@ -148,6 +187,9 @@ export default class DriverDashboardPage extends HTMLElement {
     }
 
     renderCaseCards() {
+
+        // Clearing
+        this.querySelector('.case-container').innerHTML = '';
 
         if (this.activeCases.length > 0) {
 
@@ -211,50 +253,75 @@ export default class DriverDashboardPage extends HTMLElement {
     }
     // end of renderCaseCards
 
+    // async getActiveCases() {
+
+    //     const user = JSON.parse(localStorage.getItem('user'));
+
+    //     const q = query(collection(dataBase, "cases"), where("status", "==", 'active'));
+
+    //     const querySnapshot = await getDocs(q);
+
+    //     querySnapshot.forEach((doc) => {
+
+    //         let activeCase = {
+
+    //             id: doc.id,
+    //             data: doc.data()
+
+    //         };
+
+    //         this.activeCases.push(activeCase);
+
+    //         const { latitude, longitude } = doc.data().coordinates;
+
+    //         const coordinates = [latitude, longitude];
+
+    //         localStorage.setItem("activeCases", JSON.stringify(this.activeCases));
+
+    //     });
+
+    // }
+
     async getActiveCases() {
+
+        // Clear activeCases from local storage
+        localStorage.removeItem("activeCases");
+
+        this.activeCases = [];
 
         const user = JSON.parse(localStorage.getItem('user'));
 
-        const q = query(collection(dataBase, "cases"), where("status", "==", 'active'));
+        // Reference to the Firestore collection
+        const casesCollection = collection(dataBase, "cases");
 
-        const querySnapshot = await getDocs(q);
+        // Initialize a query to filter only 'active' cases
+        const myQuery = query(casesCollection, where("status", "==", "active"));
 
-        querySnapshot.forEach((doc) => {
+        // Listen to changes in the filtered collection
+        const unsubscribe = onSnapshot(myQuery, (snapshot) => {
+            // Clear the activeCases array before adding new data
+            this.activeCases = [];
 
-            // doc.data() is never undefined for query doc snapshots
-            // console.log(doc.id, " => ", doc.data());
+            snapshot.forEach((doc) => {
+                const activeCase = {
+                    id: doc.id,
+                    data: doc.data()
+                };
+                this.activeCases.push(activeCase);
+                const { latitude, longitude } = doc.data().coordinates;
+                const coordinates = [latitude, longitude];
+                localStorage.setItem("activeCases", JSON.stringify(this.activeCases));
+            });
 
-            let activeCase = {
+            // Now that you have updated activeCases, you can render the data.
+            this.renderCaseCards();
+            this.renderMarkers();
 
-                id: doc.id,
-                data: doc.data()
+            console.log(this.activeCases);
 
-            };
-
-            this.activeCases.push(activeCase);
-
-            const { latitude, longitude } = doc.data().coordinates;
-
-            const coordinates = [latitude, longitude];
-
-            localStorage.setItem("activeCases", JSON.stringify(this.activeCases));
-
-            // let incidentMarker = {};
-
-            // Creating Markers on the Map
-            // incidentMarker = L.marker([latitude, longitude]).addTo(this.map)
-            //     .bindPopup(
-            //         L.popup({
-            //             autoClose: false,
-            //             closeOnClick: false,
-            //             className: 'running-popup',
-            //         })
-            //     )
-            //     .setPopupContent(doc.data().notes)
-            //     .openPopup();
+            console.log(`re-fetching`);
 
         });
-
     }
 
     async logOut() {
