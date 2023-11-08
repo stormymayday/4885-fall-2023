@@ -82,14 +82,12 @@ const Router = {
           break;
 
         }
+        else if (userID && userRole === 'user') {
 
-        // else if (userID && userRole === 'user') {
+          pageElement = document.createElement("reporter-edit-incident");
+          break;
 
-        //   pageElement = document.createElement("driver-case-page");
-        //   break;
-
-        // } 
-
+        }
         else {
 
           pageElement = document.createElement("login-page");
