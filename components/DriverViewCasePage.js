@@ -1,7 +1,6 @@
-// import 'leaflet/dist/leaflet.css';
+import 'leaflet/dist/leaflet.css';
 import L from "leaflet";
 import 'leaflet-routing-machine';
-import 'leaflet/dist/leaflet.css';
 import markerIcon from "../src/images/marker-icon.png";
 import markerIcon2x from "../src/images/marker-icon-2x.png";
 import markerShadow from "../src/images/marker-shadow.png";
@@ -220,26 +219,6 @@ export default class DriverViewCasePage extends HTMLElement {
 
             this.renderAcceptCaseUI();
 
-            // Dynamic Driver Positioning
-            // navigator.geolocation.watchPosition((position) => {
-
-            //     const latitude = position.coords.latitude;
-            //     const longitude = position.coords.longitude;
-            //     const accuracy = position.coords.accuracy;
-
-            //     this.driverCoordinates = [latitude, longitude];
-
-            //     console.log(`Changing Coordinates ===`);
-            //     console.log(`Latitude: ${this.driverCoordinates[0]}`);
-            //     console.log(`Longitude: ${this.driverCoordinates[1]}`);
-            //     console.log(`========================`);
-
-            //     this.renderAcceptCaseUI();
-
-            // }, (error) => {
-            //     console.error(`Error getting geolocation: ${error.message}`);
-            // });
-
         });
 
     }
@@ -454,24 +433,6 @@ export default class DriverViewCasePage extends HTMLElement {
         const userRole = JSON.parse(localStorage.getItem('userRole'));
 
         if (user) {
-
-            // Dynamic Driver Positioning
-            // navigator.geolocation.watchPosition((position) => {
-
-            //     const latitude = position.coords.latitude;
-            //     const longitude = position.coords.longitude;
-            //     const accuracy = position.coords.accuracy;
-
-            //     this.driverCoordinates = [latitude, longitude];
-
-            //     console.log(`Changing Coordinates ===`);
-            //     console.log(`Latitude: ${this.driverCoordinates[0]}`);
-            //     console.log(`Longitude: ${this.driverCoordinates[1]}`);
-            //     console.log(`========================`);
-
-            // }, (error) => {
-            //     console.error(`Error getting geolocation: ${error.message}`);
-            // });
 
             this.querySelector('h2').innerHTML = `Welcome ${user.email}`;
             this.querySelector('h3').innerHTML = `Welcome ${userRole}`;

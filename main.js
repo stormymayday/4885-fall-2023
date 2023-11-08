@@ -22,6 +22,7 @@ import IncidentInfoClient from "./components/IncidentInfoClient";
 import TestLeo from "./components/TestLeo";
 import DriverDashboardPage from "./components/DriverDashboardPage.js";
 import DriverViewCasePage from './components/DriverViewCasePage.js';
+import ReporterEditIncident from "./components/ReporterEditIncident.js";
 
 // Attaching app object to the window
 window.app = {};
