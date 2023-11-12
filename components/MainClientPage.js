@@ -13,8 +13,10 @@ import {
 	getDocs,
 	doc,
 	updateDoc,
+	onSnapshot
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import viteLogo from '../src/vite.svg';
 
 export default class MainClientPage extends HTMLElement {
 
@@ -24,9 +26,15 @@ export default class MainClientPage extends HTMLElement {
 
 		this.user = JSON.parse(localStorage.getItem('user'));
 
-		this.map;
+		this.map = null;
 
 		this.activeCases = [];
+
+		// this.previousStatus = '';
+
+		// this.coordinates = [];
+
+		// this.userMarker = null;
 	}
 
 	async logOut() {
@@ -37,6 +45,12 @@ export default class MainClientPage extends HTMLElement {
 	}
 
 	displayMap = async () => {
+
+		// Checking if map 'container' exists
+		const container = L.DomUtil.get('map');
+		if (container != null) {
+			container._leaflet_id = null;
+		}
 
 		navigator.geolocation.getCurrentPosition(async (position) => {
 
@@ -49,6 +63,7 @@ export default class MainClientPage extends HTMLElement {
 
 			// Leaflet Code - Start
 			// Rendering map centered on a current user location (coordinates) with max zoom-in setting
+
 			this.map = L.map('map').setView(coordinates, 18);
 
 			// Original Tile
@@ -90,9 +105,9 @@ export default class MainClientPage extends HTMLElement {
 
 				await this.getActiveCases();
 
-				this.renderCaseCards();
+				// this.renderCaseCards();
 
-				this.renderMarkers();
+				// this.renderMarkers();
 
 			} catch (error) {
 
@@ -109,15 +124,24 @@ export default class MainClientPage extends HTMLElement {
 
 		});
 
+		// }
+
 	}
 
 	renderMarkers() {
 
 		if (this.activeCases.length > 0) {
 
+			// Clear existing markers from the map
+			this.map.eachLayer((layer) => {
+				if (layer instanceof L.Marker) {
+					this.map.removeLayer(layer);
+				}
+			});
+
 			this.activeCases.forEach((activeCase) => {
 
-				console.log(activeCase);
+				// console.log(activeCase);
 
 				const { latitude, longitude } = activeCase.data.coordinates;
 
@@ -158,44 +182,122 @@ export default class MainClientPage extends HTMLElement {
 	}
 	// end of renderMarkers
 
-	getActiveCases = async () => {
+	async getActiveCases() {
 
-		const q = query(
+		// Clear activeCases from local storage
+		localStorage.removeItem("activeCases");
+
+		this.activeCases = [];
+
+		const user = JSON.parse(localStorage.getItem('user'));
+
+		// Reference to the Firestore collection
+		const casesCollection = collection(dataBase, "cases");
+
+		const myQuery = query(
 			collection(dataBase, 'cases'),
-			where('status', '==', 'active'),
 			where('reporterId', '==', this.user.uid),
+			where('status', 'in', ['active', 'in-progress', 'complete'])
 		);
 
-		// console.log(this.user.uid);
+		// Listen to changes in the filtered collection
+		const unsubscribe = onSnapshot(myQuery, (snapshot) => {
 
-		const querySnapshot = await getDocs(q);
+			// Clear the activeCases array before adding new data
+			this.activeCases = [];
 
-		// this.activeCases = querySnapshot;
+			snapshot.docChanges().forEach((change) => {
 
-		querySnapshot.forEach((doc) => {
+				if (change.type === 'modified') {
 
+					console.log('Modified document:', change.doc.data());
 
-			let activeCase = {
+					let message;
 
-				id: doc.id,
-				data: doc.data()
+					if (change.doc.data().status === "active") {
 
-			};
+						message = 'Your case has been cancelled!';
 
-			this.activeCases.push(activeCase);
+					}
 
-			const { latitude, longitude } = doc.data().coordinates;
+					if (change.doc.data().status === "in-progress") {
 
-			const coordinates = [latitude, longitude];
+						message = 'Your case has been accepted!';
 
-			localStorage.setItem("activeCases", JSON.stringify(this.activeCases));
+					}
+
+					if (change.doc.data().status === "complete") {
+
+						message = 'Your case has been completed!';
+
+					}
+
+					// Handle modified document
+					const title = 'TowTackle';
+					const options = {
+						body: message,
+						icon: viteLogo,
+					};
+
+					this.sendNotification(title, options);
+
+				}
+
+			});
+
+			snapshot.forEach((doc) => {
+
+				const activeCase = {
+					id: doc.id,
+					data: doc.data()
+				};
+
+				this.activeCases.push(activeCase);
+
+				const { latitude, longitude } = doc.data().coordinates;
+				const coordinates = [latitude, longitude];
+				localStorage.setItem("activeCases", JSON.stringify(this.activeCases));
+
+			});
+
+			this.renderCaseCards();
+			this.renderMarkers();
+
+			// console.log(this.activeCases);
+
+			console.log(`re-fetching`);
 
 		});
+	}
 
+	sendNotification(title, options) {
+		if ('Notification' in window) {
+			if (Notification.permission === 'granted') {
+				console.log('Notification permission granted. Showing notification.');
+				new Notification(title, options);
+			} else if (Notification.permission !== 'denied') {
+				console.log('Requesting notification permission.');
+				Notification.requestPermission().then(permission => {
+					if (permission === 'granted') {
+						console.log('Notification permission granted. Showing notification.');
+						new Notification(title, options);
+					} else {
+						console.log('Notification permission denied.');
+					}
+				});
+			} else {
+				console.log('Notification permission denied.');
+			}
+		} else {
+			console.log('Notification API is not supported in this browser.');
+		}
+	}
 
-	};
 
 	renderCaseCards() {
+
+		// Clearing
+		this.querySelector('#user-cases-display').innerHTML = '';
 
 		if (this.activeCases.length > 0) {
 
@@ -206,7 +308,7 @@ export default class MainClientPage extends HTMLElement {
 				const date = new Date(activeCase.data.creationTime.seconds * 1000);
 
 				return `
-					<div div class= "view-case" >
+					<div div class= "view-case">
 						<div class="left-side-view-case">
 							<div class="img-container-case">
 								<img src="${image}" alt="">
@@ -265,6 +367,13 @@ export default class MainClientPage extends HTMLElement {
 	// end of renderCaseCards
 
 	connectedCallback() {
+
+		// Check if the element already exists
+		if (this.querySelector('#main-client-page')) {
+			// Update the content or return early
+			return;
+		}
+
 		// Getting template from the DOM
 		const template = document.getElementById('main-client-page');
 
@@ -278,13 +387,36 @@ export default class MainClientPage extends HTMLElement {
 		// console.log(this.user);
 
 		if (this.user) {
-			this.querySelector(
-				'h3',
-			).innerHTML = `Welcome ${this.user.role} ${this.user.nameRegistration} `;
+
+			console.log(`First Render`);
 
 			// Testing if navigator.geolocation is supported by the browser
 			if (navigator.geolocation) {
-				this.displayMap();
+
+				if (this.map) {
+
+					console.log(`map exists`);
+
+					this.getActiveCases();
+
+					this.renderCaseCards();
+
+					this.renderMarkers();
+
+				} else {
+
+					console.log(`map does not exist`);
+
+					if (this.map) {
+						console.log(`removing the map`);
+						this.map.remove();
+						console.log(`map removed`);
+					}
+
+					this.displayMap();
+
+				}
+
 			}
 			// end of navigator / Leaflet
 		}
@@ -311,9 +443,3 @@ export default class MainClientPage extends HTMLElement {
 
 // Registering the login-page custom element
 customElements.define('main-client-page', MainClientPage);
-// TODO ADD LEAFLEET
-// Side bar opens if you click on a pin(Delete or change a report)
-
-// Fetch all incidents (Make available to see only thouse that the client has submmited)
-// Drop down menu out of the photo on the right top corner(SETTINGS LOGOUT)
-// Left top corner logo (LINK to te main page => APP.ROUTER.GO(/main-page))
