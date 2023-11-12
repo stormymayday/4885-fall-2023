@@ -11,6 +11,7 @@
 		.img-logo-wrapper-main-page {
 			width: 15%;
 			position: relative;
+
 			.img-logo-for-the-main-page {
 				position: absolute;
 				content: '';
@@ -22,6 +23,7 @@
 				background-repeat: no-repeat;
 			}
 		}
+
 		.right-side-header-client {
 			min-width: 10%;
 			height: 100%;
@@ -41,6 +43,7 @@
 				margin-left: 1rem;
 				width: 50%;
 				align-self: center;
+
 				.drop-down-arrow {
 					position: absolute;
 					top: 0;
@@ -67,10 +70,12 @@
 			height: 80vh;
 			align-self: center;
 			box-shadow: 0px 10px 25px 0px rgba(145, 158, 171, 0.2);
+
 			#map {
 				height: 100%;
 			}
 		}
+
 		.right-side {
 			padding: 1rem;
 			display: flex;
@@ -111,28 +116,30 @@
 					max-height: 100%;
 				}
 			}
+
 			.bottom-footer-man-page {
 				.help-icon {
 					margin-right: 0.5rem;
 					content: '';
 					color: black;
 					padding: 0.6rem;
-					background: url('/src/message-question.svg') center / contain
-						no-repeat;
+					background: url('/src/message-question.svg') center / contain no-repeat;
 				}
 			}
 		}
 	}
 }
+
 .view-case {
 	width: 100%;
 	min-height: 20%;
 	// background-color: black;
 	display: flex;
 	padding: 1rem;
-	height: 20%;
+	// height: 20%;
 	box-shadow: 0px 14px 16px 0px rgba(145, 158, 171, 0.1);
 }
+
 .left-side-view-case {
 	width: 40%;
 	height: 100%;
@@ -178,7 +185,8 @@
 	font-size: 1rem;
 	font-style: normal;
 	font-weight: 600;
-	line-height: 1.875rem; /* 187.5% */
+	line-height: 1.875rem;
+	/* 187.5% */
 	text-transform: uppercase;
 }
 
@@ -197,6 +205,7 @@
 	// max-height: 100%;
 	height: 100%;
 	width: 100%;
+
 	& img {
 		max-width: 100%;
 		max-height: 100%;
@@ -215,6 +224,7 @@
 		padding: 0;
 		margin: 0;
 	}
+
 	.leftside-map {
 		width: 100% !important;
 		height: 50% !important;
@@ -222,6 +232,7 @@
 		margin: 0 !important;
 		padding: 0 !important;
 	}
+
 	// .right-side {
 	// 	width: 100% !important;
 	// 	display: flex;
