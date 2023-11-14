@@ -434,8 +434,10 @@ export default class DriverViewCasePage extends HTMLElement {
 
         if (user) {
 
-            this.querySelector('h2').innerHTML = `Welcome ${user.email}`;
-            this.querySelector('h3').innerHTML = `Welcome ${userRole}`;
+            // this.querySelector('h2').innerHTML = `Welcome ${user.email}`;
+            // this.querySelector('h3').innerHTML = `Welcome ${userRole}`;
+            this.querySelector('#user-name').innerHTML = user.nameRegistration;
+            this.querySelector('#user-email').innerHTML = user.email;
 
             this.getCurrentCaseFromLocalStorage();
 

@@ -388,7 +388,8 @@ export default class MainClientPage extends HTMLElement {
 
 		if (this.user) {
 
-			console.log(`First Render`);
+			document.querySelector('#user-name').innerHTML = this.user.nameRegistration;
+			document.querySelector('#user-email').innerHTML = this.user.email;
 
 			// Testing if navigator.geolocation is supported by the browser
 			if (navigator.geolocation) {
@@ -425,7 +426,7 @@ export default class MainClientPage extends HTMLElement {
 
 			'click',
 			() => {
-				console.log('hahah');
+				// console.log('hahah');
 				app.router.go('/report-incident');
 			},
 

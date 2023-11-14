@@ -196,22 +196,49 @@ export default class DriverDashboardPage extends HTMLElement {
             const content = this.activeCases.map((activeCase) => {
 
                 const id = activeCase.id;
-                const { image, notes } = activeCase.data;
+                const { image, notes, status } = activeCase.data;
                 const date = new Date(activeCase.data.creationTime.seconds * 1000);
 
+                // Month name array
+                const monthNames = [
+                    'January', 'February', 'March', 'April',
+                    'May', 'June', 'July', 'August',
+                    'September', 'October', 'November', 'December'
+                ];
+
+                // Get month, day, year, hour, and minute
+                const month = monthNames[date.getMonth()];
+                const day = date.getDate();
+                const year = date.getFullYear();
+                let hour = date.getHours();
+                const minute = date.getMinutes();
+                const period = hour >= 12 ? 'PM' : 'AM';
+
+                // Convert hour to 12-hour format
+                hour = hour % 12 || 12;
+
+                // Create the formatted date string
+                const formattedDate = `${month} ${day}, ${year}, ${hour}:${minute.toLocaleString('en-US', { minimumIntegerDigits: 2 })} ${period}`;
+
+                console.log(formattedDate);
+
                 return `
-                    <div class="case-item" style="display:flex; padding: 2rem">
+                    <div class="case-item">
                         <div class="case-img-container">
-                            <img src=${image} alt="" style="width:150px" />
+                            <img src=${image} alt="" />
                         </div>
                         <div class="case-info">
-                            <h3>${notes}</h3>
-                            <p>${date}</p>
-                            <button id=${id} class="case-btn">view incident</button>
+                            <div>
+                                <span class="new-request">New Request</span>
+                            </div>
+                            <h3 class="case-notes">${notes}</h3>
+                            <p class="date-text">${formattedDate}</p>
+                            <div class="container-user-case-view-incident">
+								<p id=${id} class="case-btn">VIEW INCIDENT<i class="right-icon-arrow-view-case"></i></p>
+							</div>
                         </div>
                     </div>
                 `;
-
 
             }).join('');
 
@@ -252,35 +279,6 @@ export default class DriverDashboardPage extends HTMLElement {
 
     }
     // end of renderCaseCards
-
-    // async getActiveCases() {
-
-    //     const user = JSON.parse(localStorage.getItem('user'));
-
-    //     const q = query(collection(dataBase, "cases"), where("status", "==", 'active'));
-
-    //     const querySnapshot = await getDocs(q);
-
-    //     querySnapshot.forEach((doc) => {
-
-    //         let activeCase = {
-
-    //             id: doc.id,
-    //             data: doc.data()
-
-    //         };
-
-    //         this.activeCases.push(activeCase);
-
-    //         const { latitude, longitude } = doc.data().coordinates;
-
-    //         const coordinates = [latitude, longitude];
-
-    //         localStorage.setItem("activeCases", JSON.stringify(this.activeCases));
-
-    //     });
-
-    // }
 
     async getActiveCases() {
 
@@ -348,8 +346,11 @@ export default class DriverDashboardPage extends HTMLElement {
 
         if (user) {
 
-            this.querySelector('h2').innerHTML = `Welcome ${user.email}`;
-            this.querySelector('h3').innerHTML = `Welcome ${userRole}`;
+            // console.log(user);
+
+            this.querySelector('#user-name').innerHTML = user.nameRegistration;
+            this.querySelector('#user-email').innerHTML = user.email;
+            // this.querySelector('h3').innerHTML = `Welcome ${userRole}`;
 
             // Testing if navigator.geolocation is supported by the browser
             if (navigator.geolocation) {

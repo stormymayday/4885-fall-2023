@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite App</title>
+  <title>TowTackle</title>
 </head>
 
 <body>
@@ -173,18 +173,25 @@
 
   <template id="main-client-page">
     <div class="main-page-client">
+
       <header>
+
         <div class="img-logo-wrapper-main-page">
           <i class="img-logo-for-the-main-page"></i>
+          <i class="logo-1"></i>
+          <i class="logo-2"></i>
         </div>
+
         <div class="right-side-header-client">
           <div class="header-img-avatar"><img src="" alt="" /></div>
           <div class="header-capture-name-text">
-            <p>Name</p>
-            <span>short text</span><i class="drop-down-arrow"></i>
+            <p id="user-name"></p>
+            <span id="user-email"></span><i class="drop-down-arrow"></i>
           </div>
         </div>
+
       </header>
+
       <main>
         <div class="leftside-map">
           <div class="lifleet" id="map">
@@ -339,23 +346,55 @@
   </template>
 
   <template id="driver-dashboard-page-template">
-    <h1>Driver Dashboard Page</h1>
-    <h2></h2>
-    <h3></h3>
-    <button id="logout-btn">Logout</button>
-    <main>
-      <div id="map"></div>
-      <h2>Hello from list</h2>
-      <div class="case-container"></div>
+    <div class="navbar">
+      <i class="logo"></i>
+      <div class="user-info">
+        <div class="avatar"></div>
+        <div>
+          <p id="user-name"></p>
+          <p id="user-email"></p>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">
+            <i class="drop-down-arrow"></i>
+          </button>
+          <div class="dropdown-content">
+            <a id="logout-btn" href="#">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <main class="driver-dashboard">
+      <section class="map-section">
+        <div id="map"></div>
+      </section>
+      <section class="info-section">
+        <h2>Tow Requests</h2>
+        <div class="case-container"></div>
+      </section>
     </main>
   </template>
 
   <template id="driver-view-case-page-template">
-    <h1>Driver View Case Page</h1>
-    <h2></h2>
-    <h3></h3>
-    <button id="logout-btn">Logout</button>
-    <main>
+    <div class="navbar">
+      <i class="logo"></i>
+      <div class="user-info">
+        <div class="avatar"></div>
+        <div>
+          <p id="user-name"></p>
+          <p id="user-email"></p>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">
+            <i class="drop-down-arrow"></i>
+          </button>
+          <div class="dropdown-content">
+            <a id="logout-btn" href="#">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <main>
       <div id="map"></div>
       <div id="directions-container">
 
@@ -363,6 +402,22 @@
       <div class="case-container">
 
       </div>
+    </main> -->
+    <main class="driver-dashboard">
+      <section class="map-section">
+        <div id="map"></div>
+      </section>
+      <section class="info-section">
+
+        <div id="directions-container">
+
+        </div>
+        <div class="case-container">
+
+        </div>
+
+      </section>
+
     </main>
   </template>
 
