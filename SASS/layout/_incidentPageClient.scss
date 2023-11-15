@@ -1,6 +1,7 @@
-// .second-stage-form-incident-page {
-// 	display: none;
-// }
+.second-stage-form-incident-page {
+	// display: none;
+}
+
 .incident-client-page-right-side {
 	margin: 2rem;
 	padding: 1rem;
@@ -53,7 +54,7 @@
 	}
 	.icon-photo {
 		content: '';
-		color: black;
+		color: yellow;
 		padding: 0.6rem;
 		background: url('/src/camera.svg') center / contain no-repeat;
 	}

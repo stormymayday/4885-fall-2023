@@ -78,6 +78,9 @@
 
 		.right-side {
 			padding: 1rem;
+			padding-top: 3rem;
+			margin-top: 2rem;
+			padding-bottom: 3rem;
 			display: flex;
 			width: 50%;
 			flex-direction: column;
@@ -118,12 +121,14 @@
 			}
 
 			.bottom-footer-man-page {
+				margin-top: auto;
 				.help-icon {
 					margin-right: 0.5rem;
 					content: '';
 					color: black;
 					padding: 0.6rem;
-					background: url('/src/message-question.svg') center / contain no-repeat;
+					background: url('/src/message-question.svg') center / contain
+						no-repeat;
 				}
 			}
 		}

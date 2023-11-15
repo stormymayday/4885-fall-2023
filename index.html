@@ -174,23 +174,24 @@
   <template id="main-client-page">
     <div class="main-page-client">
 
-      <header>
-
-        <div class="img-logo-wrapper-main-page">
-          <i class="img-logo-for-the-main-page"></i>
-          <i class="logo-1"></i>
-          <i class="logo-2"></i>
-        </div>
-
-        <div class="right-side-header-client">
-          <div class="header-img-avatar"><img src="" alt="" /></div>
-          <div class="header-capture-name-text">
+      <div class="navbar">
+        <i class="logo"></i>
+        <div class="user-info">
+          <div class="avatar"></div>
+          <div>
             <p id="user-name"></p>
-            <span id="user-email"></span><i class="drop-down-arrow"></i>
+            <p id="user-email"></p>
+          </div>
+          <div class="dropdown">
+            <button class="dropbtn">
+              <i class="drop-down-arrow"></i>
+            </button>
+            <div class="dropdown-content">
+              <a id="logout-btn" href="#">Logout</a>
+            </div>
           </div>
         </div>
-
-      </header>
+      </div>
 
       <main>
         <div class="leftside-map">
@@ -205,11 +206,11 @@
           <span>Use Towtackle app to effortlessly capture or upload images of wrongly parked vehicles. Add vehicle
             details and include the location for efficient tow truck dispatch.</span>
           <button id="btn-click-report-incident" class="button-primary-simple-black fat">Report incident</button>
-          <button class="button-primary-simple-black" id="logout-btn">Logout</button>
+          <div class="user-cases-display" id="user-cases-display"></div>
+
           <div class="bottom-footer-man-page">
             <i class="help-icon"></i><span>HELP</span>
           </div>
-          <div class="user-cases-display" id="user-cases-display"></div>
         </div>
       </main>
     </div>
@@ -217,14 +218,24 @@
   </template>
 
   <template id="incident-info">
-    <header>
-      <icon>LOGO</icon>
-      <div>
-        <div><img src="" alt="" /></div>
-        <p>Name</p>
-        <span>short text</span><button></button>
+    <div class="navbar">
+      <i class="logo"></i>
+      <div class="user-info">
+        <div class="avatar"></div>
+        <div>
+          <p id="user-name"></p>
+          <p id="user-email"></p>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">
+            <i class="drop-down-arrow"></i>
+          </button>
+          <div class="dropdown-content">
+            <a id="logout-btn" href="#">Logout</a>
+          </div>
+        </div>
       </div>
-    </header>
+    </div>
     <main>
       <button id="back">Back</button>
       <div class="three-lines-acomplish">
@@ -263,18 +274,25 @@
 
   <template id="report-incident-client">
     <div class="main-page-client">
-      <header>
-        <div class="img-logo-wrapper-main-page">
-          <i class="img-logo-for-the-main-page"></i>
-        </div>
-        <div class="right-side-header-client">
-          <div class="header-img-avatar"><img src="" alt="" /></div>
-          <div class="header-capture-name-text">
-            <p>Name</p>
-            <span>short text</span><i class="drop-down-arrow"></i>
+      <div class="navbar">
+        <i class="logo"></i>
+        <div class="user-info">
+          <div class="avatar"></div>
+          <div>
+            <p id="user-name"></p>
+            <p id="user-email"></p>
+          </div>
+          <div class="dropdown">
+            <button class="dropbtn">
+              <i class="drop-down-arrow"></i>
+            </button>
+            <div class="dropdown-content">
+              <a id="logout-btn" href="#">Logout</a>
+              <a id="back-btn" href="#">Back</a>
+            </div>
           </div>
         </div>
-      </header>
+      </div>
       <main>
         <div class="leftside-map">
           <div class="lifleet" id="map">
@@ -303,46 +321,45 @@
             <p>Upload images</p>
             <p>Drop Files Here click <span>browse</span> through your computer (Required JPEG, JPG, PNG)</p>
           </div>
-
+          <button id="submit-btn" class="button-primary-simple-black">Submit</button>
           <div id="create-post" class="second-stage-form-incident-page">
             <form id="incident-form">
 
+              <input type="text" id="address" name="address" />
               <label for="address">Address:</label>
-              <input type="text" id="address" name="address" /><br /><br />
 
+              <input type="text" id="carMake" name="carMake" />
               <label for="carMake">Car Make:</label>
-              <input type="text" id="carMake" name="carMake" /><br /><br />
 
+              <input type="text" id="carModel" name="carModel" />
               <label for="carModel">Car Model:</label>
-              <input type="text" id="carModel" name="carModel" /><br /><br />
 
-              <label for="carType">Car Type:</label>
-              <select id="carType" name="carType">
-                <option value="SUV">SUV</option>
-                <option value="Sedan">Sedan</option>
-                <option value="Hatchback">Hatchback</option>
-                <option value="Convertible">Convertible</option>
-                <option value="Truck">Truck</option>
-              </select><br /><br />
-
-              <label for="carColor">Car Color:</label>
-              <input type="text" id="carColor" name="carColor" /><br /><br />
-
+              <input type="text" id="licensePlate" name="licensePlate" />
               <label for="licensePlate">License Plate:</label>
-              <input type="text" id="licensePlate" name="licensePlate" /><br /><br />
+
+              <div class="dropdown-form-side">
+                <label for="carType">Car Type:</label>
+                <select id="carType" name="carType">
+                  <option value="SUV">SUV</option>
+                  <option value="Sedan">Sedan</option>
+                  <option value="Hatchback">Hatchback</option>
+                  <option value="Convertible">Convertible</option>
+                  <option value="Truck">Truck</option>
+                </select>
+
+                <input type="text" id="carColor" name="carColor" />
+                <label for="carColor">Car Color:</label>
+              </div>
 
               <label for="notes">Notes:</label>
               <textarea name="notes" id="notes" cols="30" rows="10"></textarea>
 
-              <button id="submit-btn">Submit</button>
+              <button id="submit-btn-car-info" class="button-primary-simple-black">Submit</button>
             </form>
           </div>
         </div>
       </main>
     </div>
-    <button id="back-btn">Back</button>
-    <button id="logout-btn">Logout</button>
-
   </template>
 
   <template id="driver-dashboard-page-template">
@@ -415,18 +432,24 @@
 
   <template id="reporter-edit-incident-template">
     <div class="main-page-client">
-      <header>
-        <div class="img-logo-wrapper-main-page">
-          <i class="img-logo-for-the-main-page"></i>
-        </div>
-        <div class="right-side-header-client">
-          <div class="header-img-avatar"><img src="" alt="" /></div>
-          <div class="header-capture-name-text">
-            <p>Name</p>
-            <span>short text</span><i class="drop-down-arrow"></i>
+      <div class="navbar">
+        <i class="logo"></i>
+        <div class="user-info">
+          <div class="avatar"></div>
+          <div>
+            <p id="user-name"></p>
+            <p id="user-email"></p>
+          </div>
+          <div class="dropdown">
+            <button class="dropbtn">
+              <i class="drop-down-arrow"></i>
+            </button>
+            <div class="dropdown-content">
+              <a id="logout-btn" href="#">Logout</a>
+            </div>
           </div>
         </div>
-      </header>
+      </div>
       <main>
         <div class="leftside-map">
           <div class="lifleet" id="map">
