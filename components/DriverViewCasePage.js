@@ -176,26 +176,90 @@ export default class DriverViewCasePage extends HTMLElement {
         if (this.currentCase) {
 
             const { id } = this.currentCase;
-            const { image, notes, carMake, carModel, carType, carColor, licensePlate, address } = this.currentCase.data;
+            const { image, notes, carMake, carModel, carType, carColor, licensePlate, address, creationTime } = this.currentCase.data;
+            const date = new Date(this.currentCase.data.creationTime.seconds * 1000);
+
+            // Month name array
+            const monthNames = [
+                'January', 'February', 'March', 'April',
+                'May', 'June', 'July', 'August',
+                'September', 'October', 'November', 'December'
+            ];
+
+            // Get month, day, year, hour, and minute
+            const month = monthNames[date.getMonth()];
+            const day = date.getDate();
+            const year = date.getFullYear();
+            let hour = date.getHours();
+            const minute = date.getMinutes();
+            const period = hour >= 12 ? 'PM' : 'AM';
+
+            // Convert hour to 12-hour format
+            hour = hour % 12 || 12;
+
+            // Create the formatted date string
+            const formattedDate = `${month} ${day}, ${year}, ${hour}:${minute.toLocaleString('en-US', { minimumIntegerDigits: 2 })} ${period}`;
 
             const directionsContainer = document.getElementById('directions-container');
             directionsContainer.innerHTML = '';
 
             this.querySelector(".case-container").innerHTML = `
-            <button id="back-btn">Back</button>
-            <h3>${notes}<h3>
-            <div class="case-img-container">
-                <img src=${image} alt="" style="width:150px" />
+
+            <div class="case-details-container">
+
+                <div class="view-case-header">
+                    <button id="back-btn"></button>
+                    <p>Reported:</p>
+                </div>
+
+                <h3>${address}<h3>
+
+                <div class="case-details-img-container">
+                    <img src=${image} alt="" />
+                </div>
+
+                <div class="vehicle-details">
+
+                    <h4>Vehicle Details:</h4>
+                    <p class="gray-text">${formattedDate}</p>
+
+                    <div>
+                        <p class="gray-text">License Plate:</p>
+                        <p>${licensePlate}</p>
+                    </div>
+
+                    <div>
+                        <p class="gray-text">Vehicle Company:</p>
+                        <p>${carMake}</p>
+                    </div>
+
+                    <div>
+                        <p class="gray-text">Vehicle Type:</p>
+                        <p>${carType}</p>
+                    </div>
+
+                    <div>
+                        <p class="gray-text">Vehicle Model:</p>
+                        <p>${carModel}</p>
+                    </div>
+
+                    <div>
+                        <p class="gray-text">Vehicle Color:</p>
+                        <p>${carColor}</p>
+                    </div>
+
+                    <div>
+                        <p class="gray-text">Notes:</p>
+                        <p>${notes}</p>
+                    </div>
+                
+                </div>
+
             </div>
-            <div class="vehicle-details">
-                <h4>vehicle details</h4>
-                <p>Make: ${carMake}</p>
-                <p>Car Type: ${carType}</p>
-                <p>Color: ${carColor}</p>
-                <p>License Plage: ${licensePlate}</p>
-                <p>Address: ${address}</p>
+            <div class="btn-container">
+                <button id="accept-case" class="button-primary-simple-black">Accept Case</button>
             </div>
-            <button id="accept-case">Accept</button>
+            
         `;
 
         }
