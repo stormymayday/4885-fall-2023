@@ -77,6 +77,8 @@
 
 .btn-container {
     width: 100%;
+    display: flex;
+    gap: 0.5rem;
 }
 
 .btn-container button {
@@ -86,6 +88,40 @@
     width: 100%;
     font-weight: 700;
     cursor: pointer;
+}
+
+.btn-container .cancel-btn {
+    border: 3px solid $clr-primary-2;
+    background-color: $clr-primary-3;
+}
+
+.btn-container .complete-btn:disabled {
+    background-color: $clr-primary-6;
+    color: $clr-primary-3;
+}
+
+// Accept case
+.directions-container {
+    display: none;
+    margin-top: 2rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
+    text-align: center;
+}
+
+.directions-header h3 {
+    color: $clr-primary-4;
+    font-weight: 400;
+    font-size: 1rem;
+    margin-bottom: 0.7rem;
+}
+
+.directions-header p {
+    color: $clr-primary-2;
+    font-weight: 700;
+    margin-bottom: 1.7rem;
 }
 
 @media only screen and (min-width: 700px) {
@@ -120,6 +156,10 @@
         padding: 0rem;
         padding-top: 1.3rem;
         box-shadow: none;
+    }
+
+    .directions-container {
+        margin-top: 0;
     }
 
 }

@@ -202,6 +202,7 @@ export default class DriverViewCasePage extends HTMLElement {
 
             const directionsContainer = document.getElementById('directions-container');
             directionsContainer.innerHTML = '';
+            directionsContainer.style.display = "none";
 
             this.querySelector(".case-container").innerHTML = `
 
@@ -353,24 +354,34 @@ export default class DriverViewCasePage extends HTMLElement {
 
                 const directionsContainer = document.getElementById('directions-container');
                 directionsContainer.innerHTML = ''; // Clear previous directions
+                directionsContainer.style.display = "block";
+
+                // Header
+                const directionsHeader = `
+                    <div class="directions-header">
+                        <h3>Directions:</h3>
+                        <p>${`${routes[0].instructions[0].text} ${Math.round(routes[0].instructions[0].distance)} m`}</p>
+                    </div>
+                `;
+                directionsContainer.innerHTML += directionsHeader;
 
                 // Current Street
                 const currentStreet = `Current Street: ${routes[0].instructions[0].road}`;
                 const currentStreetHeader = document.createElement('h4');
                 currentStreetHeader.innerHTML = currentStreet;
-                directionsContainer.appendChild(currentStreetHeader);
+                // directionsContainer.appendChild(currentStreetHeader);
 
                 // Destination Street
                 const destinationStreet = `Destination Street: ${routes[0].instructions[routes[0].instructions.length - 1].road}`;
                 const destinationStreetHeader = document.createElement('h4');
                 destinationStreetHeader.innerHTML = destinationStreet;
-                directionsContainer.appendChild(destinationStreetHeader);
+                // directionsContainer.appendChild(destinationStreetHeader);
 
                 // Total Distance in km
                 const totalDistance = `${(routes[0].summary.totalDistance / 1000).toFixed(2)} km`;
                 const distanceHeader = document.createElement('h4');
                 distanceHeader.innerHTML = totalDistance;
-                directionsContainer.appendChild(distanceHeader);
+                // directionsContainer.appendChild(distanceHeader);
 
                 // Checking total distance
                 if (routes[0].summary.totalDistance / 1000 > 0.01) {
@@ -380,13 +391,11 @@ export default class DriverViewCasePage extends HTMLElement {
                 }
                 console.log(routes[0].summary.totalDistance / 1000);
 
-                // console.log(document.getElementById("cancel-case"));
-
                 // Total Time in mins
                 const totalTime = `${Math.round(routes[0].summary.totalTime / 60)} min`;
                 const totalTimeHeader = document.createElement('h4');
                 totalTimeHeader.innerHTML = totalTime;
-                directionsContainer.appendChild(totalTimeHeader);
+                // directionsContainer.appendChild(totalTimeHeader);
 
                 // Current Time
                 let date = new Date();
@@ -399,13 +408,27 @@ export default class DriverViewCasePage extends HTMLElement {
                 const currentTime = `${hours}:${minutes} ${am_pm}`;
                 const currentTimeHeader = document.createElement('h4');
                 currentTimeHeader.innerHTML = currentTime;
-                directionsContainer.appendChild(currentTimeHeader);
+                // directionsContainer.appendChild(currentTimeHeader);
 
                 // Current Instruction
                 const currentInstruction = `${routes[0].instructions[0].text} ${Math.round(routes[0].instructions[0].distance)} m`;
                 const currentInstructionDiv = document.createElement('div');
                 currentInstructionDiv.innerHTML = currentInstruction;
-                directionsContainer.appendChild(currentInstructionDiv);
+                // directionsContainer.appendChild(currentInstructionDiv);
+
+                // Destination Details
+                const destinationDetails = `
+                    <div class="destination-details">
+
+                        <p class="eta-time">${`${Math.round(routes[0].summary.totalTime / 60)} min`}</p>
+
+                        <span>${`${(routes[0].summary.totalDistance / 1000).toFixed(2)} km`} | </span>
+
+                        <span>${`${hours}:${minutes} ${am_pm}`}</span>
+
+                    </div>
+                `;
+                directionsContainer.innerHTML += destinationDetails;
 
                 // All Instructions (DO NOT DELETE)
                 // directions.forEach((step, index) => {
@@ -422,6 +445,7 @@ export default class DriverViewCasePage extends HTMLElement {
                 //     // Log the step object to inspect its structure
                 //     console.log(step);
                 // });
+
             }
 
             // End
@@ -433,8 +457,10 @@ export default class DriverViewCasePage extends HTMLElement {
 
 
         this.querySelector(".case-container").innerHTML = `
-            <button id="cancel-case">Cancel</button>
-            <button id="complete-case">Complete</button>
+        <div class="btn-container">
+            <button id="cancel-case" class="button-primary-simple-black cancel-btn">Cancel</button>
+            <button id="complete-case" class="button-primary-simple-black complete-btn">Complete</button>
+        </div>
         `;
 
         this.querySelector("#cancel-case").addEventListener("click", async (event) => {
