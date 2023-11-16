@@ -17,6 +17,7 @@ import {
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import viteLogo from '../src/vite.svg';
+import ttlogo from '../src/ttlogo.png';
 
 export default class MainClientPage extends HTMLElement {
 
@@ -216,7 +217,7 @@ export default class MainClientPage extends HTMLElement {
 
 					if (change.doc.data().status === "active") {
 
-						message = 'Your case has been cancelled!';
+						message = 'Your case is now active!';
 
 					}
 
@@ -236,7 +237,7 @@ export default class MainClientPage extends HTMLElement {
 					const title = 'TowTackle';
 					const options = {
 						body: message,
-						icon: viteLogo,
+						icon: ttlogo,
 					};
 
 					this.sendNotification(title, options);
