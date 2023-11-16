@@ -259,6 +259,31 @@ export default class ReportIncidentClient extends HTMLElement {
 			app.router.go(`/main-page`);
 		});
 
+		this.querySelector('#back-left-arrow-btn').addEventListener(
+			'click',
+			async (event) => {
+				event.preventDefault();
+
+				// document.querySelector('.first-step-upload-picture').style.display = 'none';
+				// document.querySelector('.second-stage-form-incident-page').style.display = 'block';
+			},
+		);
+
+		this.querySelector('#show-form-btn').addEventListener(
+			'click',
+			async (event) => {
+				event.preventDefault();
+
+				// Stopping the video stream
+				// this.stopMedia();
+
+				// this.createCase();
+
+				document.querySelector('.first-step-upload-picture').style.display = 'none';
+				document.querySelector('.second-stage-form-incident-page-front').style.display = 'block';
+			},
+		);
+
 		this.querySelector('#incident-form').addEventListener(
 			'submit',
 			async (event) => {

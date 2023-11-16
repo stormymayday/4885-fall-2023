@@ -193,11 +193,13 @@
         </div>
       </div>
 
-      <main>
-        <div class="leftside-map">
+      <main class="driver-dashboard">
+
+        <div class="leftside-map map-section">
           <div class="lifleet" id="map">
           </div>
         </div>
+
         <div class="right-side" id="user-view-cases">
           <div class="rounded-img-main-page">
             <img src="/src/Group.svg" alt="car">
@@ -293,16 +295,16 @@
           </div>
         </div>
       </div>
-      <main>
-        <div class="leftside-map">
+      <main class="driver-dashboard">
+        <div class="leftside-map map-section">
           <div class="lifleet" id="map">
           </div>
         </div>
         <div class="incident-client-page-right-side">
           <div class="report-incident-arrows">
             <div class="arrows">
-              <i class="left-arrow-icon"></i>
-              <i class="right-arrow-icon"></i>
+              <i id="back-left-arrow-btn" class="left-arrow-icon"></i>
+              <i id="forward-right-arrow-btn" class="right-arrow-icon"></i>
             </div>
             <h3>Report Incident</h3>
           </div>
@@ -320,10 +322,13 @@
                 accept="image/png, image/jpeg" /></div>
             <p>Upload images</p>
             <p>Drop Files Here click <span>browse</span> through your computer (Required JPEG, JPG, PNG)</p>
+
+            <button id="show-form-btn" class="button-primary-simple-black">Submit</button>
+
           </div>
-          <button id="submit-btn" class="button-primary-simple-black">Submit</button>
-          <div id="create-post" class="second-stage-form-incident-page">
-            <form id="incident-form">
+
+          <div id="create-post" class="second-stage-form-incident-page-front">
+            <form class="report-incident-form" id="incident-form">
 
               <input type="text" id="address" name="address" />
               <label for="address">Address:</label>
@@ -450,14 +455,13 @@
           </div>
         </div>
       </div>
-      <main>
-        <div class="leftside-map">
+      <main class="driver-dashboard">
+        <div class="leftside-map map-section">
           <div class="lifleet" id="map">
           </div>
         </div>
         <div class="incident-client-page-right-side">
           <div id="create-post" class="second-stage-form-incident-page">
-
           </div>
         </div>
       </main>

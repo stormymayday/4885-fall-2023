@@ -1,5 +1,5 @@
-.second-stage-form-incident-page {
-	// display: none;
+.second-stage-form-incident-page-front {
+	display: none;
 }
 
 .incident-client-page-right-side {
@@ -13,10 +13,12 @@
 .report-incident-arrows {
 	width: 100%;
 	display: flex;
+
 	// justify-content: stretch;
 	& h3 {
 		align-self: center;
 	}
+
 	.left-arrow-icon {
 		margin-right: 0.5rem;
 		content: '';
@@ -24,6 +26,7 @@
 		padding: 0.6rem;
 		background: url('/src/arrow-left.svg') center / contain no-repeat;
 	}
+
 	.right-arrow-icon {
 		margin-right: 0.5rem;
 		content: '';
@@ -37,33 +40,39 @@
 	width: 100%;
 	margin-top: 1rem;
 	text-align: center;
+
 	& h5 {
 		font-size: large;
 		color: black;
 	}
+
 	.progress-bar-icons {
 		margin-top: 2rem;
 		display: flex;
 		justify-content: space-between;
 		text-align: center;
 	}
+
 	& span {
 		display: block;
 		text-align: center;
 		margin-top: 0.5rem;
 	}
+
 	.icon-photo {
 		content: '';
 		color: yellow;
 		padding: 0.6rem;
 		background: url('/src/camera.svg') center / contain no-repeat;
 	}
+
 	.icon-vechile {
 		content: '';
 		color: black;
 		padding: 0.6rem;
 		background: url('/src/car.svg') center / contain no-repeat;
 	}
+
 	.icon-spot {
 		content: '';
 		color: black;
@@ -106,6 +115,7 @@
 	background-repeat: no-repeat;
 	background-position: center center;
 	position: relative;
+
 	& input {
 		position: absolute;
 		top: 0;
@@ -113,5 +123,11 @@
 		opacity: 0;
 		width: 100%;
 		height: 100%;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.leftside-map {
+		min-height: 40vh !important;
 	}
 }
