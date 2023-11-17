@@ -20,6 +20,8 @@ export default class ReporterEditIncident extends HTMLElement {
 
         this.currentCase = null;
 
+        this.user = JSON.parse(localStorage.getItem('user'));
+
         this.map;
 
         this.caseLatitude;
@@ -174,7 +176,7 @@ export default class ReporterEditIncident extends HTMLElement {
         if (this.currentCase) {
 
             const { id } = this.currentCase;
-            const { image, notes, carMake, carModel, carType, carColor, licensePlate, address } = this.currentCase.data;
+            const { image, notes, carMake, carModel, carType, carColor, licensePlate } = this.currentCase.data;
 
             let downloadURL = image;
             let newLatitude = this.currentCase.data.coordinates.latitude;
@@ -189,55 +191,67 @@ export default class ReporterEditIncident extends HTMLElement {
                 console.log(newLongitude);
             });
 
-            this.querySelector("#create-post").innerHTML = `
-            <div id="popup-form">
+            this.querySelector(".info-section").innerHTML = `
 
-                <div id="img-container">
-                  <img src="${image}" alt="${carMake
-                }" height="150">
+            <div id="create-post">
+
+                <div class="report-incident-arrows">
+                    <div class="arrows">
+                    <i id="back-btn" class="left-arrow-icon"></i>
+                    </div>
+                    <h3>Edit Incident</h3>
                 </div>
 
-                <form id="my-form">
+                <div class="first-step-upload-picture">
+                    <div id="img-container" class="img-container-for-upload-img">
+                        <img src="${image}" alt="${carMake}">
+                    </div>
+                    <div class="upload-div-img">
+                    <input type="file" id="file-input" name="file-upload" accept="image/png, image/jpeg" />
+                    </div>
+                    <h3>Upload images</h3>
+                    <p>Drop Files Here click <span>browse</span> through your computer (Required JPEG, JPG, PNG)</p>
+                </div>
 
-                  <label for="file-input">Upload File:</label>
-                  <input type="file" id="file-input" name="file-upload" accept="image/png, image/jpeg" /><br /><br />
+                <form class="report-incident-form" id="incident-form">
 
-                  <label for="address">Address:</label>
-                  <input type="text" id="address" name="address" value="${address
-                }" /><br />
+                    <input type="text" id="carMake" name="carMake" placeholder="Car Make" value="${carMake}" />
 
-                  <label for="carMake">Car Make:</label>
-                  <input type="text" id="carMake" name="carMake" value="${carMake
-                }" /><br />
+                    <input type="text" id="carModel" name="carModel" placeholder="Car Model" value="${carModel}" />
 
-                  <label for="carModel">Car Model:</label>
-                  <input type="text" id="carModel" name="carModel" value="${carModel
-                }" /><br />
+                    <input type="text" id="licensePlate" name="licensePlate" placeholder="License Plate Number"  value="${licensePlate}" />
 
-                  <label for="carType">Car Type:</label>
-                  <select id="carType" name="carType">
-                    <option value="SUV">SUV</option>
-                    <option value="Sedan">Sedan</option>
-                    <option value="Hatchback">Hatchback</option>
-                    <option value="Convertible">Convertible</option>
-                    <option value="Truck">Truck</option>
-                  </select><br /><br />
+                    <div class="dropdown-form-side">
+                    <select id="carType" name="carType">
+                        <option value="SUV">SUV</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="Hatchback">Hatchback</option>
+                        <option value="Convertible">Convertible</option>
+                        <option value="Truck">Truck</option>
+                    </select>
 
-                  <label for="carColor">Car Color:</label>
-                  <input type="text" id="carColor" name="carColor" value="${carColor
-                }" /><br />
+                    <input type="text" id="carColor" name="carColor" placeholder="Color" value="${carColor}" />
 
-                  <label for="licensePlate">License Plate:</label>
-                  <input type="text" id="licensePlate" name="licensePlate" value="${licensePlate
-                }" /><br />
+                    </div>
 
-                  <label for="notes">Notes:</label>
-                  <textarea name="notes" id="notes" cols="30" rows="10">${notes
-                }</textarea>
-                  <button id="edit-btn">Edit</button>
-                  <button id="cancel-btn">Cancel</button>
+                    <textarea name="notes" id="notes" cols="30" rows="10" placeholder="Notes">${notes}</textarea>
+
+                    <div class="btn-container">
+                        <button id="cancel-btn" class="button-primary-simple-black cancel-btn">Cancel</button>
+                        <button id="edit-btn" class="button-primary-simple-black complete-btn">Edit</button>
+                    </div>
+                    
                 </form>
-              </div>`;
+                </div>`
+                ;
+
+            this.querySelector('#carType').value = carType;
+
+            this.querySelector('#back-btn').addEventListener('click', async (event) => {
+
+                app.router.go(`/main-page`);
+
+            });
 
             let fileName = new Date().getTime();
 
@@ -288,7 +302,7 @@ export default class ReporterEditIncident extends HTMLElement {
                     // console.log(`You clicked Edit button`);
 
                     // Getting input values
-                    const address = document.querySelector('#address').value;
+                    // const address = document.querySelector('#address').value;
                     const carMake = document.querySelector('#carMake').value;
                     const carModel = document.querySelector('#carModel').value;
                     const carType = document.querySelector('#carType').value;
@@ -300,7 +314,7 @@ export default class ReporterEditIncident extends HTMLElement {
                     // Editing the Case
                     const caseRef = doc(dataBase, 'cases', id);
                     await updateDoc(caseRef, {
-                        address: address,
+                        // address: address,
                         carMake: carMake,
                         carModel: carModel,
                         carType: carType,
@@ -337,11 +351,11 @@ export default class ReporterEditIncident extends HTMLElement {
 
         }
 
-        this.querySelector("#back-btn").addEventListener("click", async (event) => {
+        // this.querySelector("#back-btn").addEventListener("click", async (event) => {
 
-            Router.go(`/main-page`);
+        //     Router.go(`/main-page`);
 
-        });
+        // });
 
 
     }
@@ -371,6 +385,9 @@ export default class ReporterEditIncident extends HTMLElement {
 
         if (user) {
 
+            document.querySelector('#user-name').innerHTML = this.user.nameRegistration;
+            document.querySelector('#user-email').innerHTML = this.user.email;
+
             this.getCurrentCaseFromLocalStorage();
 
             // This function kicks-off most displayMap, displayMarkers
@@ -378,11 +395,11 @@ export default class ReporterEditIncident extends HTMLElement {
 
         }
 
-        this.querySelector("#back-btn").addEventListener("click", async (event) => {
+        // this.querySelector("#back-btn").addEventListener("click", async (event) => {
 
-            Router.go('/main-page');
+        //     Router.go('/main-page');
 
-        });
+        // });
 
         this.querySelector("#logout-btn").addEventListener("click", async (event) => {
 

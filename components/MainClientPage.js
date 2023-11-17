@@ -18,6 +18,7 @@ import {
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import viteLogo from '../src/vite.svg';
 import ttlogo from '../src/ttlogo.png';
+import ttLogo from '../src/tt-logo.svg';
 
 export default class MainClientPage extends HTMLElement {
 
@@ -237,7 +238,7 @@ export default class MainClientPage extends HTMLElement {
 					const title = 'TowTackle';
 					const options = {
 						body: message,
-						icon: ttlogo,
+						icon: ttLogo,
 					};
 
 					this.sendNotification(title, options);
@@ -253,7 +254,9 @@ export default class MainClientPage extends HTMLElement {
 					data: doc.data()
 				};
 
-				this.activeCases.push(activeCase);
+				if (activeCase.data.status !== 'complete') {
+					this.activeCases.push(activeCase);
+				}
 
 				const { latitude, longitude } = doc.data().coordinates;
 				const coordinates = [latitude, longitude];
@@ -298,9 +301,36 @@ export default class MainClientPage extends HTMLElement {
 	renderCaseCards() {
 
 		// Clearing
-		this.querySelector('#user-cases-display').innerHTML = '';
+		if (document.querySelector('.case-container')) {
+			document.querySelector('.case-container').innerHTML = '';
+		}
+		if (document.querySelector('.no-cases')) {
+			document.querySelector('.no-cases').innerHTML = '';
+		}
+
 
 		if (this.activeCases.length > 0) {
+
+			if (document.querySelector('.no-cases')) {
+				document.querySelector('.no-cases').style.height = '0%';
+			}
+
+			if (document.querySelector('.case-container')) {
+				document.querySelector('.case-container').style.height = '100%';
+
+				document.querySelector('.case-container').innerHTML = `
+				<h2 class="case-container-heading">Reported Incidents</h2>
+			`;
+
+			}
+
+			// document.querySelector('.no-cases').style.height = '0%';
+			// document.querySelector('.case-container').style.height = '100%';
+
+
+			// document.querySelector('.case-container').innerHTML = `
+			// 	<h2 class="case-container-heading">Reported Incidents</h2>
+			// `;
 
 			const content = this.activeCases.map((activeCase) => {
 
@@ -308,29 +338,83 @@ export default class MainClientPage extends HTMLElement {
 				const { image, notes, status, address } = activeCase.data;
 				const date = new Date(activeCase.data.creationTime.seconds * 1000);
 
+				// Month name array
+				const monthNames = [
+					'January', 'February', 'March', 'April',
+					'May', 'June', 'July', 'August',
+					'September', 'October', 'November', 'December'
+				];
+
+				// Get month, day, year, hour, and minute
+				const month = monthNames[date.getMonth()];
+				const day = date.getDate();
+				const year = date.getFullYear();
+				let hour = date.getHours();
+				const minute = date.getMinutes();
+				const period = hour >= 12 ? 'PM' : 'AM';
+
+				// Convert hour to 12-hour format
+				hour = hour % 12 || 12;
+
+				// Create the formatted date string
+				const formattedDate = `${month} ${day}, ${year}, ${hour}:${minute.toLocaleString('en-US', { minimumIntegerDigits: 2 })} ${period}`;
+
 				return `
-					<div div class= "view-case">
-						<div class="left-side-view-case">
-							<div class="img-container-case">
-								<img src="${image}" alt="">
-							</div>
-						</div>
-						<div class="right-side-view-case">
-							<p class="status-of-user-case">${status}</p>
-							<p class="info-user-case"> ${address}</p>
-							<p class="data-user-case">${date}</p>
-							<div class="container-user-case-view-incident">
+					<div class="case-item">
+                        <div class="case-img-container">
+                            <img src=${image} alt="" />
+                        </div>
+                        <div class="case-info">
+                            <div>
+                                <span class="new-request">${status}</span>
+                            </div>
+                            <h3 class="case-notes">${notes}</h3>
+                            <p class="date-text">${formattedDate}</p>
+                            <div class="container-user-case-view-incident">
 								<p id=${id} class="case-btn">VIEW INCIDENT<i class="right-icon-arrow-view-case"></i></p>
 							</div>
-						</div>
-						</div>
-					</div>
+                        </div>
+                    </div>
 				`;
 
 
 			}).join('');
 
-			this.querySelector('#user-cases-display').innerHTML = content;
+			this.querySelector('.case-container').innerHTML += content;
+
+			if (document.querySelector('.case-container')) {
+				document.querySelector('.case-container').innerHTML += `
+				<button id="report-new-incident-btn" class="button-primary-simple-black fat">Report New Incident</button>
+			`;
+			}
+
+			// document.querySelector('.case-container').innerHTML += `
+			// 	<button id="report-new-incident-btn" class="button-primary-simple-black fat">Report New Incident</button>
+			// `;
+
+			if (document.querySelector('#report-new-incident-btn')) {
+
+				document.querySelector('#report-new-incident-btn').addEventListener(
+
+					'click',
+					() => {
+
+						app.router.go('/report-incident');
+					},
+
+				);
+
+			}
+
+			// document.querySelector('#report-new-incident-btn').addEventListener(
+
+			// 	'click',
+			// 	() => {
+
+			// 		app.router.go('/report-incident');
+			// 	},
+
+			// );
 
 			// Selecting all 'View Incident' buttons and attaching an event listener
 			const viewCaseButtons = this.querySelectorAll('.case-btn');
@@ -360,7 +444,67 @@ export default class MainClientPage extends HTMLElement {
 
 		} else {
 
-			console.log(`There are no active cases`);
+			// console.log(`There are no active cases`);
+
+			// Clearing the Info Section
+			// Clearing
+			// document.querySelector('.case-container').innerHTML = ''
+			// document.querySelector('.no-cases').innerHTML = '';
+
+			if (document.querySelector('.no-cases')) {
+
+				document.querySelector('.no-cases').innerHTML = `
+				
+				<div class="rounded-img-bg">
+          			<div class="rounded-img-container"></div>
+        		</div>
+
+        		<h3>Report Wrongly parked vehicle near you</h3>
+
+				<p>
+					Use Towtackle app to effortlessly capture or upload images of wrongly parked vehicles. Add vehicle
+				details and include the location for efficient tow truck dispatch.
+				</p>
+
+        		<button id="btn-click-report-incident" class="button-primary-simple-black fat">Report incident</button>
+
+				<div class="bottom-footer-man-page">
+					<i class="help-icon"></i><span>HELP</span>
+				</div>
+			`;
+
+			}
+
+			if (document.querySelector('.case-container')) {
+				document.querySelector('.case-container').style.height = '0%';
+			}
+
+			if (document.querySelector('.no-cases')) {
+				document.querySelector('.no-cases').style.height = '100%';
+			}
+
+			// document.querySelector('.case-container').style.height = '0%';
+			// document.querySelector('.no-cases').style.height = '100%';
+
+			if (document.querySelector('#btn-click-report-incident')) {
+				document.querySelector('#btn-click-report-incident').addEventListener(
+
+					'click',
+					() => {
+						app.router.go('/report-incident');
+					},
+
+				);
+			}
+
+			// document.querySelector('#btn-click-report-incident').addEventListener(
+
+			// 	'click',
+			// 	() => {
+			// 		app.router.go('/report-incident');
+			// 	},
+
+			// );
 
 		}
 
@@ -422,16 +566,6 @@ export default class MainClientPage extends HTMLElement {
 			}
 			// end of navigator / Leaflet
 		}
-
-		this.querySelector('#btn-click-report-incident').addEventListener(
-
-			'click',
-			() => {
-				// console.log('hahah');
-				app.router.go('/report-incident');
-			},
-
-		);
 
 		this.querySelector('#logout-btn').addEventListener('click', async () => {
 

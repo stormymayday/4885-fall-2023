@@ -63,10 +63,19 @@
 
 .logo {
     display: inline-block;
-    height: 2.5rem;
-    width: 2.5rem;
+    height: 3rem;
+    width: 3rem;
     margin-left: 1rem;
-    background-image: url('/src/Layer_1.svg');
+    background-image: url('/src/tt-logo.svg');
+    background-repeat: no-repeat;
+}
+
+.logo-with-text {
+    display: none;
+    height: 3rem;
+    width: 14.8rem;
+    margin-left: 1rem;
+    background-image: url('/src/tt-logo-with-text.svg');
     background-repeat: no-repeat;
 }
 
@@ -182,7 +191,9 @@
     display: inline-block;
     padding: 0.5rem 1rem;
     color: #7A4100;
+    color: #277790;
     background-color: #FFF2D9;
+    background-color: #c3ebf8;
     border-radius: 2rem;
     font-size: 0.8rem;
 }
@@ -209,6 +220,12 @@
 
     .logo {
         margin-left: 2rem;
+        display: none;
+    }
+
+    .logo-with-text {
+        margin-left: 2rem;
+        display: inline-block;
     }
 
     .dropdown {

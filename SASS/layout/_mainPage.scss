@@ -122,13 +122,13 @@
 
 			.bottom-footer-man-page {
 				margin-top: auto;
+
 				.help-icon {
 					margin-right: 0.5rem;
 					content: '';
 					color: black;
 					padding: 0.6rem;
-					background: url('/src/message-question.svg') center / contain
-						no-repeat;
+					background: url('/src/message-question.svg') center / contain no-repeat;
 				}
 			}
 		}
@@ -260,5 +260,69 @@
 			max-width: 100%;
 			max-height: 100%;
 		}
+	}
+}
+
+
+// New CSS
+.no-cases {
+	text-align: center;
+	// height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.no-cases .rounded-img-bg {
+	width: 12.5rem;
+	height: 12.5rem;
+	padding: 2.9375rem 0.875rem;
+	background-color: $clr-primary-6;
+	border-radius: 50%;
+	margin: 0 auto;
+	margin-bottom: 1.5rem;
+}
+
+.no-cases .rounded-img-container {
+	height: 100%;
+	width: 100%;
+	background: url('/src/main-page-car.svg') center / contain no-repeat;
+}
+
+.no-cases h3 {
+	margin-bottom: 1rem;
+	font-size: 1.3rem;
+}
+
+.no-cases button,
+.case-container button {
+	cursor: pointer;
+	background-color: $clr-primary-1;
+	color: $clr-primary-2;
+	font-weight: 700;
+}
+
+.case-container button {
+	margin-top: auto;
+	justify-self: flex-end;
+}
+
+.no-cases .help-icon {
+	margin-right: 0.5rem;
+	content: '';
+	color: black;
+	padding: 0.6rem;
+	background: url('/src/message-question.svg') center / contain no-repeat;
+}
+
+.case-container .case-container-heading {
+	text-align: center;
+	margin-bottom: 0;
+}
+
+@media only screen and (max-width: 700px) {
+	.no-cases {
+		margin-top: 2rem;
 	}
 }

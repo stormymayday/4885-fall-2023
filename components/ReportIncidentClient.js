@@ -29,9 +29,11 @@ export default class ReportIncidentClient extends HTMLElement {
 	}
 
 	handleFileInput(input) {
+
 		const selectedFile = input.files[0];
 
 		if (selectedFile) {
+
 			const imageUrl = URL.createObjectURL(selectedFile);
 
 			const imgContainer = document.querySelector('#img-container');
@@ -40,8 +42,10 @@ export default class ReportIncidentClient extends HTMLElement {
 			// Display the selected image (you can customize this part)
 			const imageElement = document.createElement('img');
 			imageElement.src = imageUrl;
-			imageElement.style.maxHeight = '300px';
+			// imageElement.style.maxHeight = '300px';
 			imgContainer.appendChild(imageElement);
+			imgContainer.style.height = '20rem';
+			imgContainer.style.width = '80%';
 
 			console.log(selectedFile);
 
@@ -67,7 +71,7 @@ export default class ReportIncidentClient extends HTMLElement {
 
 		// const user = JSON.parse(localStorage.getItem('user'));
 
-		const address = document.querySelector('#address').value;
+		// const address = document.querySelector('#address').value;
 		const carMake = document.querySelector('#carMake').value;
 		const carModel = document.querySelector('#carModel').value;
 		const carType = document.querySelector('#carType').value;
@@ -92,7 +96,7 @@ export default class ReportIncidentClient extends HTMLElement {
 					latitude: this.latitude,
 					longitude: this.longitude,
 				},
-				address: address,
+				// address: address,
 				image: this.downloadURL,
 				status: 'active',
 
@@ -126,6 +130,10 @@ export default class ReportIncidentClient extends HTMLElement {
 		const user = JSON.parse(localStorage.getItem('user'));
 
 		if (user) {
+
+			document.querySelector('#user-name').innerHTML = this.user.nameRegistration;
+			document.querySelector('#user-email').innerHTML = this.user.email;
+
 			// Testing if navigator.geolocation is supported by the browser
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(
@@ -253,44 +261,35 @@ export default class ReportIncidentClient extends HTMLElement {
 		);
 
 		this.querySelector('#back-btn').addEventListener('click', async (event) => {
-			// Stopping the video stream
-			// this.stopMedia();
 
 			app.router.go(`/main-page`);
+
 		});
 
-		this.querySelector('#back-left-arrow-btn').addEventListener(
-			'click',
-			async (event) => {
-				event.preventDefault();
+		// this.querySelector('#back-left-arrow-btn').addEventListener(
+		// 	'click',
+		// 	async (event) => {
 
-				// document.querySelector('.first-step-upload-picture').style.display = 'none';
-				// document.querySelector('.second-stage-form-incident-page').style.display = 'block';
-			},
-		);
+		// 		event.preventDefault();
 
-		this.querySelector('#show-form-btn').addEventListener(
-			'click',
-			async (event) => {
-				event.preventDefault();
+		// 	},
+		// );
 
-				// Stopping the video stream
-				// this.stopMedia();
+		// this.querySelector('#show-form-btn').addEventListener(
+		// 	'click',
+		// 	async (event) => {
+		// 		event.preventDefault();
 
-				// this.createCase();
-
-				document.querySelector('.first-step-upload-picture').style.display = 'none';
-				document.querySelector('.second-stage-form-incident-page-front').style.display = 'block';
-			},
-		);
+		// 		document.querySelector('.first-step-upload-picture').style.display = 'none';
+		// 		document.querySelector('.second-stage-form-incident-page-front').style.display = 'block';
+		// 	},
+		// );
 
 		this.querySelector('#incident-form').addEventListener(
 			'submit',
 			async (event) => {
-				event.preventDefault();
 
-				// Stopping the video stream
-				// this.stopMedia();
+				event.preventDefault();
 
 				this.createCase();
 			},
@@ -299,8 +298,6 @@ export default class ReportIncidentClient extends HTMLElement {
 		this.querySelector('#logout-btn').addEventListener(
 			'click',
 			async (event) => {
-				// Stopping the video stream
-				// this.stopMedia();
 
 				localStorage.clear();
 
@@ -311,5 +308,3 @@ export default class ReportIncidentClient extends HTMLElement {
 }
 
 customElements.define('report-incident-client', ReportIncidentClient);
-
-// Al the futher functionality goes on this page
