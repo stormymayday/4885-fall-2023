@@ -1,5 +1,5 @@
 .second-stage-form-incident-page-front {
-	display: none;
+	// display: none;
 }
 
 .incident-client-page-right-side {
@@ -83,7 +83,7 @@
 
 .first-step-upload-picture {
 	width: 100%;
-	height: 40vh;
+	// height: 40vh;
 	border: 1px dashed grey;
 	padding: 1rem;
 	margin-top: 3rem;
@@ -92,23 +92,44 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	border-radius: .2rem;
+	margin-bottom: 2rem;
 }
 
 .img-container-for-upload-img {
-	max-width: 20rem;
-	max-height: 20rem;
-	margin: 0 1rem 1rem 0;
-	position: relative;
+	// width: 20rem;
+	// height: 20rem;
+	margin: 0 auto;
+	margin-top: 1rem;
+	// position: relative;
 }
 
 .img-container-for-upload-img img {
-	max-width: 100% !important;
-	max-height: 100% !important;
-	object-fit: contain;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: .3rem;
 	box-shadow: 0px 10px 25px 0px rgba(145, 158, 171, 0.2);
 }
 
+.first-step-upload-picture h3 {
+	margin-bottom: 1rem;
+}
+
+.first-step-upload-picture p {
+	margin-bottom: 1rem;
+}
+
+.first-step-upload-picture span {
+	color: $clr-primary-4;
+}
+
 .upload-div-img {
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+	padding: 3rem;
+	border-radius: 50%;
+	background-color: $clr-primary-6;
 	width: 5rem;
 	height: 5rem;
 	background-image: url('/src/img.svg');
@@ -129,5 +150,61 @@
 @media only screen and (min-width: 600px) {
 	.leftside-map {
 		min-height: 40vh !important;
+	}
+}
+
+// New CSS
+.report-incident-arrows {
+	margin-top: 3rem;
+	display: flex;
+	align-items: center;
+}
+
+.report-incident-arrows i {
+	cursor: pointer;
+}
+
+.report-incident-form button {
+	margin-top: 0;
+	background-color: $clr-primary-1;
+	color: $clr-primary-2;
+	font-weight: 700;
+	cursor: pointer;
+	width: 100%;
+}
+
+.report-incident-form {
+	margin: auto;
+}
+
+.report-incident-form input,
+.report-incident-form select,
+.report-incident-form textarea {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	box-sizing: border-box;
+}
+
+/* Style dropdown and text input side by side */
+.dropdown-form-side {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.report-incident-form textarea {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	box-sizing: border-box;
+}
+
+@media only screen and (min-width: 700px) {
+
+	.report-incident-arrows {
+
+		margin-top: 0rem;
+
 	}
 }
