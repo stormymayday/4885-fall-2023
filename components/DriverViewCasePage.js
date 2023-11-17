@@ -176,7 +176,7 @@ export default class DriverViewCasePage extends HTMLElement {
         if (this.currentCase) {
 
             const { id } = this.currentCase;
-            const { image, notes, carMake, carModel, carType, carColor, licensePlate, address, creationTime } = this.currentCase.data;
+            const { image, notes, carMake, carModel, carType, carColor, licensePlate, creationTime } = this.currentCase.data;
             const date = new Date(this.currentCase.data.creationTime.seconds * 1000);
 
             // Month name array
@@ -213,7 +213,7 @@ export default class DriverViewCasePage extends HTMLElement {
                     <p>Reported:</p>
                 </div>
 
-                <h3>${address}<h3>
+                <h3>${formattedDate}<h3>
 
                 <div class="case-details-img-container">
                     <img src=${image} alt="" />
@@ -221,8 +221,7 @@ export default class DriverViewCasePage extends HTMLElement {
 
                 <div class="vehicle-details">
 
-                    <h4>Vehicle Details:</h4>
-                    <p class="gray-text">${formattedDate}</p>
+                    <h4>Case Details:</h4>
 
                     <div>
                         <p class="gray-text">License Plate:</p>
@@ -419,6 +418,17 @@ export default class DriverViewCasePage extends HTMLElement {
                 // Destination Details
                 const destinationDetails = `
                     <div class="destination-details">
+
+                        <div class="streets-container">
+                            <div class="current-street-container">
+                                <span class="orange"></span>
+                                <p>${routes[0].instructions[0].road}</p>
+                            </div>
+                            <div class="destination-street-container">
+                                <span class="red"></span>
+                                <p>${routes[0].instructions[routes[0].instructions.length - 1].road}</p>
+                            </div>
+                        </div>
 
                         <p class="eta-time">${`${Math.round(routes[0].summary.totalTime / 60)} min`}</p>
 
