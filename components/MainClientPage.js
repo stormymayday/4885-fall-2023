@@ -1,6 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import markerIcon from "../src/images/marker-icon.png";
+import currentLocationIcon from "../src/current-location-marker.png";
 import markerIcon2x from "../src/images/marker-icon-2x.png";
 import markerShadow from "../src/images/marker-shadow.png";
 import Router from '../services/Router.js';
@@ -79,16 +80,24 @@ export default class MainClientPage extends HTMLElement {
 				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(this.map);
 
+			// Original Icon
+			// let leafletIcon = L.icon({
+			// 	iconUrl: markerIcon,
+			// 	iconRetinaUrl: markerIcon2x,
+			// 	iconSize: [25, 41],
+			// 	iconAnchor: [12, 41],
+			// 	popupAnchor: [1, -34],
+			// 	shadowUrl: markerShadow,
+			// 	shadowSize: [41, 41],
+			// 	shadowAnchor: [12, 41]
+			// });
+
 			let leafletIcon = L.icon({
-				iconUrl: markerIcon,
-				iconRetinaUrl: markerIcon2x,
-				iconSize: [25, 41],
-				iconAnchor: [12, 41],
-				popupAnchor: [1, -34],
-				shadowUrl: markerShadow,
-				// shadowRetinaUrl: 'marker-shadow-2x.png',
-				shadowSize: [41, 41],
-				shadowAnchor: [12, 41]
+				iconUrl: currentLocationIcon,
+				iconRetinaUrl: currentLocationIcon,
+				iconSize: [130, 130],
+				iconAnchor: [65, 80],
+				popupAnchor: [1, -34]
 			});
 
 			// Displaying a Marker with current user coordinates
