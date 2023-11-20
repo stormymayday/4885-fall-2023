@@ -1,0 +1,18 @@
+@import '../base/animations';
+
+.spinner-container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.spinner-car {
+	background-image: url('../../src/images/track.svg');
+	height: 5rem;
+	width: 5rem;
+	padding: 5rem;
+	// margin: 2rem;
+	position: relative;
+	animation: moveRight 3s linear, fadeOut 1s 4s ease forwards;
+}

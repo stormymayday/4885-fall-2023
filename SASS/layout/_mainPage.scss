@@ -128,7 +128,8 @@
 					content: '';
 					color: black;
 					padding: 0.6rem;
-					background: url('/src/message-question.svg') center / contain no-repeat;
+					background: url('/src/message-question.svg') center / contain
+						no-repeat;
 				}
 			}
 		}
@@ -263,7 +264,6 @@
 	}
 }
 
-
 // New CSS
 .no-cases {
 	text-align: center;
@@ -325,4 +325,18 @@
 	.no-cases {
 		margin-top: 2rem;
 	}
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip-container,
+.leaflet-popup-close-button {
+	display: none;
+}
+
+.map-section {
+	position: relative;
+}
+
+.info-section {
+	position: relative;
 }
