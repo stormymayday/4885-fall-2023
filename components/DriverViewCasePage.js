@@ -4,6 +4,8 @@ import 'leaflet-routing-machine';
 import markerIcon from "../src/images/marker-icon.png";
 import markerIcon2x from "../src/images/marker-icon-2x.png";
 import markerShadow from "../src/images/marker-shadow.png";
+import currentLocationIcon from "../src/current-location-marker.png";
+import incidentSpotMarker from "../src/incident-spot-marker.png";
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import Router from "../services/Router.js";
 import { signOut } from "firebase/auth";
@@ -108,16 +110,24 @@ export default class DriverViewCasePage extends HTMLElement {
 
         if (this.map) {
 
+            // let leafletIcon = L.icon({
+            //     iconUrl: markerIcon,
+            //     iconRetinaUrl: markerIcon2x,
+            //     iconSize: [25, 41],
+            //     iconAnchor: [12, 41],
+            //     popupAnchor: [1, -34],
+            //     shadowUrl: markerShadow,
+            //     // shadowRetinaUrl: 'marker-shadow-2x.png',
+            //     shadowSize: [41, 41],
+            //     shadowAnchor: [12, 41]
+            // });
+
             let leafletIcon = L.icon({
-                iconUrl: markerIcon,
-                iconRetinaUrl: markerIcon2x,
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
-                popupAnchor: [1, -34],
-                shadowUrl: markerShadow,
-                // shadowRetinaUrl: 'marker-shadow-2x.png',
-                shadowSize: [41, 41],
-                shadowAnchor: [12, 41]
+                iconUrl: currentLocationIcon,
+                iconRetinaUrl: currentLocationIcon,
+                iconSize: [130, 130],
+                iconAnchor: [65, 80],
+                popupAnchor: [1, -34]
             });
 
             // Displaying a Marker with current user coordinates
@@ -142,16 +152,24 @@ export default class DriverViewCasePage extends HTMLElement {
 
         if (this.map) {
 
+            // let leafletIcon = L.icon({
+            //     iconUrl: markerIcon,
+            //     iconRetinaUrl: markerIcon2x,
+            //     iconSize: [25, 41],
+            //     iconAnchor: [12, 41],
+            //     popupAnchor: [1, -34],
+            //     shadowUrl: markerShadow,
+            //     // shadowRetinaUrl: 'marker-shadow-2x.png',
+            //     shadowSize: [41, 41],
+            //     shadowAnchor: [12, 41]
+            // });
+
             let leafletIcon = L.icon({
-                iconUrl: markerIcon,
-                iconRetinaUrl: markerIcon2x,
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
-                popupAnchor: [1, -34],
-                shadowUrl: markerShadow,
-                // shadowRetinaUrl: 'marker-shadow-2x.png',
-                shadowSize: [41, 41],
-                shadowAnchor: [12, 41]
+                iconUrl: incidentSpotMarker,
+                iconRetinaUrl: incidentSpotMarker,
+                iconSize: [50, 82],
+                iconAnchor: [24, 70],
+                popupAnchor: [1, -34]
             });
 
             // Displaying Case marker
@@ -163,8 +181,8 @@ export default class DriverViewCasePage extends HTMLElement {
                         className: 'running-popup',
                     })
                 )
-                .setPopupContent(this.caseNotes)
-                .openPopup();
+                .setPopupContent(this.caseNotes);
+            // .openPopup();
 
         } else {
             console.log(`map is not initialized`);
@@ -334,6 +352,50 @@ export default class DriverViewCasePage extends HTMLElement {
                     L.latLng(this.driverCoordinates[0], this.driverCoordinates[1]),
                     L.latLng(this.caseLatitude, this.caseLongitude)
                 ],
+
+                createMarker: function (i, waypoints, n) {
+
+                    let startIcon = L.icon({
+                        iconUrl: currentLocationIcon,
+                        iconRetinaUrl: currentLocationIcon,
+                        iconSize: [130, 130],
+                        iconAnchor: [65, 80],
+                        popupAnchor: [1, -34]
+                    });
+
+                    let destinationIcon = L.icon({
+                        iconUrl: incidentSpotMarker,
+                        iconRetinaUrl: incidentSpotMarker,
+                        iconSize: [50, 82],
+                        iconAnchor: [24, 70],
+                        popupAnchor: [1, -34]
+                    });
+
+                    let marker_icon;
+
+                    if (i == 0) {
+                        marker_icon = startIcon;
+                    } else if (i == n - 1) {
+                        marker_icon = destinationIcon;
+                    }
+
+                    let marker = L.marker(waypoints.latLng, {
+                        draggable: true,
+                        bounceOnAdd: true,
+                        bounceOnAddOptions: {
+                            duration: 1000,
+                            height: 800,
+                            function() {
+                                (bindPopup(myPopup).openOn(this.map))
+                            }
+                        },
+                        icon: marker_icon
+                    });
+
+                    return marker;
+
+                },
+
                 routeWhileDragging: true
             });
 
