@@ -12,6 +12,7 @@ import State from './services/State.js';
 
 // Web Components:
 import StarterPage from './components/StarterPage';
+import OfflinePage from './components/OfflinePage';
 import LoginPage from './components/LoginPage.js';
 import RegistrationPage from './components/RegistrationPage.js';
 import Test from './components/Test';

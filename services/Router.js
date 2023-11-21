@@ -56,6 +56,11 @@ const Router = {
         pageElement = document.createElement("login-page");
         break;
 
+      case "/offline":
+
+        pageElement = document.createElement("offline-page");
+        break;
+
       case "/registration":
 
         pageElement = document.createElement("registration-page");

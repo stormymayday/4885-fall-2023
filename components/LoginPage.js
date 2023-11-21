@@ -61,7 +61,10 @@ export default class LoginPage extends HTMLElement {
 					'span',
 				).innerHTML = `Invalid login credentials, please try again`;
 			} else {
+
+				app.router.go('/offline-page');
 				document.querySelector('span').innerHTML = `error message`;
+
 			}
 		}
 	}
