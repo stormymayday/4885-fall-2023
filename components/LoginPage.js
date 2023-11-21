@@ -5,6 +5,7 @@ import {
 	validateEmail,
 	validatePassword,
 } from '../services/validationFunctions.js';
+import Router from '../services/Router.js';
 
 export default class LoginPage extends HTMLElement {
 	constructor() {
@@ -45,6 +46,7 @@ export default class LoginPage extends HTMLElement {
 			localStorage.setItem('userRole', JSON.stringify(finale.role));
 
 			app.router.go('/main-page');
+
 		} catch (error) {
 			// track error and layout on the page
 			const errorCode = error.code;
@@ -62,7 +64,7 @@ export default class LoginPage extends HTMLElement {
 				).innerHTML = `Invalid login credentials, please try again`;
 			} else {
 
-				app.router.go('/offline-page');
+				Router.go('/offline');
 				document.querySelector('span').innerHTML = `error message`;
 
 			}
@@ -85,9 +87,11 @@ export default class LoginPage extends HTMLElement {
 		this.querySelector('#register-btn-login-page').addEventListener(
 			'click',
 			(event) => {
+
 				event.preventDefault();
 
 				app.router.go(`/registration`);
+
 			},
 		);
 
