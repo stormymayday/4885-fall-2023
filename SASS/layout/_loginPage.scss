@@ -8,6 +8,7 @@
 	width: 100%;
 	height: 100vh;
 }
+
 .container-img-login-page {
 	width: 100%;
 	height: 100vh;
@@ -29,26 +30,33 @@
 		#login-btn {
 			width: 100%;
 		}
+
 		width: 60%;
 		margin: 0 auto;
+
 		.text-container-h2-registration {
 			text-align: center;
 			margin: 1rem;
+
 			& h2 {
 				margin: 0.5rem;
 			}
+
 			& p {
 				display: inline;
 				font-size: small;
 			}
+
 			& span {
 				color: red;
 				font-size: small;
 			}
+
 			& #register-btn-login-page:hover {
 				cursor: pointer;
 			}
 		}
+
 		.or-splitter {
 			width: 100%;
 			text-align: center;
@@ -76,8 +84,10 @@
 	width: 100%;
 	text-align: center;
 	margin-top: 1rem;
+
 	& ul {
 		list-style: none;
+
 		& li {
 			// background-color: red;
 			display: inline-block;
@@ -86,38 +96,40 @@
 			padding: 1.5rem;
 			margin: 0 auto;
 			position: relative;
+
 			& div {
 				transform: translate(-50%, -50%);
 				position: absolute;
+
 				&:hover {
 					cursor: pointer;
 				}
 			}
+
 			& .facebook-logo-svg {
-				background: url('../../src/facebookIcon.svg') center / contain no-repeat;
+				background: url('/src/facebookIcon.svg') center / contain no-repeat;
 				padding: 1rem;
 			}
 
 			& .twitter-logo-svg {
-				background: url('../../src/Twitter\ -\ Original.svg') center / contain
-					no-repeat;
+				background: url('/src/Twitter\ -\ Original.svg') center / contain no-repeat;
 				padding: 1rem;
 			}
+
 			& .google-logo-svg {
-				background: url('/src/Google\ -\ Original.png') center / contain
-					no-repeat;
+				background: url('/src/Google\ -\ Original.png') center / contain no-repeat;
 				padding: 1rem;
 			}
+
 			& .apple-logo-svg {
-				background: url('../../src/Apple\ -\ Negative.svg') center / contain
-					no-repeat;
+				background: url('/src/Apple\ -\ Negative.svg') center / contain no-repeat;
 				padding: 1rem;
 			}
 		}
 	}
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 900px) {
 	.container-img-login-page {
 		display: none;
 	}

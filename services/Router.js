@@ -47,9 +47,9 @@ const Router = {
 
     switch (route) {
 
-      case "/starter-page":
-        pageElement = document.createElement("start-page");
-        break;
+      // case "/starter-page":
+      //   pageElement = document.createElement("start-page");
+      //   break;
 
       case "/login":
 
@@ -63,15 +63,25 @@ const Router = {
 
       case "/":
 
-        if (app.state.isLoggedIn === !false) {
+        if (userID && userRole === 'user') {
 
-          pageElement = document.createElement("starter-page");
+          pageElement = document.createElement("main-client-page");
+
           break;
 
-        } else {
+        } else if (userID && userRole === 'driver') {
 
-          pageElement = document.createElement("starter-page");
+          pageElement = document.createElement("driver-dashboard-page");
+
           break;
+
+        }
+        else {
+
+          pageElement = document.createElement("login-page");
+
+          break;
+
         }
 
       case "/case":
@@ -144,6 +154,28 @@ const Router = {
         break;
 
       default:
+
+        if (userID && userRole === 'user') {
+
+          pageElement = document.createElement("main-client-page");
+
+          break;
+
+        } else if (userID && userRole === 'driver') {
+
+          pageElement = document.createElement("driver-dashboard-page");
+
+          break;
+
+        }
+        else {
+
+          pageElement = document.createElement("login-page");
+
+          break;
+
+        }
+
     }
 
     // Checking if there is a pageElement to render
