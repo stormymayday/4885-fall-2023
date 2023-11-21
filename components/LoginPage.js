@@ -88,10 +88,10 @@ export default class LoginPage extends HTMLElement {
 			},
 		);
 
-		this.querySelector('#back-btn').addEventListener('click', (event) => {
-			event.preventDefault();
-			app.router.go('/');
-		});
+		// this.querySelector('#back-btn').addEventListener('click', (event) => {
+		// 	event.preventDefault();
+		// 	app.router.go('/');
+		// });
 	}
 }
 // Registering the login-page custom element
