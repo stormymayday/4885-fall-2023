@@ -57,6 +57,11 @@ export default class DriverViewCasePage extends HTMLElement {
         navigator.geolocation.getCurrentPosition((position) => {
 
             // Succuss Callback Code:
+            // Hiding spinners
+            let spinners = document.querySelectorAll('.loading');
+            spinners.forEach(function (element) {
+                element.style.display = 'none';
+            });
 
             // Destructuring latitude and longitude from position.coords object
             const { latitude } = position.coords;
