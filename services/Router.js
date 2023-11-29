@@ -50,6 +50,7 @@ const Router = {
       // case "/starter-page":
       //   pageElement = document.createElement("start-page");
       //   break;
+      // lol
 
       case "/login":
 
