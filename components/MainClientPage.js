@@ -73,11 +73,9 @@ export default class MainClientPage extends HTMLElement {
 					'https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
 
 				// Mapbox Monochrome
-				const monochrome = `https://api.mapbox.com/styles/v1/stormymayday/${
-					import.meta.env.VITE_MAPBOX_STYLE
-				}/tiles/256/{z}/{x}/{y}@2x?access_token=${
-					import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
-				}`;
+				const monochrome = `https://api.mapbox.com/styles/v1/stormymayday/${import.meta.env.VITE_MAPBOX_STYLE
+					}/tiles/256/{z}/{x}/{y}@2x?access_token=${import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
+					}`;
 
 				// Tilelayer
 				L.tileLayer(monochrome, {
@@ -312,9 +310,10 @@ export default class MainClientPage extends HTMLElement {
 					data: doc.data(),
 				};
 
-				if (activeCase.data.status !== 'complete') {
-					this.activeCases.push(activeCase);
-				}
+				// Filtering out the 'complete' cases
+				// if (activeCase.data.status !== 'complete') {
+				this.activeCases.push(activeCase);
+				// }
 
 				const { latitude, longitude } = doc.data().coordinates;
 				const coordinates = [latitude, longitude];
