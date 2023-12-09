@@ -26,6 +26,14 @@ export default class DriverDashboardPage extends HTMLElement {
 
     }
 
+    checkInternetConnection() {
+        if (!navigator.onLine) {
+
+            alert('No internet connection. Please check your network connection.');
+
+        }
+    }
+
     displayMap = async () => {
 
         navigator.geolocation.getCurrentPosition(async (position) => {
@@ -112,6 +120,9 @@ export default class DriverDashboardPage extends HTMLElement {
         }, () => {
 
             // Error Callback Code:
+            this.checkInternetConnection();
+
+            Router.go('/offline');
 
             alert(`Unfortunately, TowTackle was not able to pick up your position.`);
 
