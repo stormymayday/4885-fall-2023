@@ -59,8 +59,31 @@ const Router = {
 
       case "/offline":
 
-        pageElement = document.createElement("offline-page");
-        break;
+        if (!navigator.onLine) {
+
+          pageElement = document.createElement("offline-page");
+          break;
+
+        } else if (userID && userRole === 'user') {
+
+          pageElement = document.createElement("main-client-page");
+
+          break;
+
+        } else if (userID && userRole === 'driver') {
+
+          pageElement = document.createElement("driver-dashboard-page");
+
+          break;
+
+        }
+        else {
+
+          pageElement = document.createElement("login-page");
+
+          break;
+
+        }
 
       case "/registration":
 

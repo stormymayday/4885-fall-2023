@@ -1,0 +1,13 @@
+@import '../abstracts/variables';
+
+.offline-page-layout {
+    background-color: $clr-primary-2;
+    color: $clr-primary-3;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    place-items: center;
+    gap: 2rem;
+    text-align: center;
+}
