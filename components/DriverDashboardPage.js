@@ -27,7 +27,10 @@ export default class DriverDashboardPage extends HTMLElement {
     }
 
     checkInternetConnection() {
+
         if (!navigator.onLine) {
+
+            Router.go('/offline');
 
             alert('No internet connection. Please check your network connection.');
 
@@ -36,9 +39,12 @@ export default class DriverDashboardPage extends HTMLElement {
 
     displayMap = async () => {
 
+        this.checkInternetConnection();
+
         navigator.geolocation.getCurrentPosition(async (position) => {
 
             // Succuss Callback Code:
+            console.log(`testing offline v1`);
 
             // Hiding spinners
             let spinners = document.querySelectorAll('.loading');
@@ -120,9 +126,6 @@ export default class DriverDashboardPage extends HTMLElement {
         }, () => {
 
             // Error Callback Code:
-            this.checkInternetConnection();
-
-            Router.go('/offline');
 
             alert(`Unfortunately, TowTackle was not able to pick up your position.`);
 
