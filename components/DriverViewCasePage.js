@@ -115,18 +115,6 @@ export default class DriverViewCasePage extends HTMLElement {
 
         if (this.map) {
 
-            // let leafletIcon = L.icon({
-            //     iconUrl: markerIcon,
-            //     iconRetinaUrl: markerIcon2x,
-            //     iconSize: [25, 41],
-            //     iconAnchor: [12, 41],
-            //     popupAnchor: [1, -34],
-            //     shadowUrl: markerShadow,
-            //     // shadowRetinaUrl: 'marker-shadow-2x.png',
-            //     shadowSize: [41, 41],
-            //     shadowAnchor: [12, 41]
-            // });
-
             let leafletIcon = L.icon({
                 iconUrl: currentLocationIcon,
                 iconRetinaUrl: currentLocationIcon,
@@ -156,18 +144,6 @@ export default class DriverViewCasePage extends HTMLElement {
     setCaseMarker() {
 
         if (this.map) {
-
-            // let leafletIcon = L.icon({
-            //     iconUrl: markerIcon,
-            //     iconRetinaUrl: markerIcon2x,
-            //     iconSize: [25, 41],
-            //     iconAnchor: [12, 41],
-            //     popupAnchor: [1, -34],
-            //     shadowUrl: markerShadow,
-            //     // shadowRetinaUrl: 'marker-shadow-2x.png',
-            //     shadowSize: [41, 41],
-            //     shadowAnchor: [12, 41]
-            // });
 
             let leafletIcon = L.icon({
                 iconUrl: incidentSpotMarker,
@@ -562,11 +538,14 @@ export default class DriverViewCasePage extends HTMLElement {
             // Based on distance
 
             // Some Popup 'Are you sure'?
+            const user = JSON.parse(localStorage.getItem('user'));
 
             // Changing case status to 'complete'
             const caseRef = doc(dataBase, "cases", this.currentCase.id);
             await updateDoc(caseRef, {
                 status: 'complete',
+                completionTime: serverTimestamp(),
+                driverID: user.uid
 
             });
 
@@ -587,6 +566,12 @@ export default class DriverViewCasePage extends HTMLElement {
 
     connectedCallback() {
 
+        if (!navigator.onLine) {
+
+            Router.go('/offline');
+
+        }
+
         // Getting template from the DOM
         const template = document.getElementById('driver-view-case-page-template');
 
@@ -600,6 +585,8 @@ export default class DriverViewCasePage extends HTMLElement {
         const userRole = JSON.parse(localStorage.getItem('userRole'));
 
         if (user) {
+
+            console.log(user);
 
             // this.querySelector('h2').innerHTML = `Welcome ${user.email}`;
             // this.querySelector('h3').innerHTML = `Welcome ${userRole}`;

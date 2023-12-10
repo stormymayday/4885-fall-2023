@@ -118,7 +118,12 @@ export default class ReportIncidentClient extends HTMLElement {
 	};
 
 	connectedCallback() {
-		// console.log(name);
+
+		if (!navigator.onLine) {
+
+			Router.go('/offline');
+
+		}
 
 		// Getting template from the DOM
 		const template = document.getElementById('report-incident-client');

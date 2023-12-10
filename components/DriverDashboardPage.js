@@ -26,20 +26,7 @@ export default class DriverDashboardPage extends HTMLElement {
 
     }
 
-    checkInternetConnection() {
-
-        if (!navigator.onLine) {
-
-            Router.go('/offline');
-
-            alert('No internet connection. Please check your network connection.');
-
-        }
-    }
-
     displayMap = async () => {
-
-        this.checkInternetConnection();
 
         navigator.geolocation.getCurrentPosition(async (position) => {
 
@@ -377,6 +364,12 @@ export default class DriverDashboardPage extends HTMLElement {
     }
 
     connectedCallback() {
+
+        if (!navigator.onLine) {
+
+            Router.go('/offline');
+
+        }
 
         // Getting template from the DOM
         const template = document.getElementById('driver-dashboard-page-template');

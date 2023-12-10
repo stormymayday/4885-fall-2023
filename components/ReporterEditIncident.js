@@ -387,6 +387,12 @@ export default class ReporterEditIncident extends HTMLElement {
 
     connectedCallback() {
 
+        if (!navigator.onLine) {
+
+            Router.go('/offline');
+
+        }
+
         // Getting template from the DOM
         const template = document.getElementById('reporter-edit-incident-template');
 

@@ -23,6 +23,7 @@ import ttlogo from '../src/ttlogo.png';
 import ttLogo from '../src/tt-logo.svg';
 
 export default class MainClientPage extends HTMLElement {
+
 	constructor() {
 		super();
 
@@ -305,20 +306,22 @@ export default class MainClientPage extends HTMLElement {
 			});
 
 			snapshot.forEach((doc) => {
+
 				const activeCase = {
 					id: doc.id,
 					data: doc.data(),
 				};
 
-				// Filtering out the 'complete' cases
-				// if (activeCase.data.status !== 'complete') {
-				this.activeCases.push(activeCase);
-				// }
+				if (activeCase.data.status !== 'complete') {
+					this.activeCases.push(activeCase);
+				}
 
 				const { latitude, longitude } = doc.data().coordinates;
 				const coordinates = [latitude, longitude];
 				localStorage.setItem('activeCases', JSON.stringify(this.activeCases));
+
 			});
+
 			this.renderCaseCards();
 			this.renderMarkers();
 
@@ -561,6 +564,13 @@ export default class MainClientPage extends HTMLElement {
 	// end of renderCaseCards
 
 	connectedCallback() {
+
+		if (!navigator.onLine) {
+
+			Router.go('/offline');
+
+		}
+
 		// Check if the element already exists
 		if (this.querySelector('#main-client-page')) {
 			// Update the content or return early
