@@ -4,6 +4,12 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig({
     plugins: [
         VitePWA({
+            workbox: {
+                globPatterns: ["**/*"],
+            },
+            includeAssets: [
+                "**/*",
+            ],
             registerType: 'prompt',
             includeAssets: ['icon.png', 'icon-maskable.png'],
             manifest: {

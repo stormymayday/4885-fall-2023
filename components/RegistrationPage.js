@@ -16,6 +16,7 @@ export default class RegistrationPage extends HTMLElement {
 	}
 
 	registration = async () => {
+
 		// async () => {
 		const passwordInput = document.querySelector(
 			'#password-registration',
@@ -25,6 +26,7 @@ export default class RegistrationPage extends HTMLElement {
 			'#confirmPassword-registration',
 		).value;
 		const nameRegistration = document.querySelector('#name-registration').value;
+		const role = document.querySelector('#role').value;
 
 		if (
 			validateEmail(emailInput) &&
@@ -39,10 +41,11 @@ export default class RegistrationPage extends HTMLElement {
 			);
 
 			try {
+
 				await setDoc(doc(dataBase, 'users', userCredential.user.uid), {
 					emailInput,
 					nameRegistration,
-					role: 'user',
+					role: role,
 				});
 
 				const userDocRef = doc(dataBase, 'users', userCredential.user.uid);
@@ -74,6 +77,13 @@ export default class RegistrationPage extends HTMLElement {
 	};
 
 	connectedCallback() {
+
+		if (!navigator.onLine) {
+
+			Router.go('/offline');
+
+		}
+
 		// Getting template from the DOM
 		const template = document.getElementById('registration-page-template');
 

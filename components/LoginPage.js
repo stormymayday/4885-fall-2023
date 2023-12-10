@@ -64,13 +64,20 @@ export default class LoginPage extends HTMLElement {
 				).innerHTML = `Invalid login credentials, please try again`;
 			} else {
 
-				Router.go('/offline');
+				// Router.go('/offline');
 				document.querySelector('span').innerHTML = `error message`;
 
 			}
 		}
 	}
 	connectedCallback() {
+
+		if (!navigator.onLine) {
+
+			Router.go('/offline');
+
+		}
+
 		// Getting template from the DOM
 		const template = document.getElementById('login-page-template');
 
